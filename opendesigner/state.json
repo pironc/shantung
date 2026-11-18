@@ -408,7 +408,11 @@
       "value": 320,
       "unit": "ms"
     },
-    "radius.panel": "{radius.16}"
+    "radius.panel": "{radius.16}",
+    "font.size.tag": {
+      "value": 12,
+      "unit": "px"
+    }
   },
   "answers": {
     "Q-plat-01": {
@@ -681,7 +685,7 @@
     "skipped": "2026-11-18"
   },
   "hashes": {
-    "DESIGN.md": "7ea55526eb61d14d",
+    "DESIGN.md": "ad6fbf6c06b20177",
     "PRODUCT.md": "8da1468d6c3135e8"
   },
   "exports": {

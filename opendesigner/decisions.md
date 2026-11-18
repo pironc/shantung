@@ -694,3 +694,9 @@ Append-only, ADR-style (spec 7.9): one entry per decision, newest last. A later 
 - reason: A panel floating over a full-bleed photo (the kiosk card) is rounded so it reads as an object, not a flat white plane; other containers stay square
 - quote: "make sure the white card has rounded corners so it doesn't look like a big flat white plane"
 - new dimension token in semantic.tokens.json
+
+## D-0046 · overrides.font.size.tag = {"value": 12, "unit": "px"}
+- set_by: chosen · locked: no · date: 2026-11-19 · supersedes: none · source_ref: none
+- reason: Tags on small photos (grid cards): 12px caps, a size down from label.sm
+- quote: "The limited tag on the small squares (in collection for instance) are too big, and should be sized down a bit."
+- new dimension token in primitives.tokens.json

@@ -2730,6 +2730,19 @@
             "standard": "STD-mobile-touch-11"
           }
         }
+      },
+      "tag": {
+        "$value": {
+          "value": 12,
+          "unit": "px"
+        },
+        "$type": "dimension",
+        "$description": "Added by a person (engine.py set).",
+        "$extensions": {
+          "opendesigner": {
+            "source": "person"
+          }
+        }
       }
     },
     "line-height": {

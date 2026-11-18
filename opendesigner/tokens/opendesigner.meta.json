@@ -298,6 +298,13 @@
       },
       "override": true
     },
+    "font.size.tag": {
+      "value": {
+        "value": 12,
+        "unit": "px"
+      },
+      "override": true
+    },
     "font.tracking.caps-display": {
       "value": 0.04,
       "override": true
@@ -3560,6 +3567,7 @@
     "semantic.tokens.json:font.family.display",
     "semantic.tokens.json:font.family.text",
     "primitives.tokens.json:font.size.input",
+    "primitives.tokens.json:font.size.tag",
     "semantic.tokens.json:font.tracking.caps-display",
     "semantic.tokens.json:motion.blur.crossfade",
     "semantic.tokens.json:motion.distance.photo-zoom",
@@ -3700,12 +3708,12 @@
       "case": "sentence"
     }
   },
-  "stateHash": "030d4aece9f54446",
+  "stateHash": "2dbf3e51bde54875",
   "fileHashes": {
     "motion.reduced.tokens.json": "d646a96de314ea27",
     "motion.standard.tokens.json": "74134143dccc82a3",
     "opendesigner.resolver.json": "b34c0004f4d2dc1b",
-    "primitives.tokens.json": "71968643a086c395",
+    "primitives.tokens.json": "700451ffbba2c0a8",
     "semantic.color.dark.tokens.json": "9ce02af05cb88928",
     "semantic.color.light.tokens.json": "98c533301097f7e6",
     "semantic.density.comfortable.tokens.json": "a3779838b5028bcc",

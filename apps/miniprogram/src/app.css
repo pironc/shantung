@@ -180,6 +180,13 @@ body {
   letter-spacing: var(--ds-font-tracking-caps-label);
   text-transform: uppercase;
 }
+/* On a small photo (a grid card) the tag is a size down, closer to the corner. */
+.grid .photo__tag {
+  top: var(--ds-space-6);
+  left: var(--ds-space-6);
+  padding: var(--ds-space-2) var(--ds-space-6);
+  font-size: var(--ds-font-size-tag);
+}
 /* Cards in a grid share one shape: title on up to two lines, then one line, then the price. */
 .card-title {
   display: -webkit-box;
