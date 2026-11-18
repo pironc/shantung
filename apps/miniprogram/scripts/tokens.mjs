@@ -1,6 +1,6 @@
 // Turns opendesigner/build/css/tokens.css into what the Mini Program can read:
 // - src/styles/tokens.css: the light theme, scoped to `.ds` (WeChat's WXSS rejects :root and attribute selectors).
-// - src/theme.ts: the few hex values app.config needs (WeChat config cannot read CSS variables).
+// - src/theme.ts: the few hex values app.config and the canvas need (neither can read CSS variables).
 // Run `pnpm --filter miniprogram tokens` after `engine.py build`.
 import { readFileSync, writeFileSync } from 'node:fs'
 
@@ -44,6 +44,12 @@ const theme = {
   textSecondary: resolve('--ds-color-text-secondary'),
   accent: resolve('--ds-color-text-accent'),
   border: resolve('--ds-color-border-separator'),
+  // The invitation card is drawn on a canvas, which cannot read CSS variables either.
+  brand: resolve('--ds-color-accent-light-9'),
+  ink: resolve('--ds-color-neutral-light-12'),
+  paper: resolve('--ds-color-neutral-light-1'),
+  muted: resolve('--ds-color-neutral-light-11'),
+  slit: resolve('--ds-color-neutral-light-6'),
 }
 writeFileSync(
   new URL('../src/theme.ts', import.meta.url),

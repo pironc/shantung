@@ -4,5 +4,10 @@ export const theme = {
   "text": "#242424",
   "textSecondary": "#575757",
   "accent": "#791d12",
-  "border": "#e3e3e3"
+  "border": "#e3e3e3",
+  "brand": "#932b1e",
+  "ink": "#242424",
+  "paper": "#fdfdfd",
+  "muted": "#575757",
+  "slit": "#d2d2d2"
 } as const

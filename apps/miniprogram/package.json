@@ -24,6 +24,7 @@
     "@tarojs/runtime": "4.3.3",
     "@tarojs/shared": "4.3.3",
     "@tarojs/taro": "4.3.3",
+    "qrcode-generator": "^2.0.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
@@ -31,8 +32,8 @@
     "@babel/core": "^7.24.4",
     "@babel/plugin-transform-class-properties": "7.25.9",
     "@babel/preset-react": "^7.24.1",
-    "@shantung/shared-types": "workspace:*",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.5",
+    "@shantung/shared-types": "workspace:*",
     "@tarojs/cli": "4.3.3",
     "@tarojs/taro-loader": "4.3.3",
     "@tarojs/webpack5-runner": "4.3.3",

@@ -12,6 +12,8 @@ export default defineAppConfig({
     'pages/appointment/index',
     'pages/checkin/index',
   ],
+  // The invitation card (canvas drawing and QR code) loads on demand, outside the 2 MB main package.
+  subPackages: [{ root: 'packages/pass', pages: ['index'] }],
   window: {
     navigationBarBackgroundColor: theme.navBackground,
     navigationBarTextStyle: 'black',

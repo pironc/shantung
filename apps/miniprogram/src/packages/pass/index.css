@@ -1,0 +1,11 @@
+/* The canvas keeps the card's logical size (draw.ts: 320 × 520); the frame centres it with a hairline edge. */
+.pass__frame {
+  display: flex;
+  justify-content: center;
+  padding: 0 var(--ds-space-24);
+}
+.pass__canvas {
+  width: calc(var(--ds-space-80) * 4);
+  height: calc(var(--ds-space-80) * 6.5);
+  border: 1px solid var(--ds-color-border-default);
+}
