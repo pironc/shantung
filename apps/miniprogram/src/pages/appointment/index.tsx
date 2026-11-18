@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import type { Boutique } from '@shantung/shared-types'
 import { api, ApiError, useData, useLang } from '../../services/api'
 import { t, when } from '../../services/i18n'
-import { Notice } from '../../components/ui'
+import { Notice, usePageEnter } from '../../components/ui'
 
 /** The next seven days in boutique time (Shanghai, UTC+8), as YYYY-MM-DD. */
 const days = () =>
@@ -13,6 +13,7 @@ const days = () =>
 export default function Appointment() {
   useLang()
   const s = t()
+  const enter = usePageEnter()
   const boutiques = useData<Boutique[]>('/api/boutiques')
   const [shop, setShop] = useState('')
   const [day, setDay] = useState(days()[0])
@@ -41,7 +42,7 @@ export default function Appointment() {
   }
 
   return (
-    <View className='ds'>
+    <View className={`ds ${enter}`}>
       <View className='page-head'>
         <View>
           <Text className='t-display'>{s.appointment}</Text>
@@ -83,7 +84,7 @@ export default function Appointment() {
             </Text>
           ))}
         </View>
-        <Button className='btn' hoverClass='is-pressed' disabled={!slot || busy} onClick={confirm}>
+        <Button className={`btn ${!slot || busy ? 'is-disabled' : ''}`} hoverClass='is-pressed' disabled={!slot || busy} onClick={confirm}>
           {s.confirm}
         </Button>
         <Notice text={message?.text} tone={message?.tone} />

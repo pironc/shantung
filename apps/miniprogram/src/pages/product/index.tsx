@@ -6,11 +6,12 @@ import { api, ApiError, useData, useLang } from '../../services/api'
 import { price, t, TIERS, when, windowLine } from '../../services/i18n'
 import { store } from '../../services/store'
 import { theme } from '../../theme'
-import { Notice, Paragraphs, Photo } from '../../components/ui'
+import { BoutiquePicker, Notice, Paragraphs, Photo, usePageEnter } from '../../components/ui'
 
 export default function ProductPage() {
   useLang()
   const s = t()
+  const enter = usePageEnter()
   const { id } = useRouter().params
   const product = useData<Product>(`/api/products/${id}`)
   const boutiques = useData<Boutique[]>('/api/boutiques')
@@ -28,7 +29,7 @@ export default function ProductPage() {
     if (!shop && boutiques.data?.[0]) setShop(boutiques.data[0].code)
   }, [boutiques.data])
 
-  if (!p) return <View className='ds'>{product.error && <Notice text={s.error} tone='danger' />}</View>
+  if (!p) return <View className={`ds ${enter}`}>{product.error && <Notice text={s.error} tone='danger' />}</View>
 
   const myOpens = p.limited?.windows.find((w) => w.tierRank === rank)?.opensAt
   const closed = Boolean(myOpens && Date.parse(myOpens) > Date.now())
@@ -36,6 +37,8 @@ export default function ProductPage() {
   const saved = wishlist.data?.includes(p.id)
 
   const reserve = async () => {
+    // The button already says why it is unavailable; tapping it does nothing more.
+    if (closed || soldOut || !shop || busy) return
     setBusy(true)
     setMessage(null)
     try {
@@ -56,7 +59,7 @@ export default function ProductPage() {
   }
 
   return (
-    <View className='ds'>
+    <View className={`ds ${enter}`}>
       <Swiper indicatorDots={p.images.length > 1} indicatorActiveColor={theme.accent} style={{ height: '125vw' }}>
         {p.images.map((img) => (
           <SwiperItem key={img.url}>
@@ -98,15 +101,9 @@ export default function ProductPage() {
 
       <View className='section stack'>
         <Text className='t-label'>{s.pickBoutique}</Text>
-        <View className='chips'>
-          {(boutiques.data ?? []).map((b) => (
-            <Text key={b.code} className={`chip ${shop === b.code ? 'is-active' : ''}`} ariaRole='radio' ariaChecked={shop === b.code} onClick={() => setShop(b.code)}>
-              {b.city}
-            </Text>
-          ))}
-        </View>
+        <BoutiquePicker boutiques={boutiques.data ?? []} value={shop} onChange={setShop} />
         <View className='spacer-sm' />
-        <Button className='btn' hoverClass='is-pressed' disabled={busy || !shop || closed || soldOut} onClick={reserve}>
+        <Button className={`btn ${busy || !shop || closed || soldOut ? 'is-disabled' : ''}`} hoverClass='is-pressed' disabled={busy || !shop || closed || soldOut} onClick={reserve}>
           {soldOut ? s.full : closed ? s.notYet : p.limited ? s.reserve : s.reserveTry}
         </Button>
         <Notice text={message?.text} tone={message?.tone} />
