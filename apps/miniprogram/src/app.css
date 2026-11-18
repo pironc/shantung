@@ -1,0 +1,407 @@
+@import './styles/tokens.css';
+
+/* Every value comes from the design tokens (DESIGN.md, "Shantung house rules"). Pages put `ds` on their root. */
+page,
+body {
+  background: var(--ds-color-neutral-light-1);
+}
+.ds {
+  min-height: 100vh; /* fallback for WeChat engines without svh */
+  min-height: 100svh;
+  background: var(--ds-color-surface-base);
+  color: var(--ds-color-text-primary);
+  font: var(--ds-text-body-md);
+  -webkit-font-smoothing: antialiased;
+  animation: enter var(--ds-motion-duration-long) var(--ds-motion-easing-enter) both;
+}
+
+/* Type */
+/* Cormorant defaults to old-style figures (12,8oo); prices and dates need lining figures. */
+.t-display,
+.t-title,
+.t-sub,
+.t-name,
+.t-caps,
+.btn,
+.btn-text,
+.card {
+  font-variant-numeric: lining-nums;
+}
+.t-display,
+.t-title,
+.t-caps {
+  font-family: var(--ds-font-family-display);
+  font-weight: var(--ds-font-weight-heading);
+  text-transform: uppercase;
+  letter-spacing: var(--ds-font-tracking-caps-display);
+}
+.t-display {
+  display: block;
+  font-size: var(--ds-text-headline-md-size);
+  line-height: var(--ds-text-headline-md-line-height);
+  color: var(--ds-color-text-accent);
+}
+.t-title {
+  display: block;
+  font-size: var(--ds-text-title-lg-size);
+  line-height: var(--ds-text-title-lg-line-height);
+  color: var(--ds-color-text-accent);
+}
+.t-sub {
+  display: block;
+  font-family: var(--ds-font-family-display);
+  font-weight: var(--ds-font-weight-heading);
+  text-transform: uppercase;
+  letter-spacing: var(--ds-font-tracking-caps-display);
+  font-size: var(--ds-text-title-sm-size);
+  color: var(--ds-color-text-accent);
+}
+.t-name {
+  display: block;
+  font-family: var(--ds-font-family-display);
+  font-size: var(--ds-text-headline-sm-size);
+  line-height: var(--ds-text-headline-sm-line-height);
+}
+.t-label {
+  display: block;
+  font: var(--ds-text-label-sm);
+  letter-spacing: var(--ds-font-tracking-caps-label);
+  text-transform: uppercase;
+  color: var(--ds-color-text-secondary);
+}
+.t-label--accent {
+  color: var(--ds-color-text-accent);
+}
+.t-muted {
+  color: var(--ds-color-text-secondary);
+}
+.t-small {
+  font: var(--ds-text-body-sm);
+}
+.prose {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-16);
+}
+.prose__p {
+  display: block;
+  font: var(--ds-text-body-lg);
+}
+
+/* Layout */
+.wrap {
+  padding: 0 var(--ds-space-24);
+}
+.section {
+  padding: var(--ds-space-48) var(--ds-space-24) 0;
+}
+.section__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--ds-space-24);
+}
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-8);
+}
+.rule {
+  border-bottom: 1px solid var(--ds-color-border-separator);
+}
+.spacer {
+  height: var(--ds-space-64);
+}
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-space-32) var(--ds-space-16);
+}
+.grid > * {
+  width: calc(50% - var(--ds-space-8));
+}
+
+.photo {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  background: var(--ds-color-bg-neutral-subtle);
+}
+.photo__img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Red band: featured content sits on lacquer red. */
+.band {
+  background: var(--ds-color-bg-accent-bold);
+  color: var(--ds-color-text-on-accent);
+  padding: var(--ds-space-40) var(--ds-space-24);
+}
+.band .t-display,
+.band .t-title,
+.band .t-sub,
+.band .t-label,
+.band .btn-text {
+  color: var(--ds-color-text-on-accent);
+}
+
+/* Actions: a filled red button only where the action is the screen's purpose; text with an arrow elsewhere. */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: var(--ds-size-control-cta);
+  margin: 0;
+  padding: 0 var(--ds-space-24);
+  border: 0;
+  border-radius: var(--ds-radius-control);
+  background: var(--ds-color-bg-action-primary);
+  color: var(--ds-color-text-on-action);
+  font-family: var(--ds-font-family-display);
+  font-weight: var(--ds-font-weight-heading);
+  font-size: var(--ds-text-title-sm-size);
+  text-transform: uppercase;
+  letter-spacing: var(--ds-font-tracking-caps-display);
+  line-height: 1;
+  transition:
+    transform var(--ds-motion-duration-short) var(--ds-motion-easing-enter),
+    opacity var(--ds-motion-duration-short) var(--ds-motion-easing-enter);
+}
+.btn::after {
+  border: 0;
+}
+/* Taro's browser build writes disabled="false" on enabled buttons, so match the true value only. */
+.btn[disabled='true'] {
+  background: var(--ds-color-bg-disabled);
+  color: var(--ds-color-text-disabled);
+}
+.btn--ghost {
+  background: transparent;
+  color: var(--ds-color-text-primary);
+  border: 1px solid var(--ds-color-border-strong);
+}
+.btn-text {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--ds-size-target-min);
+  font-family: var(--ds-font-family-display);
+  font-weight: var(--ds-font-weight-heading);
+  font-size: var(--ds-text-title-sm-size);
+  text-transform: uppercase;
+  letter-spacing: var(--ds-font-tracking-caps-display);
+  color: var(--ds-color-text-accent);
+  transition: opacity var(--ds-motion-duration-short) var(--ds-motion-easing-enter);
+}
+.is-pressed {
+  transform: scale(0.97); /* press feedback, as the animation skill sets it: 0.97, never smaller */
+}
+.btn-text.is-pressed {
+  transform: none;
+  opacity: var(--ds-opacity-disabled-content);
+}
+
+/* Chips: boutiques, categories, days, times, tiers. */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-space-8);
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--ds-size-target-min);
+  padding: 0 var(--ds-space-16);
+  border: 1px solid var(--ds-color-border-default);
+  font: var(--ds-text-label-md);
+  color: var(--ds-color-text-primary);
+}
+.chip.is-active {
+  border-color: var(--ds-color-border-accent);
+  color: var(--ds-color-text-accent);
+}
+.chip.is-off {
+  color: var(--ds-color-text-disabled);
+  text-decoration: line-through;
+}
+.tabs {
+  display: flex;
+  gap: var(--ds-space-24);
+  padding: 0 var(--ds-space-24);
+  border-bottom: 1px solid var(--ds-color-border-separator);
+}
+.tabs__item {
+  min-height: var(--ds-size-target-touch);
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--ds-font-family-display);
+  font-weight: var(--ds-font-weight-heading);
+  text-transform: uppercase;
+  letter-spacing: var(--ds-font-tracking-caps-display);
+  font-size: var(--ds-text-title-sm-size);
+}
+.tabs__item.is-active {
+  color: var(--ds-color-text-accent);
+}
+
+.lang {
+  display: inline-flex;
+  gap: var(--ds-space-12);
+}
+.lang__item {
+  min-height: var(--ds-size-target-min);
+  display: inline-flex;
+  align-items: center;
+  font: var(--ds-text-label-sm);
+  letter-spacing: var(--ds-font-tracking-caps-label);
+  color: var(--ds-color-text-secondary);
+}
+.lang__item.is-active {
+  color: var(--ds-color-text-accent);
+}
+.lang--on-photo {
+  padding: 0 var(--ds-space-12);
+  background: var(--ds-color-surface-raised);
+}
+
+.notice {
+  margin-top: var(--ds-space-16);
+  padding: var(--ds-space-12) var(--ds-space-16);
+  border: 1px solid var(--ds-color-border-default);
+  font: var(--ds-text-body-sm);
+}
+.notice--accent {
+  border-color: var(--ds-color-border-accent);
+  color: var(--ds-color-text-accent);
+}
+.notice--danger {
+  border-color: var(--ds-color-border-danger);
+  color: var(--ds-color-text-danger);
+}
+
+/* Motion (the animation skill's plan): page content rises in; editorial blocks reveal on scroll, once. */
+.reveal {
+  opacity: 0;
+  transform: translateY(var(--ds-motion-distance-reveal));
+  transition:
+    opacity var(--ds-motion-duration-reveal) var(--ds-motion-easing-enter),
+    transform var(--ds-motion-duration-reveal) var(--ds-motion-easing-enter);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+.reveal--quick {
+  transition-duration: var(--ds-motion-duration-long);
+}
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(var(--ds-motion-distance-reveal));
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ds {
+    animation-name: fade;
+  }
+  .reveal {
+    transform: none;
+  }
+  .is-pressed {
+    transform: none;
+    opacity: var(--ds-opacity-disabled-content);
+  }
+}
+
+/* Page furniture */
+.hero {
+  position: relative;
+}
+.hero__lang {
+  position: absolute;
+  top: var(--ds-space-12);
+  right: var(--ds-space-12);
+}
+.masthead {
+  padding: var(--ds-space-32) var(--ds-space-24) 0;
+  text-align: center;
+}
+.masthead .t-display {
+  font-size: var(--ds-text-display-md-size);
+  line-height: var(--ds-text-display-md-line-height);
+}
+.page-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--ds-space-16);
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: var(--ds-space-32) var(--ds-space-24) var(--ds-space-24);
+}
+.feature + .feature {
+  margin-top: var(--ds-space-32);
+}
+/* The staggered gallery: one wide, then two pushed to opposite sides, with air between. */
+.stagger {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-48);
+}
+.stagger__item--left {
+  width: 64%;
+}
+.stagger__item--right {
+  width: 64%;
+  align-self: flex-end;
+}
+.stagger__caption {
+  margin-top: var(--ds-space-12);
+}
+.row {
+  padding: var(--ds-space-16) 0;
+  border-bottom: 1px solid var(--ds-color-border-separator);
+}
+.windows__row {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--ds-space-8) 0;
+  border-bottom: 1px solid var(--ds-color-border-subtle);
+}
+.windows__row.is-mine {
+  font-weight: var(--ds-font-weight-heading);
+}
+.spacer-sm {
+  height: var(--ds-space-8);
+}
+.field {
+  min-height: var(--ds-size-target-touch);
+  border-bottom: 1px solid var(--ds-color-border-input);
+  font: var(--ds-text-body-lg);
+}
+.checkin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ds-space-16);
+  padding: var(--ds-space-32);
+  text-align: center;
+}
+.checkin__line {
+  max-width: 28ch;
+  font: var(--ds-text-body-lg);
+}
+
+/* Browser build: the tab bar is text only (WeChat shows text-only tabs natively; Taro's H5 tab bar would draw empty icons). */
+.weui-tabbar__item .weui-tabbar__icon {
+  display: none;
+}

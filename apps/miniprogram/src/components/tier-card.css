@@ -1,0 +1,161 @@
+/* The membership card. Fixed ramp colours (not themed ones): a tier's look never changes with the theme. */
+.card {
+  position: relative;
+  overflow: hidden;
+  padding-top: 63%; /* ISO bank-card proportion, 85.6 × 54 mm */
+  background: var(--ds-color-neutral-light-1);
+  color: var(--ds-color-neutral-light-12);
+  border: 1px solid var(--ds-color-border-default);
+  animation: card-in var(--ds-motion-duration-extra) var(--ds-motion-easing-enter) both;
+}
+.card--2,
+.card--4 {
+  background: var(--ds-color-neutral-light-12);
+  color: var(--ds-color-neutral-light-1);
+  border-color: var(--ds-color-neutral-light-12);
+}
+.card--3 {
+  background: var(--ds-color-accent-light-9);
+  color: var(--ds-color-neutral-light-1);
+  border-color: var(--ds-color-accent-light-9);
+}
+
+.card__face {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--ds-space-20) var(--ds-space-24);
+}
+.card__top,
+.card__bottom,
+.card__holder {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.card__holder {
+  justify-content: flex-start;
+  gap: var(--ds-space-12);
+}
+.card__who {
+  display: flex;
+  flex-direction: column;
+}
+.card__brand,
+.card__tier {
+  font-family: var(--ds-font-family-display);
+  font-weight: var(--ds-font-weight-heading);
+  text-transform: uppercase;
+  letter-spacing: var(--ds-font-tracking-caps-display);
+  font-size: var(--ds-text-title-sm-size);
+}
+.card--1 .card__brand,
+.card--1 .card__tier,
+.card--1 .card__hanzi,
+.card--4 .card__hanzi {
+  color: var(--ds-color-accent-light-9);
+}
+.card--4 .card__hanzi {
+  color: var(--ds-color-accent-light-8);
+}
+.card__hanzi {
+  font-family: var(--ds-font-family-display);
+  font-size: var(--ds-text-headline-sm-size);
+  line-height: 1;
+}
+.card__name {
+  font: var(--ds-text-title-sm);
+}
+.card__no {
+  font: var(--ds-text-label-sm);
+  letter-spacing: var(--ds-font-tracking-caps-label);
+}
+.card__avatar {
+  width: var(--ds-size-control-md);
+  height: var(--ds-size-control-md);
+  border-radius: var(--ds-radius-person);
+  background: var(--ds-color-neutral-light-6);
+  flex: none;
+}
+
+/* The weave: one layer per tier, drawn with gradients only. */
+.card__weave {
+  position: absolute;
+  pointer-events: none;
+}
+/* Thread: a single red line crossing the card. */
+.card--1 .card__weave {
+  left: -10%;
+  right: -10%;
+  top: 60%;
+  height: 1px;
+  background: var(--ds-color-accent-light-9);
+  transform: rotate(-6deg);
+}
+/* Satin: a band of light that glides across once, after the card has arrived. */
+.card--2 .card__weave {
+  top: -50%;
+  bottom: -50%;
+  left: 0;
+  width: 45%;
+  background: linear-gradient(105deg, transparent, var(--ds-color-neutral-light-1), transparent);
+  opacity: var(--ds-opacity-state-drag);
+  transform: translateX(-120%);
+  animation: sheen calc(var(--ds-motion-duration-extra) * 2) var(--ds-motion-easing-standard) var(--ds-motion-duration-extra) both;
+}
+/* Brocade: a fine woven lattice over the red. */
+.card--3 .card__weave {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background:
+    repeating-linear-gradient(45deg, var(--ds-color-neutral-light-1) 0 1px, transparent 1px var(--ds-space-12)),
+    repeating-linear-gradient(-45deg, var(--ds-color-neutral-light-1) 0 1px, transparent 1px var(--ds-space-12));
+  opacity: var(--ds-opacity-disabled-container);
+}
+/* Kesi: colour blocks parted by hairline slits, the mark of slit-tapestry weaving. */
+/* Kesi: a woven band across the middle of the card, clear of the text rows. */
+.card--4 .card__weave {
+  left: 0;
+  right: 0;
+  top: 43%;
+  height: 14%;
+  background: linear-gradient(
+    90deg,
+    var(--ds-color-accent-light-9) 0 22%,
+    var(--ds-color-neutral-light-12) 22% calc(22% + 1px),
+    var(--ds-color-neutral-light-1) calc(22% + 1px) 37%,
+    var(--ds-color-neutral-light-12) 37% calc(37% + 1px),
+    var(--ds-color-accent-light-9) calc(37% + 1px) 71%,
+    var(--ds-color-neutral-light-12) 71% calc(71% + 1px),
+    var(--ds-color-neutral-light-1) calc(71% + 1px) 79%,
+    var(--ds-color-neutral-light-12) 79% calc(79% + 1px),
+    var(--ds-color-accent-light-9) calc(79% + 1px) 100%
+  );
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--ds-motion-distance-reveal));
+  }
+}
+@keyframes sheen {
+  to {
+    transform: translateX(260%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    animation-name: fade;
+  }
+  .card--2 .card__weave {
+    animation: none;
+  }
+}
