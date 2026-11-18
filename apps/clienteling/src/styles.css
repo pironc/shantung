@@ -1,0 +1,347 @@
+/* Every value comes from opendesigner/build/css/tokens.css (DESIGN.md: "Shantung house rules"). */
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--ds-color-surface-base);
+  color: var(--ds-color-text-primary);
+  font: var(--ds-text-body-md);
+  -webkit-font-smoothing: antialiased;
+}
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-align: inherit;
+}
+:focus-visible {
+  outline: 2px solid var(--ds-color-border-focus);
+  outline-offset: 2px;
+}
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+/* Serif capitals: titles, navigation, the wordmark. */
+.wordmark,
+.tab,
+.section-title,
+.display {
+  font-family: var(--ds-font-family-display);
+  font-weight: var(--ds-font-weight-heading);
+  text-transform: uppercase;
+  letter-spacing: var(--ds-font-tracking-caps-display);
+}
+.wordmark {
+  color: var(--ds-color-text-accent);
+  font-size: var(--ds-text-title-md-size);
+}
+.display {
+  font-size: var(--ds-text-display-md-size);
+  line-height: var(--ds-text-display-md-line-height);
+  color: var(--ds-color-text-accent);
+}
+.headline {
+  font: var(--ds-text-headline-md);
+}
+.section-title {
+  font-size: var(--ds-text-title-md-size);
+  color: var(--ds-color-text-accent);
+  margin: var(--ds-space-40) 0 var(--ds-space-8);
+}
+.label {
+  font: var(--ds-text-label-sm);
+  letter-spacing: var(--ds-font-tracking-caps-label);
+  text-transform: uppercase;
+  color: var(--ds-color-text-secondary);
+}
+.label--accent {
+  color: var(--ds-color-text-accent);
+}
+.muted {
+  color: var(--ds-color-text-secondary);
+}
+.empty {
+  padding: var(--ds-space-40) var(--ds-space-24);
+  color: var(--ds-color-text-secondary);
+  max-width: 44ch;
+}
+
+/* Advisor portal: a header, then the live feed beside the selected client. */
+.portal {
+  height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-24);
+  padding: var(--ds-space-12) var(--ds-space-24);
+  background: var(--ds-color-surface-nav);
+  border-bottom: 1px solid var(--ds-color-border-separator);
+}
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: var(--ds-space-12);
+}
+.tabs {
+  display: flex;
+  margin-inline: auto;
+}
+.tab {
+  font-size: var(--ds-text-title-sm-size);
+  min-height: var(--ds-size-target-touch);
+  padding: 0 var(--ds-space-16);
+  transition: color var(--ds-motion-duration-short) var(--ds-motion-easing-hover);
+}
+.tab[aria-pressed='true'] {
+  color: var(--ds-color-text-accent);
+}
+.status {
+  font: var(--ds-text-label-sm);
+  letter-spacing: var(--ds-font-tracking-caps-label);
+  text-transform: uppercase;
+  color: var(--ds-color-text-secondary);
+}
+.status--live {
+  color: var(--ds-color-text-success);
+}
+.status::before {
+  content: '';
+  display: inline-block;
+  width: var(--ds-space-8);
+  height: var(--ds-space-8);
+  margin-right: var(--ds-space-6);
+  border-radius: var(--ds-radius-full);
+  background: currentColor;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  min-height: 0;
+}
+.feed,
+.profile {
+  overflow-y: auto;
+}
+.feed {
+  border-right: 1px solid var(--ds-color-border-separator);
+}
+.feed__list,
+.rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.event {
+  display: grid;
+  gap: var(--ds-space-6);
+  width: 100%;
+  padding: var(--ds-space-16) var(--ds-space-24);
+  border-bottom: 1px solid var(--ds-color-border-separator);
+  transition: background-color var(--ds-motion-duration-short) var(--ds-motion-easing-hover);
+}
+.event:hover {
+  background: var(--ds-color-bg-neutral-subtle);
+}
+.event[aria-pressed='true'] {
+  background: var(--ds-color-bg-neutral-subtle-pressed);
+}
+.event__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--ds-space-12);
+}
+.event__title,
+.row__title {
+  font: var(--ds-text-title-sm);
+}
+.event__detail {
+  font: var(--ds-text-body-sm);
+  color: var(--ds-color-text-secondary);
+}
+.event__client {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ds-space-8);
+  font: var(--ds-text-body-sm);
+}
+
+.avatar {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: var(--ds-size-control-sm);
+  height: var(--ds-size-control-sm);
+  border-radius: var(--ds-radius-person);
+  object-fit: cover;
+  background: var(--ds-color-bg-neutral-subtle);
+  font-family: var(--ds-font-family-display);
+  text-transform: uppercase;
+}
+.avatar--lg {
+  width: calc(var(--ds-size-control-lg) * 2);
+  height: calc(var(--ds-size-control-lg) * 2);
+  font-size: var(--ds-text-headline-md-size);
+}
+
+/* Tier badges echo the cards and never change with the theme: Thread white, Satin black, Brocade red, Kesi black edged in red. */
+.tier {
+  display: inline-flex;
+  gap: var(--ds-space-4);
+  padding: var(--ds-space-2) var(--ds-space-8);
+  font: var(--ds-text-label-sm);
+  letter-spacing: var(--ds-font-tracking-caps-label);
+  text-transform: uppercase;
+  border: 1px solid var(--ds-color-border-default);
+  background: var(--ds-color-neutral-light-1);
+  color: var(--ds-color-neutral-light-12);
+}
+.tier--2,
+.tier--4 {
+  background: var(--ds-color-neutral-light-12);
+  color: var(--ds-color-neutral-light-1);
+}
+.tier--3 {
+  background: var(--ds-color-bg-accent-bold);
+  color: var(--ds-color-text-on-accent);
+  border-color: var(--ds-color-bg-accent-bold);
+}
+.tier--4 {
+  border-color: var(--ds-color-border-accent);
+}
+
+.profile {
+  padding: var(--ds-space-40) var(--ds-space-48);
+}
+.profile__head {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-24);
+  padding-bottom: var(--ds-space-32);
+  border-bottom: 1px solid var(--ds-color-border-separator);
+}
+.profile__head > div {
+  display: grid;
+  gap: var(--ds-space-8);
+  justify-items: start;
+}
+.row {
+  display: grid;
+  gap: var(--ds-space-4);
+  padding: var(--ds-space-12) 0;
+  border-bottom: 1px solid var(--ds-color-border-separator);
+}
+
+@media (max-width: 900px) {
+  .split {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .feed {
+    border-right: 0;
+    border-bottom: 1px solid var(--ds-color-border-separator);
+  }
+  .profile {
+    padding: var(--ds-space-24);
+  }
+  .bar {
+    flex-wrap: wrap;
+    row-gap: 0;
+  }
+  .tabs {
+    order: 3;
+    width: 100%;
+    margin-inline: 0;
+    overflow-x: auto;
+  }
+}
+
+/* Entrance kiosk: the boutique's photo behind a white card with the check-in code. */
+.kiosk {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--ds-color-bg-inverse);
+}
+.kiosk__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: photo-in var(--ds-motion-duration-extra) var(--ds-motion-easing-enter) both;
+}
+.kiosk__panel {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: var(--ds-space-16);
+  width: min(calc(var(--ds-space-96) * 6), calc(100vw - var(--ds-space-32)));
+  padding: var(--ds-space-48) var(--ds-space-40);
+  text-align: center;
+  background: var(--ds-color-surface-raised);
+}
+.kiosk__panel > div {
+  display: grid;
+  justify-items: center;
+  gap: var(--ds-space-16);
+}
+.kiosk__qr {
+  display: block;
+  width: calc(var(--ds-space-64) * 4);
+  margin: var(--ds-space-16) auto;
+}
+.kiosk__qr svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.kiosk__qr--loading {
+  aspect-ratio: 1;
+  background: var(--ds-color-bg-neutral-subtle);
+}
+.kiosk__line {
+  font: var(--ds-text-body-lg);
+  max-width: 32ch;
+}
+
+/* Motion: calm entrances, nothing bounces; under reduced motion only the fade remains. */
+.enter {
+  animation: enter var(--ds-motion-duration-reveal) var(--ds-motion-easing-enter) both;
+}
+@keyframes enter {
+  from {
+    opacity: 0;
+    translate: 0 var(--ds-motion-distance-reveal);
+  }
+}
+@keyframes photo-in {
+  from {
+    opacity: 0;
+    clip-path: inset(var(--ds-motion-distance-photo-zoom));
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .enter,
+  .kiosk__photo {
+    animation-name: fade;
+  }
+}

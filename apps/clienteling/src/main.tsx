@@ -1,29 +1,14 @@
-import { StrictMode, useEffect, useState } from 'react'
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import type { Health } from '@shantung/shared-types'
+import '@fontsource/cormorant-garamond/500.css'
+import '@fontsource/cormorant-garamond/600.css'
+import '../../../opendesigner/build/css/tokens.css'
+import './styles.css'
+import { Portal } from './Portal'
+import { Kiosk } from './Kiosk'
 
-// The browser runs on the host, so the BFF is reached through its published port, not the compose service name.
-const BFF_URL = import.meta.env.VITE_BFF_URL ?? 'http://localhost:3000'
+// Two screens, no router: /kiosk/<boutique code> is the entrance screen, everything else is the advisor portal.
+const kiosk = location.pathname.match(/^\/kiosk\/([A-Z0-9]+)/i)?.[1]?.toUpperCase()
+document.title = kiosk ? 'Shantung · Welcome' : 'Shantung · Advisor'
 
-function App() {
-  const [health, setHealth] = useState<Health | string>('loading…')
-
-  useEffect(() => {
-    fetch(`${BFF_URL}/health`)
-      .then((r) => r.json())
-      .then(setHealth, (e) => setHealth(`BFF unreachable: ${e}`))
-  }, [])
-
-  return (
-    <main>
-      <h1>Shantung Clienteling</h1>
-      <pre>{JSON.stringify(health, null, 2)}</pre>
-    </main>
-  )
-}
-
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+createRoot(document.getElementById('root')!).render(<StrictMode>{kiosk ? <Kiosk code={kiosk} /> : <Portal />}</StrictMode>)
