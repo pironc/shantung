@@ -4,31 +4,42 @@ import { TIERS } from '../services/i18n'
 import { cardArt } from './art'
 import './tier-card.css'
 
+/** The client's photo, or a monogram in a fine ring: their initial, or the maison's S until they give a name. */
+export function Monogram({ member, className = '' }: { member: Member; className?: string }) {
+  return member.avatarUrl ? (
+    <Image className={`monogram ${className}`} src={member.avatarUrl} mode='aspectFill' />
+  ) : (
+    <View className={`monogram monogram--empty ${className}`}>
+      <Text>{(member.nickname.trim()[0] ?? 'S').toUpperCase()}</Text>
+    </View>
+  )
+}
+
 /**
- * The membership card, Shantung's one signature element (DESIGN.md, "Membership cards").
- * Thread: ivory warp with one looping red thread · Satin: black twill with a sheen that glides once ·
- * Brocade: red woven with medallions · Kesi: black, with the sea-and-cliff hem woven in slit tapestry.
- * The tier's character is a seal stamp, as on a scroll.
+ * The membership card, Shantung's one signature element: one quiet motif per tier (components/art.ts) and the
+ * tier's character as a seal. The member number sits top left; once the client gives a name, name and number
+ * move together to the bottom.
  */
 export function TierCard({ member }: { member: Member }) {
   const tier = TIERS[member.tierRank]
+  const named = Boolean(member.nickname.trim())
   return (
-    // key: switching tier replays the entrance and the sheen.
-    <View key={member.tierRank} className={`card card--${member.tierRank}`} ariaLabel={`${tier.en} ${tier.zh} member card`}>
+    <View key={member.tierRank} className={`card card--${member.tierRank}`} ariaLabel={`${tier.en} ${tier.zh}, ${member.memberNo}`}>
       <Image className='card__art' src={cardArt[member.tierRank]} mode='scaleToFill' ariaHidden />
-      {member.tierRank === 2 && <View className='card__sheen' />}
       <View className='card__face'>
         <View className='card__top'>
-          <Text className='card__brand'>Shantung</Text>
+          <Text className='card__no'>{named ? '' : member.memberNo}</Text>
           <Text className='card__seal'>{tier.zh}</Text>
         </View>
         <View className='card__bottom'>
           <View className='card__holder'>
-            {member.avatarUrl ? <Image className='card__avatar' src={member.avatarUrl} mode='aspectFill' /> : <View className='card__avatar' />}
-            <View className='card__who'>
-              <Text className='card__name'>{member.nickname || ' '}</Text>
-              <Text className='card__no'>{member.memberNo}</Text>
-            </View>
+            <Monogram member={member} className='card__avatar' />
+            {named && (
+              <View className='card__who'>
+                <Text className='card__name'>{member.nickname}</Text>
+                <Text className='card__no'>{member.memberNo}</Text>
+              </View>
+            )}
           </View>
           <Text className='card__tier'>{tier.en}</Text>
         </View>

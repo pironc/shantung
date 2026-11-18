@@ -25,6 +25,7 @@ const ICONS = {
   lock: 'M6.5 11h11v9.5h-11z M8.5 11V8.5a3.5 3.5 0 0 1 7 0V11',
   check: 'M5 12.5l4.5 4.5L19 7.5',
   chevron: 'M9.5 6l6 6-6 6',
+  back: 'M14.5 5.5L8 12l6.5 6.5',
 } as const
 export type IconName = keyof typeof ICONS
 
@@ -47,68 +48,34 @@ const H = 540
 const svg = (body: string) => svgUri(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice">${body}</svg>`)
 const range = (from: number, to: number, step: number) => Array.from({ length: Math.ceil((to - from) / step) }, (_, i) => from + i * step)
 
-/** Thread 丝: warp threads on the loom, and one red silk thread that loops once, like the first stitch. */
-const thread = () =>
+// One quiet motif per tier (owner: simple and elegant, nothing busy).
+
+/** Thread 丝: a single fine red thread in one gentle curve. */
+const thread = () => svg(`<path d="M-20 290C260 220 560 340 880 240" fill="none" stroke="${c.brand}" stroke-width="2.5" stroke-linecap="round"/>`)
+
+/** Satin 缎: the soft, still lustre of satin, a slightly lighter diagonal in the black. */
+const satin = () =>
   svg(
-    range(18, W, 18).map((x) => `<path d="M${x} 0V${H}" stroke="${c.ink}" stroke-opacity="0.05"/>`).join('') +
-      `<path d="M-20 400C180 400 300 300 430 302c110 2 128 108 46 112-78 4-72-96 30-104 120-10 210 52 370 18" fill="none" stroke="${c.brand}" stroke-width="3" stroke-linecap="round"/>`,
+    `<defs><linearGradient id="l" x1="0" y1="1" x2="1" y2="0"><stop offset="0.25" stop-color="${c.paper}" stop-opacity="0"/><stop offset="0.55" stop-color="${c.paper}" stop-opacity="0.07"/><stop offset="0.85" stop-color="${c.paper}" stop-opacity="0"/></linearGradient></defs><rect width="${W}" height="${H}" fill="url(#l)"/>`,
   )
 
-/** Satin 缎: the fine diagonal float of a satin weave (the sheen itself is animated in CSS). */
-const satin = () => svg(range(-H, W, 9).map((x) => `<path d="M${x} ${H}L${x + H * 0.58} 0" stroke="${c.paper}" stroke-opacity="0.06"/>`).join(''))
-
-/** Brocade 锦: rows of round medallions (团花), each an eight-petal flower in a ring, woven into the red. */
-const brocade = () => {
-  const rosette = (x: number, y: number) =>
-    `<g transform="translate(${x} ${y})" stroke="${c.paper}" stroke-opacity="0.2" fill="none" stroke-width="2"><circle r="40"/><circle r="9"/>${range(0, 360, 45)
-      .map((a) => `<ellipse rx="8" ry="20" transform="rotate(${a}) translate(0 -22)"/>`)
-      .join('')}</g>`
-  return svg(
-    range(0, 7, 1)
-      .flatMap((col) => range(0, 4, 1).map((row) => rosette(col * 140 + (row % 2) * 70 - 20, row * 150 + 40)))
-      .join(''),
+/** Brocade 锦: one large medallion (团花), tone on tone, mostly off the card's edge. */
+const brocade = () =>
+  svg(
+    `<g transform="translate(860 400)" fill="none" stroke="${c.paper}" stroke-opacity="0.14" stroke-width="2"><circle r="230"/><circle r="200"/><circle r="48"/>${range(0, 360, 30)
+      .map((a) => `<ellipse rx="34" ry="92" transform="rotate(${a}) translate(0 -130)"/>`)
+      .join('')}</g>`,
   )
-}
 
-/** Kesi swatch rows: [height, segments as [share of the width, red | ivory | gap]]. Shared with the invitation card. */
-export const KESI_ROWS: [number, [number, 'r' | 'p' | '-'][]][] = [
-  [28, [[0.62, 'r'], [0.38, 'p']]],
-  [18, [[0.28, 'p'], [0.47, 'r'], [0.25, '-']]],
-  [34, [[0.18, '-'], [0.52, 'r'], [0.3, 'p']]],
-  [14, [[0.7, 'p'], [0.3, 'r']]],
-  [30, [[0.4, 'r'], [0.2, '-'], [0.4, 'r']]],
-  [22, [[0.25, 'p'], [0.75, 'r']]],
-  [36, [[0.55, 'r'], [0.45, 'p']]],
-]
-
-/**
- * Kesi 缂丝: a woven swatch in the card's empty middle, aligned under the seal and clear of every line of text.
- * Kesi's mark is that colour fields never interlock: each block stops at a hairline slit. Rows of red and ivory
- * blocks (gaps let the black card show through) are parted by exactly those slits.
- */
+/** Kesi 缂丝: a narrow woven selvedge along the bottom edge, three blocks parted by the slits kesi is known for. */
 const kesi = () => {
   const SLIT = 4
-  const left = 500
-  const right = 796 // the seal's right edge
-  const rows = KESI_ROWS
-  const fill = { r: c.brand, p: c.paper, '-': '' }
-  let y = 182 // just under the seal; the rows end above the bottom line of text
-  const blocks = rows
-    .map(([h, segments]) => {
-      let x = left
-      const row = segments
-        .map(([f, k]) => {
-          const w = (right - left) * f
-          const block = k === '-' ? '' : `<rect x="${x}" y="${y}" width="${w - SLIT}" height="${h}" fill="${fill[k]}" fill-opacity="${k === 'p' ? 0.85 : 1}"/>`
-          x += w
-          return block
-        })
-        .join('')
-      y += h + SLIT
-      return row
-    })
-    .join('')
-  return svg(blocks)
+  const h = 16
+  const stops = [0, 0.46, 0.62, 1]
+  const colours = [c.brand, c.paper, c.brand]
+  return svg(
+    colours.map((colour, i) => `<rect x="${stops[i] * W + (i ? SLIT : 0)}" y="${H - h}" width="${(stops[i + 1] - stops[i]) * W - (i ? SLIT : 0)}" height="${h}" fill="${colour}"/>`).join(''),
+  )
 }
 
 export const cardArt = [null, thread, satin, brocade, kesi].map((f) => (f ? f() : ''))

@@ -1,7 +1,6 @@
 import qrcode from 'qrcode-generator'
 import type { Member } from '@shantung/shared-types'
 import { theme as c } from '../../theme'
-import { KESI_ROWS } from '../../components/art'
 import { DISPLAY_FONT } from '../../services/fonts'
 import { TIERS } from '../../services/i18n'
 
@@ -30,56 +29,47 @@ function caps(ctx: Ctx, text: string, x: number, y: number, size: number, tracki
   }
 }
 
-/** The tier's motif across the top band, the same four designs as the member card. */
+/** The tier's motif across the top band: the same single, quiet motif as the member card. */
 function band(ctx: Ctx, rank: number) {
-  const fill = [c.paper, c.paper, c.ink, c.brand, c.ink][rank]
-  ctx.fillStyle = fill
+  ctx.fillStyle = [c.paper, c.paper, c.ink, c.brand, c.ink][rank]
   ctx.fillRect(0, 0, W, BAND)
   ctx.save()
   if (rank === 1) {
+    // Thread: one fine red thread in a gentle curve.
     ctx.strokeStyle = c.brand
-    ctx.lineWidth = 1
+    ctx.lineWidth = 1.2
     ctx.beginPath()
-    ctx.moveTo(-10, BAND * 0.78)
-    ctx.lineTo(W + 10, BAND * 0.56)
+    ctx.moveTo(-10, BAND * 0.74)
+    ctx.bezierCurveTo(W * 0.3, BAND * 0.6, W * 0.65, BAND * 0.84, W + 10, BAND * 0.64)
     ctx.stroke()
   } else if (rank === 2) {
-    const g = ctx.createLinearGradient(W * 0.2, 0, W * 0.75, BAND)
-    g.addColorStop(0, c.ink)
-    g.addColorStop(0.5, c.slit)
-    g.addColorStop(1, c.ink)
-    ctx.globalAlpha = 0.35
+    // Satin: a still, soft lustre.
+    const g = ctx.createLinearGradient(0, BAND, W, 0)
+    g.addColorStop(0.25, c.ink)
+    g.addColorStop(0.55, c.slit)
+    g.addColorStop(0.85, c.ink)
+    ctx.globalAlpha = 0.12
     ctx.fillStyle = g
     ctx.fillRect(0, 0, W, BAND)
   } else if (rank === 3) {
+    // Brocade: one large tone-on-tone medallion, mostly off the edge.
     ctx.strokeStyle = c.paper
     ctx.globalAlpha = 0.14
     ctx.lineWidth = 1
-    for (let d = -BAND; d < W + BAND; d += 12) {
+    for (const r of [90, 78, 20]) {
       ctx.beginPath()
-      ctx.moveTo(d, 0)
-      ctx.lineTo(d + BAND, BAND)
-      ctx.moveTo(d + BAND, 0)
-      ctx.lineTo(d, BAND)
+      ctx.arc(W - 30, BAND - 10, r, 0, Math.PI * 2)
       ctx.stroke()
     }
   } else if (rank === 4) {
-    // Kesi: the same slit-woven swatch as the member card, under the seal.
-    const left = W * 0.58
-    const width = W - PAD - left
-    const scale = 0.6
-    let y = 68 // ends inside the band
-    for (const [h, segments] of KESI_ROWS) {
-      let x = left
-      for (const [f, k] of segments) {
-        if (k !== '-') {
-          ctx.fillStyle = k === 'r' ? c.brand : c.paper
-          ctx.fillRect(x, y, width * f - 2, h * scale)
-        }
-        x += width * f
-      }
-      y += h * scale + 2
-    }
+    // Kesi: a woven selvedge along the band's lower edge, blocks parted by slits.
+    const h = 6
+    const stops = [0, 0.46, 0.62, 1]
+    const colours = [c.brand, c.paper, c.brand]
+    colours.forEach((colour, i) => {
+      ctx.fillStyle = colour
+      ctx.fillRect(stops[i] * W + (i ? 2 : 0), BAND - h, (stops[i + 1] - stops[i]) * W - (i ? 2 : 0), h)
+    })
   }
   ctx.restore()
 }

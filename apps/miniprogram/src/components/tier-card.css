@@ -47,7 +47,6 @@
   display: flex;
   flex-direction: column;
 }
-.card__brand,
 .card__tier {
   font-family: var(--ds-font-family-display);
   font-weight: var(--ds-font-weight-heading);
@@ -55,26 +54,39 @@
   letter-spacing: var(--ds-font-tracking-caps-display);
   font-size: var(--ds-text-title-sm-size);
 }
-.card--1 .card__brand,
-.card--1 .card__tier {
+.card--1 .card__tier,
+.card--1 .monogram--empty {
   color: var(--ds-color-accent-light-9);
 }
 .card__name {
-  font: var(--ds-text-title-sm);
+  font-family: var(--ds-font-family-display);
+  font-size: var(--ds-text-title-md-size);
+  line-height: 1.2;
 }
 .card__no {
   font: var(--ds-text-label-sm);
   letter-spacing: var(--ds-font-tracking-caps-label);
+  font-variant-numeric: lining-nums;
 }
-.card__avatar {
+/* Photo or monogram: a fine ring in the card's own ink, never a grey disc. */
+.monogram {
+  flex: none;
   width: var(--ds-size-control-md);
   height: var(--ds-size-control-md);
   border-radius: var(--ds-radius-person);
-  background: var(--ds-color-neutral-light-6);
-  flex: none;
+}
+.monogram--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border: 1px solid currentColor;
+  font-family: var(--ds-font-family-display);
+  font-size: var(--ds-text-title-md-size);
+  line-height: 1;
 }
 
-/* The art fills the card (components/art.ts); the satin sheen glides over it once, after the card arrives. */
+/* The art fills the card (components/art.ts). */
 .card__art {
   position: absolute;
   top: 0;
@@ -82,19 +94,6 @@
   width: 100%;
   height: 100%;
 }
-.card__sheen {
-  position: absolute;
-  top: -50%;
-  bottom: -50%;
-  left: 0;
-  width: 45%;
-  pointer-events: none;
-  background: linear-gradient(105deg, transparent, var(--ds-color-neutral-light-1), transparent);
-  opacity: var(--ds-opacity-state-drag);
-  transform: translateX(-120%);
-  animation: sheen calc(var(--ds-motion-duration-extra) * 2) var(--ds-motion-easing-standard) var(--ds-motion-duration-extra) both;
-}
-
 /* The tier's character as a seal stamp: red with ivory on most cards, ivory with red on the red Brocade card. */
 .card__seal {
   display: inline-flex;
@@ -121,16 +120,8 @@
     transform: translateY(var(--ds-motion-distance-reveal));
   }
 }
-@keyframes sheen {
-  to {
-    transform: translateX(260%);
-  }
-}
 @media (prefers-reduced-motion: reduce) {
   .card {
     animation-name: fade;
-  }
-  .card__sheen {
-    animation: none;
   }
 }
