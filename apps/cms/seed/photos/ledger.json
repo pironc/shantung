@@ -1038,6 +1038,40 @@
       "note": "rendered in code by apps/cms/seed/packshots/tin.py; the brand on it is the fictional maison's own",
       "people": "no",
       "reviewed": "2026-11-19"
+    },
+    {
+      "name": "scarf-imperial-thread",
+      "id": "commons:82111927:scarf-imperial-thread",
+      "status": "candidate",
+      "file": "scarf-imperial-thread.jpg",
+      "source": "commons",
+      "title": "Marie Lutrell, Silk Scarf, 1941, NGA 12762",
+      "page": "https://commons.wikimedia.org/wiki/File:Marie_Lutrell,_Silk_Scarf,_1941,_NGA_12762.jpg",
+      "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ec/Marie_Lutrell%2C_Silk_Scarf%2C_1941%2C_NGA_12762.jpg/1920px-Marie_Lutrell%2C_Silk_Scarf%2C_1941%2C_NGA_12762.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "author": "Marie Lutrell",
+      "author_url": "",
+      "licence": "CC0",
+      "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "attribution": "“Marie Lutrell, Silk Scarf, 1941, NGA 12762” by Marie Lutrell, CC0, via Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Marie_Lutrell,_Silk_Scarf,_1941,_NGA_12762.jpg",
+      "verdict": "ok",
+      "restrictions": "ShareAlike files pass their licence on to changed versions; results lean to diagrams and emblems",
+      "width": 1200,
+      "height": 1500,
+      "screen": [],
+      "fetched": "2026-11-18",
+      "brand_check": "clear",
+      "look": [
+        "Lutrell, NGA in the title may be a name: check the frame for a company's name or mark"
+      ],
+      "grade": "natural",
+      "grade_hint": "",
+      "ai_generated": false,
+      "tool": "",
+      "alt": "A silk square folded in four: lilac clouds on a gold ground inside a lilac border",
+      "caption": "",
+      "people": "no",
+      "reviewed": "2026-11-18",
+      "note": "folded-scarf render of the CC0 design, cropped to its corner, initials removed (packshots/scarf.py)"
     }
   ]
 }
