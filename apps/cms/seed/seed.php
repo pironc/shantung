@@ -94,7 +94,7 @@ foreach ([
     "Peonies drift across a sea-green ground, the colour of the morning haze over Penglai.\n\nHand-rolled edges, printed in Shandong.", "牡丹浮于海青色底上，宛如蓬莱清晨的薄雾。\n\n手工卷边，山东印制。", FALSE, NULL, NULL],
   ['SC-IMP-90', 'Scarves', 5600, 'Imperial Thread', '御线', 'Silk twill, 90 × 90 cm', '真丝斜纹，90 × 90 厘米', ['scarf-imperial-thread', 'silk-scarf-design'],
     "Lilac clouds on a field of gold, drawn from an archive design for a court scarf.\n\nHand-rolled edges.", "金色底上的丁香色云纹，取自宫廷丝巾的档案图稿。\n\n手工卷边。", FALSE, NULL, NULL],
-  ['SC-KES-140', 'Scarves', 12800, 'Cloud Gate, Kesi Edition', '云门 · 缂丝特别版', 'Kesi-woven silk, 140 × 140 cm', '缂丝织造，140 × 140 厘米', ['brocade-robe', 'dupioni-silk'],
+  ['SC-KES-140', 'Scarves', 12800, 'Cloud Gate, Kesi Edition', '云门 · 缂丝特别版', 'Kesi-woven silk, 140 × 140 cm', '缂丝织造，140 × 140 厘米', ['scarf-kesi-cloud-gate', 'kesi-detail'],
     "Dragons and waves woven thread by thread on a hand loom, in the kesi technique once reserved for the court.\n\nTwelve pieces, each numbered. Kesi members are invited first, then each tier one day later.", "龙纹与海水由织工在手工织机上逐线缂织，此技法昔为宫廷御用。\n\n限量十二件，逐一编号。缂丝会员优先受邀，其后每一级会员晚一日开放。", TRUE, 12, -1],
   ['TI-LAT-08', 'Ties', 2200, 'Lattice', '花窗', 'Woven silk, 8 cm', '真丝提花，8 厘米', ['printed-ties'],
     "A basket weave in red and gold, taken from the lattice windows of Qufu.", "红金相间的编织纹，取自曲阜的花窗。", FALSE, NULL, NULL],
