@@ -2,7 +2,9 @@ import Taro, { useDidShow } from '@tarojs/taro'
 import { Image, Text, View } from '@tarojs/components'
 import { useEffect, useState } from 'react'
 import type { Boutique, Image as Img } from '@shantung/shared-types'
-import { clock, day } from '../services/i18n'
+import { t, when } from '../services/i18n'
+import { theme } from '../theme'
+import { iconUri, type IconName } from './art'
 
 /**
  * A fresh entrance every time the page is shown: tab pages stay mounted, so a mount animation would play once.
@@ -58,13 +60,70 @@ export function useReveal(ready: unknown) {
   return (id: string) => (!state.armed || state.seen.has(id) ? 'reveal is-in' : 'reveal')
 }
 
-/** Date on the left, time on the right, on a red strip under a photo: legible whatever the photo's colours. */
-export const DateStrip = ({ iso }: { iso: string }) => (
-  <View className='date-strip'>
-    <Text>{day(iso)}</Text>
-    <Text>{clock(iso)}</Text>
+/** A line icon from components/art.ts; decorative, so hidden from screen readers (the text beside it carries the meaning). */
+export const Icon = ({ name, light = false }: { name: IconName; light?: boolean }) => (
+  <Image className='icon' src={iconUri(name, light ? theme.paper : theme.accent)} ariaHidden />
+)
+
+const isIcon = (code: string): code is IconName => ['BJ01', 'QD01', 'SH01'].includes(code)
+
+/** Under a photo, on red: when (calendar) on the left, where (the city's landmark) on the right. */
+export const InfoStrip = ({ iso, place }: { iso?: string; place?: { code: string; city: string } | null }) => (
+  <View className='info-strip'>
+    {iso ? (
+      <View className='info-strip__item'>
+        <Icon name='calendar' light />
+        <Text>{when(iso)}</Text>
+      </View>
+    ) : (
+      <View />
+    )}
+    {place && (
+      <View className='info-strip__item'>
+        {isIcon(place.code) && <Icon name={place.code} light />}
+        <Text>{place.city}</Text>
+      </View>
+    )}
   </View>
 )
+
+type PopupMessage = { title: string; text?: string; action?: { label: string; run: () => void } }
+
+/**
+ * Action results open in a pop-up, so the page itself never shifts. Tap outside or Close to dismiss.
+ * Each page renders `popup` once at its end.
+ */
+export function usePopup() {
+  const [msg, setMsg] = useState<PopupMessage | null>(null)
+  const close = () => setMsg(null)
+  const popup = msg && (
+    <View className='popup' onClick={close}>
+      <View className='popup__box' ariaRole='alertdialog' ariaLabel={msg.title} onClick={(e) => e.stopPropagation()}>
+        <Text className='t-title'>{msg.title}</Text>
+        {msg.text && <Text className='popup__text'>{msg.text}</Text>}
+        <View className='popup__actions'>
+          {msg.action && (
+            <View
+              className='btn-text'
+              hoverClass='is-pressed'
+              ariaRole='button'
+              onClick={() => {
+                close()
+                msg.action!.run()
+              }}
+            >
+              {msg.action.label} →
+            </View>
+          )}
+          <View className='btn-text popup__close' hoverClass='is-pressed' ariaRole='button' onClick={close}>
+            {t().close}
+          </View>
+        </View>
+      </View>
+    </View>
+  )
+  return { popup, show: (m: PopupMessage) => setMsg(m) }
+}
 
 /** Boutiques as three portrait cards, each showing its city's landmark. */
 export function BoutiquePicker({ boutiques, value, onChange }: { boutiques: Boutique[]; value: string; onChange: (code: string) => void }) {

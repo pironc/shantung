@@ -13,12 +13,13 @@ body {
   font: var(--ds-text-body-md);
   -webkit-font-smoothing: antialiased;
 }
-/* Page entrance, replayed on every visit (usePageEnter flips between a and b). Quick but visible. */
+/* Page entrance, replayed on every visit (usePageEnter flips between a and b). Quick but visible.
+   `backwards`, not `both`: a transform kept after the animation would trap fixed pop-ups inside the page. */
 .page-in-a {
-  animation: page-a var(--ds-motion-duration-page) var(--ds-motion-easing-enter) both;
+  animation: page-a var(--ds-motion-duration-page) var(--ds-motion-easing-enter) backwards;
 }
 .page-in-b {
-  animation: page-b var(--ds-motion-duration-page) var(--ds-motion-easing-enter) both;
+  animation: page-b var(--ds-motion-duration-page) var(--ds-motion-easing-enter) backwards;
 }
 @keyframes page-a {
   from {
@@ -168,7 +169,8 @@ body {
 }
 
 /* Actions: a filled red button only where the action is the screen's purpose; text with an arrow elsewhere. */
-.btn {
+/* `.ds` raises these above Taro's own button[disabled] rule, which its browser build applies to every button. */
+.ds .btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -194,11 +196,11 @@ body {
   border: 0;
 }
 /* Disabled look from a class: WeChat and Taro's browser build mark the disabled attribute differently. */
-.btn.is-disabled {
+.ds .btn.is-disabled {
   background: var(--ds-color-bg-disabled);
   color: var(--ds-color-text-disabled);
 }
-.btn--ghost {
+.ds .btn--ghost {
   background: transparent;
   color: var(--ds-color-text-primary);
   border: 1px solid var(--ds-color-border-strong);
@@ -426,10 +428,11 @@ body {
   white-space: nowrap;
 }
 
-/* Date and time on a red strip right under a photo. */
-.date-strip {
+/* Under a photo, on red: when on the left, where on the right, each with its line icon. */
+.info-strip {
   display: flex;
   justify-content: space-between;
+  gap: var(--ds-space-16);
   padding: var(--ds-space-8) var(--ds-space-16);
   background: var(--ds-color-bg-accent-bold);
   color: var(--ds-color-text-on-accent);
@@ -437,6 +440,20 @@ body {
   letter-spacing: var(--ds-font-tracking-caps-label);
   text-transform: uppercase;
   font-variant-numeric: lining-nums;
+}
+.info-strip__item {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-6);
+  white-space: nowrap;
+}
+.icon {
+  flex: none;
+  width: var(--ds-size-icon-sm);
+  height: var(--ds-size-icon-sm);
+}
+.btn .icon {
+  margin-right: var(--ds-space-8);
 }
 .salon__body {
   margin-top: var(--ds-space-16);
@@ -501,13 +518,121 @@ body {
   flex-direction: column;
   gap: var(--ds-space-24);
   padding: var(--ds-space-32) var(--ds-space-24) var(--ds-space-40);
-  background: var(--ds-color-accent-light-9);
+  background-color: var(--ds-color-accent-light-9);
+  background-size: var(--ds-space-32) var(--ds-space-32);
+  background-repeat: repeat;
   color: var(--ds-color-neutral-light-1);
 }
 .stage--ink {
-  background: var(--ds-color-neutral-light-12);
+  background-color: var(--ds-color-neutral-light-12);
 }
 .stage .t-display,
 .stage .t-title {
   color: var(--ds-color-neutral-light-1);
+}
+
+/* Salon rows: one line of title, one of subtitle, then seats and the action at opposite edges. */
+.salon__foot {
+  align-items: center;
+  margin-top: var(--ds-space-8);
+}
+.seat-action {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-space-6);
+  min-height: var(--ds-size-target-min);
+  font: var(--ds-text-label-sm);
+  letter-spacing: var(--ds-font-tracking-caps-label);
+  text-transform: uppercase;
+  color: var(--ds-color-text-secondary);
+}
+.seat-action--open,
+.seat-action--reserved {
+  color: var(--ds-color-text-accent);
+}
+
+/* Practical facts: label above value, hairline between. */
+.facts {
+  margin-top: var(--ds-space-16);
+  border-top: 1px solid var(--ds-color-border-separator);
+}
+.fact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-4);
+  padding: var(--ds-space-12) 0;
+  border-bottom: 1px solid var(--ds-color-border-separator);
+}
+
+/* Rows that open something end with a chevron. */
+.row--link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-space-16);
+}
+.bookings {
+  margin-top: var(--ds-space-16);
+  border-top: 1px solid var(--ds-color-border-separator);
+}
+.booking {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-16);
+  padding: var(--ds-space-12) 0;
+  border-bottom: 1px solid var(--ds-color-border-separator);
+}
+.booking__thumb {
+  flex: none;
+  width: var(--ds-size-row-lg);
+}
+.booking__text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-2);
+}
+.booking__title {
+  font: var(--ds-text-title-sm);
+}
+
+/* Pop-up for action results: the page never shifts. Scrim fades, the box rises in. */
+.popup {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100; /* above page content; WeChat's native tab bar stays on top regardless */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--ds-space-24);
+  background: var(--ds-color-overlay-scrim);
+  animation: fade var(--ds-motion-duration-modal) var(--ds-motion-easing-enter) both;
+}
+.popup__box {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-12);
+  width: 100%;
+  max-width: calc(var(--ds-space-96) * 4);
+  padding: var(--ds-space-32) var(--ds-space-24) var(--ds-space-16);
+  box-sizing: border-box;
+  background: var(--ds-color-surface-raised);
+  animation: page-a var(--ds-motion-duration-modal) var(--ds-motion-easing-enter) both;
+}
+.popup__text {
+  font: var(--ds-text-body-lg);
+}
+.popup__actions {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--ds-space-16);
+  margin-top: var(--ds-space-8);
+}
+.popup__close {
+  margin-left: auto;
+  color: var(--ds-color-text-secondary);
 }
