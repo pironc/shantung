@@ -4,7 +4,7 @@ import type { Boutique, Member, Product, Salon, Story } from '@shantung/shared-t
 import { useData, useLang } from '../../services/api'
 import { t, windowLine } from '../../services/i18n'
 import { store } from '../../services/store'
-import { go, Icon, InfoStrip, Notice, Photo, usePageEnter, useReveal } from '../../components/ui'
+import { Icon, InfoStrip, Notice, Photo, chromeStyle, go, usePageEnter, useReveal } from '../../components/ui'
 
 export default function Discover() {
   useLang()
@@ -24,7 +24,7 @@ export default function Discover() {
   const offline = stories.offline || products.offline
 
   return (
-    <View className={`ds ${enter}`}>
+    <View className={`ds ${enter}`} style={chromeStyle()}>
       {/* The name sits in the sky of the opening photo. */}
       <View className='hero'>
         <Photo image={hero?.image} ratio={118} />
@@ -65,7 +65,7 @@ export default function Discover() {
           <View className='section__head'>
             <Text className='t-title'>{s.privateSalons}</Text>
           </View>
-          <View id='salon' className={`stack ${reveal('salon')}`} onClick={() => go('/pages/salons/index')}>
+          <View id='salon' className={`stack ${reveal('salon')}`} onClick={() => go(`/pages/salon/index?id=${salon.id}`)}>
             <View>
               <Photo image={salon.image} ratio={66} />
               <InfoStrip iso={salon.date} place={salon.boutique} />
