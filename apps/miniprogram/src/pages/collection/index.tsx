@@ -4,11 +4,12 @@ import { useState } from 'react'
 import type { Product } from '@shantung/shared-types'
 import { useData, useLang } from '../../services/api'
 import { price, t } from '../../services/i18n'
-import { go, Notice, Photo, useReveal } from '../../components/ui'
+import { Notice, Photo, go, usePageEnter, useReveal } from '../../components/ui'
 
 export default function Collection() {
   useLang()
   const s = t()
+  const enter = usePageEnter()
   const products = useData<Product[]>('/api/products')
   const [category, setCategory] = useState('')
   const reveal = useReveal(products.data)
@@ -18,7 +19,7 @@ export default function Collection() {
   const shown = (products.data ?? []).filter((p) => !category || p.category === category)
 
   return (
-    <View className='ds'>
+    <View className={`ds ${enter}`}>
       <View className='page-head'>
         <View>
           <Text className='t-display'>{s.collection}</Text>

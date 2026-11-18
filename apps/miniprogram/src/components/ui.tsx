@@ -1,8 +1,18 @@
-import Taro from '@tarojs/taro'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { Image, Text, View } from '@tarojs/components'
 import { useEffect, useState } from 'react'
-import type { Image as Img } from '@shantung/shared-types'
-import { lang, setLang } from '../services/i18n'
+import type { Boutique, Image as Img } from '@shantung/shared-types'
+import { clock, day } from '../services/i18n'
+
+/**
+ * A fresh entrance every time the page is shown: tab pages stay mounted, so a mount animation would play once.
+ * Switching between two identical animations restarts it.
+ */
+export function usePageEnter() {
+  const [shows, setShows] = useState(0)
+  useDidShow(() => setShows((n) => n + 1))
+  return shows % 2 ? 'page-in-a' : 'page-in-b'
+}
 
 /** A photo at a fixed ratio (height / width, in %), cropped to fill: layout never jumps while it loads. */
 export function Photo({ image, ratio = 125, className = '' }: { image: Img | null | undefined; ratio?: number; className?: string }) {
@@ -48,29 +58,38 @@ export function useReveal(ready: unknown) {
   return (id: string) => (!state.armed || state.seen.has(id) ? 'reveal is-in' : 'reveal')
 }
 
-export function LangToggle({ onDark = false }: { onDark?: boolean }) {
-  const current = lang()
+/** Date on the left, time on the right, on a red strip under a photo: legible whatever the photo's colours. */
+export const DateStrip = ({ iso }: { iso: string }) => (
+  <View className='date-strip'>
+    <Text>{day(iso)}</Text>
+    <Text>{clock(iso)}</Text>
+  </View>
+)
+
+/** Boutiques as three portrait cards, each showing its city's landmark. */
+export function BoutiquePicker({ boutiques, value, onChange }: { boutiques: Boutique[]; value: string; onChange: (code: string) => void }) {
   return (
-    <View className={`lang ${onDark ? 'lang--on-photo' : ''}`}>
-      {(
-        [
-          ['en', 'EN'],
-          ['zh-hans', '中文'],
-        ] as const
-      ).map(([code, label]) => (
-        <Text
-          key={code}
-          className={`lang__item ${current === code ? 'is-active' : ''}`}
-          onClick={() => setLang(code)}
-          ariaRole='button'
-          ariaLabel={code === 'en' ? 'English' : '简体中文'}
-        >
-          {label}
-        </Text>
+    <View className='places' ariaRole='radiogroup'>
+      {boutiques.map((b) => (
+        <View key={b.code} className={`place ${value === b.code ? 'is-active' : ''}`} ariaRole='radio' ariaChecked={value === b.code} onClick={() => onChange(b.code)}>
+          <Photo image={b.image} ratio={177.78} />
+          <View className='place__bar' />
+          <Text className='place__city'>{b.city}</Text>
+        </View>
       ))}
     </View>
   )
 }
+
+/** A list of actions, one per row, all the same height: label on the left, value and arrow on the right. */
+export const MenuRow = ({ label, value, onClick }: { label: string; value?: string; onClick: () => void }) => (
+  <View className='menu__row' hoverClass='is-pressed-row' ariaRole='button' onClick={onClick}>
+    <Text>{label}</Text>
+    <Text className='menu__value'>
+      {value ? `${value} ` : ''}›
+    </Text>
+  </View>
+)
 
 export function Notice({ text, tone = 'neutral' }: { text: string | null | undefined; tone?: 'neutral' | 'accent' | 'danger' }) {
   if (!text) return null

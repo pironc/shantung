@@ -44,6 +44,8 @@ const en = {
   reservations: 'Your reservations',
   none: 'Nothing reserved yet.',
   vipPass: 'Your invitation card',
+  language: 'Language',
+  languageName: 'English',
   demo: 'Demo: view as',
   appointment: 'Appointment',
   pickDay: 'Choose a day',
@@ -108,6 +110,8 @@ const zh: Strings = {
   reservations: '您的预留',
   none: '暂无预留。',
   vipPass: '您的邀请卡',
+  language: '语言',
+  languageName: '简体中文',
   demo: '演示：切换等级',
   appointment: '预约',
   pickDay: '选择日期',
@@ -128,7 +132,16 @@ const zh: Strings = {
   invitationOnly: '仅限受邀',
 }
 
-export const lang = (): Lang => store.get<Lang>('lang') ?? 'en'
+/** The saved choice, else the phone's (WeChat or browser) language: Chinese phones start in Chinese. */
+export const lang = (): Lang => {
+  const saved = store.get<Lang>('lang')
+  if (saved) return saved
+  try {
+    return Taro.getSystemInfoSync().language?.toLowerCase().startsWith('zh') ? 'zh-hans' : 'en'
+  } catch {
+    return 'en'
+  }
+}
 export const t = (): Strings => (lang() === 'zh-hans' ? zh : en)
 
 export const TIERS = [
@@ -152,14 +165,20 @@ const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', '
 const DAYS_EN = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 const DAYS_ZH = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
 
+const shanghai = (iso: string) => new Date(Date.parse(iso) + 8 * 3_600_000)
+
 /** Boutique time (Shanghai, UTC+8), formatted by hand: Intl is incomplete in some WeChat JS engines. */
-export function when(iso: string, withTime = true) {
-  const d = new Date(Date.parse(iso) + 8 * 3_600_000)
-  const time = withTime ? ` ${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}` : ''
+export function day(iso: string) {
+  const d = shanghai(iso)
   return lang() === 'zh-hans'
-    ? `${d.getUTCMonth() + 1}月${d.getUTCDate()}日 ${DAYS_ZH[d.getUTCDay()]}${time}`
-    : `${DAYS_EN[d.getUTCDay()]} ${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]}${time ? ' ·' + time : ''}`
+    ? `${d.getUTCMonth() + 1}月${d.getUTCDate()}日 ${DAYS_ZH[d.getUTCDay()]}`
+    : `${DAYS_EN[d.getUTCDay()]} ${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]}`
 }
+export const clock = (iso: string) => {
+  const d = shanghai(iso)
+  return `${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}`
+}
+export const when = (iso: string, withTime = true) => (withTime ? `${day(iso)} · ${clock(iso)}` : day(iso))
 
 export const price = (n: number) => `¥${String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`
 

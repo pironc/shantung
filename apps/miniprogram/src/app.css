@@ -12,7 +12,25 @@ body {
   color: var(--ds-color-text-primary);
   font: var(--ds-text-body-md);
   -webkit-font-smoothing: antialiased;
-  animation: enter var(--ds-motion-duration-long) var(--ds-motion-easing-enter) both;
+}
+/* Page entrance, replayed on every visit (usePageEnter flips between a and b). Quick but visible. */
+.page-in-a {
+  animation: page-a var(--ds-motion-duration-page) var(--ds-motion-easing-enter) both;
+}
+.page-in-b {
+  animation: page-b var(--ds-motion-duration-page) var(--ds-motion-easing-enter) both;
+}
+@keyframes page-a {
+  from {
+    opacity: 0;
+    transform: translateY(var(--ds-motion-distance-reveal));
+  }
+}
+@keyframes page-b {
+  from {
+    opacity: 0;
+    transform: translateY(var(--ds-motion-distance-reveal));
+  }
 }
 
 /* Type */
@@ -175,8 +193,8 @@ body {
 .btn::after {
   border: 0;
 }
-/* Taro's browser build writes disabled="false" on enabled buttons, so match the true value only. */
-.btn[disabled='true'] {
+/* Disabled look from a class: WeChat and Taro's browser build mark the disabled attribute differently. */
+.btn.is-disabled {
   background: var(--ds-color-bg-disabled);
   color: var(--ds-color-text-disabled);
 }
@@ -248,26 +266,6 @@ body {
   color: var(--ds-color-text-accent);
 }
 
-.lang {
-  display: inline-flex;
-  gap: var(--ds-space-12);
-}
-.lang__item {
-  min-height: var(--ds-size-target-min);
-  display: inline-flex;
-  align-items: center;
-  font: var(--ds-text-label-sm);
-  letter-spacing: var(--ds-font-tracking-caps-label);
-  color: var(--ds-color-text-secondary);
-}
-.lang__item.is-active {
-  color: var(--ds-color-text-accent);
-}
-.lang--on-photo {
-  padding: 0 var(--ds-space-12);
-  background: var(--ds-color-surface-raised);
-}
-
 .notice {
   margin-top: var(--ds-space-16);
   padding: var(--ds-space-12) var(--ds-space-16);
@@ -309,9 +307,22 @@ body {
     opacity: 0;
   }
 }
+@keyframes fade-a {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes fade-b {
+  from {
+    opacity: 0;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
-  .ds {
-    animation-name: fade;
+  .page-in-a {
+    animation-name: fade-a;
+  }
+  .page-in-b {
+    animation-name: fade-b;
   }
   .reveal {
     transform: none;
@@ -326,18 +337,24 @@ body {
 .hero {
   position: relative;
 }
-.hero__lang {
+/* The name in the sky of the opening photo: red display capitals, ink tagline (legible on sky and cloud). */
+.hero__title {
   position: absolute;
-  top: var(--ds-space-12);
-  right: var(--ds-space-12);
-}
-.masthead {
-  padding: var(--ds-space-32) var(--ds-space-24) 0;
+  top: var(--ds-space-40);
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ds-space-4);
   text-align: center;
 }
-.masthead .t-display {
+.hero__name {
   font-size: var(--ds-text-display-md-size);
   line-height: var(--ds-text-display-md-line-height);
+}
+.hero__tagline {
+  color: var(--ds-color-text-primary);
 }
 .page-head {
   display: flex;
@@ -350,20 +367,13 @@ body {
 .feature + .feature {
   margin-top: var(--ds-space-32);
 }
-/* The staggered gallery: one wide, then two pushed to opposite sides, with air between. */
-.stagger {
+/* Editorial images run full width, one after another (no side offsets on phones). */
+.stories {
   display: flex;
   flex-direction: column;
   gap: var(--ds-space-48);
 }
-.stagger__item--left {
-  width: 64%;
-}
-.stagger__item--right {
-  width: 64%;
-  align-self: flex-end;
-}
-.stagger__caption {
+.stories__caption {
   margin-top: var(--ds-space-12);
 }
 .row {
@@ -404,4 +414,100 @@ body {
 /* Browser build: the tab bar is text only (WeChat shows text-only tabs natively; Taro's H5 tab bar would draw empty icons). */
 .weui-tabbar__item .weui-tabbar__icon {
   display: none;
+}
+
+/* Two facts on one line sit at opposite edges. */
+.split-row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--ds-space-16);
+}
+.split-row > * {
+  white-space: nowrap;
+}
+
+/* Date and time on a red strip right under a photo. */
+.date-strip {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--ds-space-8) var(--ds-space-16);
+  background: var(--ds-color-bg-accent-bold);
+  color: var(--ds-color-text-on-accent);
+  font: var(--ds-text-label-sm);
+  letter-spacing: var(--ds-font-tracking-caps-label);
+  text-transform: uppercase;
+  font-variant-numeric: lining-nums;
+}
+.salon__body {
+  margin-top: var(--ds-space-16);
+}
+
+/* Boutique picker: three 9:16 cards, each showing its city's landmark. */
+.places {
+  display: flex;
+  gap: var(--ds-space-8);
+}
+.place {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-8);
+}
+.place__bar {
+  height: var(--ds-space-2);
+  background: transparent;
+  transition: background-color var(--ds-motion-duration-short) var(--ds-motion-easing-enter);
+}
+.place__city {
+  font-family: var(--ds-font-family-display);
+  font-weight: var(--ds-font-weight-heading);
+  text-transform: uppercase;
+  letter-spacing: var(--ds-font-tracking-caps-display);
+  font-size: var(--ds-text-title-sm-size);
+  color: var(--ds-color-text-secondary);
+  text-align: center;
+}
+.place.is-active .place__bar {
+  background: var(--ds-color-bg-accent-bold);
+}
+.place.is-active .place__city {
+  color: var(--ds-color-text-accent);
+}
+
+/* Actions as rows of equal height, separated by hairlines. */
+.menu {
+  border-top: 1px solid var(--ds-color-border-separator);
+}
+.menu__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--ds-size-row-lg);
+  border-bottom: 1px solid var(--ds-color-border-separator);
+  font: var(--ds-text-body-lg);
+  transition: background-color var(--ds-motion-duration-short) var(--ds-motion-easing-enter);
+}
+.menu__value {
+  color: var(--ds-color-text-secondary);
+}
+.is-pressed-row {
+  background: var(--ds-color-bg-neutral-subtle);
+}
+
+/* Membership stage: the card on lacquer red (ink for the red Brocade card), tier text in white. */
+.stage {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-24);
+  padding: var(--ds-space-32) var(--ds-space-24) var(--ds-space-40);
+  background: var(--ds-color-accent-light-9);
+  color: var(--ds-color-neutral-light-1);
+}
+.stage--ink {
+  background: var(--ds-color-neutral-light-12);
+}
+.stage .t-display,
+.stage .t-title {
+  color: var(--ds-color-neutral-light-1);
 }
