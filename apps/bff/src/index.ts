@@ -1,3 +1,6 @@
+import { createReadStream } from 'node:fs'
+import { createRequire } from 'node:module'
+import { dirname } from 'node:path'
 import Fastify from 'fastify'
 import cors from '@fastify/cors'
 import jwt from '@fastify/jwt'
@@ -21,6 +24,13 @@ app.get('/health', async (): Promise<Health> => {
     fetch(`${env.cmsUrl}/jsonapi`, { signal: AbortSignal.timeout(2000) }).then((r) => r.ok, () => false),
   ])
   return { status: 'ok', redis: redisUp, cms: cmsUp }
+})
+
+// The display face for WeChat's loadFontFace, which needs a URL (SIL Open Font License, from @fontsource).
+const fonts = dirname(createRequire(import.meta.url).resolve('@fontsource/cormorant-garamond/package.json')) + '/files/'
+app.get<{ Params: { file: string } }>('/fonts/:file', (req, reply) => {
+  if (!/^cormorant-garamond-latin-[56]00-normal\.woff2$/.test(req.params.file)) return reply.code(404).send()
+  return reply.type('font/woff2').header('cache-control', 'public, max-age=31536000, immutable').send(createReadStream(fonts + req.params.file))
 })
 
 await migrate()
