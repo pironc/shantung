@@ -84,7 +84,7 @@ docker compose down -v           # start again from nothing
 ## Try it
 
 1. Open the Mini Program, go to **Membership** and pick a demo tier (Thread, Satin, Brocade, Kesi): each has its own card.
-2. As **Kesi**, open the *Cloud Gate, Kesi Edition* limited release and reserve it. As **Thread**, the same piece says when your window opens.
+2. As **Kesi**, open the *Cloud Gate* limited release and reserve it. As **Thread**, the same piece says when your window opens.
 3. Keep the **advisor portal** open beside it: the reservation arrives live, and clicking it opens the client's profile.
 4. Open a **kiosk** and click its QR code (a phone would scan it): the client is checked in and the portal shows the arrival.
 5. Book a **salon** seat or an **appointment**, save a piece to the **wishlist**, and open **Your invitation card** to download it.

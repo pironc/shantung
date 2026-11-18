@@ -114,6 +114,6 @@ def render(name, line, band, body=RED, height=0.40, out='tin.jpg'):
 
 if __name__ == '__main__':
     out = HERE.parent / 'photos'
-    render('LAOSHAN SPRING GREEN', 'GREEN TEA  ·  100 G', (0x8F, 0xB3, 0x9A), out=out / 'tin-laoshan-spring.jpg')
-    render('LAOSHAN SEA MIST', 'FIRST FLUSH  ·  100 G', (0x8C, 0xA3, 0xB5), out=out / 'tin-laoshan-mist.jpg')
+    render('SPRING GREEN', 'LAOSHAN GREEN TEA  ·  100 G', (0x8F, 0xB3, 0x9A), out=out / 'tin-laoshan-spring.jpg')
+    render('SEA MIST', 'LAOSHAN FIRST FLUSH  ·  100 G', (0x8C, 0xA3, 0xB5), out=out / 'tin-laoshan-mist.jpg')
     render('TAIQING RESERVE', 'HAND ROLLED  ·  50 G', (0xB8, 0x95, 0x4A), body=INK, height=0.30, out=out / 'tin-taiqing.jpg')

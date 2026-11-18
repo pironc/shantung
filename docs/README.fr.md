@@ -84,7 +84,7 @@ docker compose down -v           # repartir de zéro
 ## Essayer
 
 1. Ouvrez le Mini Program, allez dans **Membership** et choisissez un niveau de démonstration (Thread, Satin, Brocade, Kesi) : chacun a sa propre carte.
-2. En **Kesi**, ouvrez l'édition limitée *Cloud Gate, Kesi Edition* et réservez-la. En **Thread**, la même pièce indique quand votre fenêtre ouvre.
+2. En **Kesi**, ouvrez l'édition limitée *Cloud Gate* et réservez-la. En **Thread**, la même pièce indique quand votre fenêtre ouvre.
 3. Gardez le **portail du conseiller** ouvert à côté : la réservation arrive en direct, et un clic ouvre la fiche du client.
 4. Ouvrez une **borne** et cliquez sur son QR code (un téléphone le scannerait) : l'arrivée du client est enregistrée et le portail l'affiche.
 5. Réservez une place en **salon** ou un **rendez-vous**, ajoutez une pièce à la **liste d'envies** et ouvrez **Your invitation card** pour la télécharger.
