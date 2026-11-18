@@ -40,3 +40,4 @@ The owner's notes on this project, from `engine.py feedback --kind note`. Read t
 | N-29 | The Limited tag on a photo is a lacquer-red chip (bg.accent-bold) with white text, chosen over a paper chip, a hairline outline and an underlined caption. | 1 | 2026-11-19 |
 | N-30 | Products of one kind are shot the same way: every tie on the same form facing the same direction, every scarf folded the same way. | 1 | 2026-11-19 |
 | N-31 | Switching tabs over content dissolves from the old view to the new one; it never passes through white or an empty frame. | 1 | 2026-11-19 |
+| N-32 | Product titles in grids stay on one line, never two; a name too long for the card is a naming problem, not a layout one. | 1 | 2026-11-19 |

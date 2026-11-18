@@ -193,6 +193,7 @@
   --ds-font-size-42: 2.625rem;
   --ds-font-size-display-md: clamp(2rem, 1.6087rem + 1.7391vw, 3rem);
   --ds-font-size-display-lg: clamp(2.5rem, 1.1304rem + 6.087vw, 6rem);
+  --ds-font-size-card-title: 0.9375rem;
   --ds-font-size-input: 1rem;
   --ds-font-size-tag: 0.75rem;
   --ds-font-line-height-20: 20px;

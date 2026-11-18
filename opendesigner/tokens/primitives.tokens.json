@@ -2717,6 +2717,19 @@
           }
         }
       },
+      "card-title": {
+        "$value": {
+          "value": 15,
+          "unit": "px"
+        },
+        "$type": "dimension",
+        "$description": "Added by a person (engine.py set).",
+        "$extensions": {
+          "opendesigner": {
+            "source": "person"
+          }
+        }
+      },
       "input": {
         "$value": {
           "value": 16,

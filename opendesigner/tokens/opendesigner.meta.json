@@ -291,6 +291,13 @@
       ],
       "override": true
     },
+    "font.size.card-title": {
+      "value": {
+        "value": 15,
+        "unit": "px"
+      },
+      "override": true
+    },
     "font.size.input": {
       "value": {
         "value": 16,
@@ -3566,6 +3573,7 @@
     "semantic.tokens.json:component.toast.visible",
     "semantic.tokens.json:font.family.display",
     "semantic.tokens.json:font.family.text",
+    "primitives.tokens.json:font.size.card-title",
     "primitives.tokens.json:font.size.input",
     "primitives.tokens.json:font.size.tag",
     "semantic.tokens.json:font.tracking.caps-display",
@@ -3708,12 +3716,12 @@
       "case": "sentence"
     }
   },
-  "stateHash": "2dbf3e51bde54875",
+  "stateHash": "5f842da508edc04d",
   "fileHashes": {
     "motion.reduced.tokens.json": "d646a96de314ea27",
     "motion.standard.tokens.json": "74134143dccc82a3",
     "opendesigner.resolver.json": "b34c0004f4d2dc1b",
-    "primitives.tokens.json": "700451ffbba2c0a8",
+    "primitives.tokens.json": "303e2810773bcdda",
     "semantic.color.dark.tokens.json": "9ce02af05cb88928",
     "semantic.color.light.tokens.json": "98c533301097f7e6",
     "semantic.density.comfortable.tokens.json": "a3779838b5028bcc",

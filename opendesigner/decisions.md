@@ -700,3 +700,9 @@ Append-only, ADR-style (spec 7.9): one entry per decision, newest last. A later 
 - reason: Tags on small photos (grid cards): 12px caps, a size down from label.sm
 - quote: "The limited tag on the small squares (in collection for instance) are too big, and should be sized down a bit."
 - new dimension token in primitives.tokens.json
+
+## D-0047 · overrides.font.size.card-title = {"value": 15, "unit": "px"}
+- set_by: chosen · locked: no · date: 2026-11-19 · supersedes: none · source_ref: none
+- reason: Product titles in two-column grids: one line from 360px phones up (17px fits only the shortest names)
+- quote: "The product titles should always stay on a single line, never warping over 2."
+- new dimension token in primitives.tokens.json

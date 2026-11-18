@@ -489,7 +489,7 @@ Designers: guardrails and design linting · Code: `engine.py validate, engine.py
 - Don't use motion as the only signal, or flash more than three times a second.
 - Don't copy another brand's identity from a reference (colors, typeface, logo, imagery, copy).
 
-**Current validation findings:** none (errors 0, warnings 0).
+**Current validation findings:** warn: 11 text sizes; 8 to 10 is the usual range
 
 **Waivers:** none.
 
@@ -709,7 +709,7 @@ Decisions: D-0023 (answers.Q-plat-01).
 
 ## Decisions
 
-**46 decisions so far.** Each one says who set it and why.
+**47 decisions so far.** Each one says who set it and why.
 Designers: decision history with reasons · Code: `opendesigner/decisions.md`
 
 <details><summary>More</summary>
@@ -750,6 +750,7 @@ Your own decisions first (the newest value per path), then your changes to stand
 | D-0044 | `motion.duration.page` | {"value": 320, "unit": "ms"} | chosen | owner: page changes need a quick but visible entrance |
 | D-0045 | `radius.panel` | "{radius.16}" | chosen | A panel floating over a full-bleed photo (the kiosk card) is rounded so it reads as an object, not a flat white plane; other containers stay square |
 | D-0046 | `font.size.tag` | {"value": 12, "unit": "px"} | chosen | Tags on small photos (grid cards): 12px caps, a size down from label.sm |
+| D-0047 | `font.size.card-title` | {"value": 15, "unit": "px"} | chosen | Product titles in two-column grids: one line from 360px phones up (17px fits only the shortest names) |
 | D-0006 | standards | House standards v4: 291 applied | standard (locked) | OpenDesigner's house standards (sources marked non-negotiable) are applied without asking and locked. Change one only when the person asks: engine.py... |
 | D-0014 | standards | House standards v4 for android, compose, css, ios, swift, web: 138 now apply, 0 no longer apply | standard (locked) | The platforms or the stack changed, so the house standards were re-scoped: the ones that now apply are applied and locked; the ones that no longer apply are... |
 | D-0015 | standards | House standards: 1 value back to the engine's own for these platforms | standard | The platforms changed, so a value a standard held no longer passes a check the engine enforces (accessibility floors outrank every standard, KNOWLEDGE.md... |
@@ -766,7 +767,7 @@ Your own decisions first (the newest value per path), then your changes to stand
 - Answers taken on assumption or delegated: context.product (assumed), answers.Q-scope-07 (assumed), raw.stack (assumed), context.audience (assumed), raw.brandColor (delegated), macros (delegated), taste.feelWords (delegated), answers.Q-theme-01 (delegated), defaults.persuade (auto_default), answers.Q-dir-01 (delegated), answers.Q-color-02 (delegated), answers.Q-type-01 (delegated), answers.Q-motion-01 (delegated), overrides.font.family.display (delegated), overrides.font.family.text (delegated), raw.fontLicence (delegated), dials.energy (delegated), hooks.H-photo.status (delegated), overrides.motion.distance.reveal (delegated), overrides.font.tracking.caps-display (delegated), overrides.motion.distance.photo-zoom (delegated)
 - Waivers: none.
 - Licence risks: Photography and art direction: check the terms of the set you use. Stock: Unsplash (free, irrevocable, commercial; no competing service) or Pexels (no implied endorsement, no use as a trademark).
-- Validation: 0 errors, 0 warnings.
+- Validation: 0 errors, 1 warnings.
 
 ## For Agents
 

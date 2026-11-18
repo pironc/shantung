@@ -199,12 +199,12 @@ body {
   padding: var(--ds-space-2) var(--ds-space-6);
   font-size: var(--ds-font-size-tag);
 }
-/* Cards in a grid share one shape: title on up to two lines, then one line, then the price. */
+/* Cards in a grid share one shape: the title on one line (a size down from t-sub), the material, the price. */
 .card-title {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
   overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: var(--ds-font-size-card-title);
 }
 .card-line {
   display: block;

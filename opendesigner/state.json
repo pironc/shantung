@@ -412,6 +412,10 @@
     "font.size.tag": {
       "value": 12,
       "unit": "px"
+    },
+    "font.size.card-title": {
+      "value": 15,
+      "unit": "px"
     }
   },
   "answers": {
@@ -685,7 +689,7 @@
     "skipped": "2026-11-18"
   },
   "hashes": {
-    "DESIGN.md": "ad6fbf6c06b20177",
+    "DESIGN.md": "28e888c1b74bb23e",
     "PRODUCT.md": "8da1468d6c3135e8"
   },
   "exports": {
