@@ -1,10 +1,58 @@
 import Taro, { useDidShow } from '@tarojs/taro'
 import { Image, Text, View } from '@tarojs/components'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import type { Boutique, Image as Img } from '@shantung/shared-types'
 import { t, when } from '../services/i18n'
 import { theme } from '../theme'
 import { iconUri, type IconName } from './art'
+
+type Chrome = { statusBar: number; barTop: number; barHeight: number; contentTop: number }
+let chromeCache: Chrome | undefined
+
+/**
+ * Where the top of the screen is free. Pages draw their own top (no title bar): the status bar and, in WeChat,
+ * the capsule (… and ✕, always top right) take the first row. The back button lines up with the capsule;
+ * content starts below that row, so on notched iPhones nothing hides behind the notch.
+ */
+export function chrome(): Chrome {
+  if (chromeCache) return chromeCache
+  let statusBar = 0
+  try {
+    statusBar = Taro.getSystemInfoSync().statusBarHeight || 0
+  } catch {
+    // keep 0
+  }
+  let barTop = statusBar + 8
+  let barHeight = 32
+  // Only WeChat has the capsule; Taro's browser build answers this call with a rejected promise.
+  if (process.env.TARO_ENV === 'weapp') {
+    const capsule = Taro.getMenuButtonBoundingClientRect()
+    if (capsule?.height) {
+      barTop = capsule.top
+      barHeight = capsule.height
+    }
+  }
+  chromeCache = { statusBar, barTop, barHeight, contentTop: barTop + barHeight + 8 }
+  return chromeCache
+}
+
+/** The page root's custom properties for the top offsets (CSS reads --content-top, --bar-top, --bar-h). */
+export const chromeStyle = () => {
+  const c = chrome()
+  return `--status-bar: ${c.statusBar}px; --bar-top: ${c.barTop}px; --bar-h: ${c.barHeight}px; --content-top: ${c.contentTop}px`
+}
+
+const back = () => (Taro.getCurrentPages().length > 1 ? Taro.navigateBack() : Taro.switchTab({ url: '/pages/index/index' }))
+
+/**
+ * A round back button floating at the capsule's height: no page title (the page says what it is), nothing
+ * covered. Opened from a shared link with no history, it goes to Discover. iOS edge-swipe works too.
+ */
+export const TopBar = () => (
+  <View className='topbar' hoverClass='is-pressed' ariaRole='button' ariaLabel={t().back} onClick={back}>
+    <Icon name='back' />
+  </View>
+)
 
 /**
  * A fresh entrance every time the page is shown: tab pages stay mounted, so a mount animation would play once.
@@ -86,6 +134,66 @@ export const InfoStrip = ({ iso, place }: { iso?: string; place?: { code: string
     )}
   </View>
 )
+
+export type SheetOption = { label: string; selected?: boolean; run: () => void }
+
+/**
+ * A bottom sheet of choices, drawn by the app so every word (Cancel included) follows the app's language.
+ * The current choice is bold, with a check. Each page renders `sheet` once at its end.
+ */
+/**
+ * The frame of a bottom sheet. WeChat's tab bar is native and sits above the page, so it hides while a sheet
+ * is open (and comes back when it closes).
+ */
+export function SheetFrame({ title, onClose, children }: { title?: string; onClose: () => void; children: ReactNode }) {
+  useEffect(() => {
+    Taro.hideTabBar({ animation: false }).catch(() => {}) // not a tab page: nothing to hide
+    return () => {
+      Taro.showTabBar({ animation: false }).catch(() => {})
+    }
+  }, [])
+  return (
+    <View className='sheet' onClick={onClose}>
+      <View className='sheet__box' ariaRole='dialog' onClick={(e) => e.stopPropagation()}>
+        {title && <Text className='t-label sheet__title'>{title}</Text>}
+        {children}
+        <View className='sheet__cancel' hoverClass='is-pressed-row' ariaRole='button' onClick={onClose}>
+          {t().cancel}
+        </View>
+      </View>
+    </View>
+  )
+}
+
+/**
+ * A bottom sheet of choices, drawn by the app so every word (Cancel included) follows the app's language.
+ * The current choice is bold, with a check. Each page renders `sheet` once at its end.
+ */
+export function useSheet() {
+  const [open, setOpen] = useState<{ title?: string; options: SheetOption[] } | null>(null)
+  const close = () => setOpen(null)
+  const sheet = open && (
+    <SheetFrame title={open.title} onClose={close}>
+      {open.options.map((o) => (
+        <View
+          key={o.label}
+          className={`sheet__option ${o.selected ? 'is-selected' : ''}`}
+          hoverClass='is-pressed-row'
+          ariaRole='menuitemradio'
+          ariaChecked={o.selected}
+          onClick={() => {
+            close()
+            o.run()
+          }}
+        >
+          <Text>{o.label}</Text>
+          {o.selected && <Icon name='check' />}
+        </View>
+      ))}
+    </SheetFrame>
+  )
+  return { sheet, show: (title: string | undefined, options: SheetOption[]) => setOpen({ title, options }) }
+}
 
 type PopupMessage = { title: string; text?: string; action?: { label: string; run: () => void } }
 

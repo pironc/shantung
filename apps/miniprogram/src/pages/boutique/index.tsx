@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import type { Boutique } from '@shantung/shared-types'
 import { useData, useLang } from '../../services/api'
 import { t } from '../../services/i18n'
-import { go, InfoStrip, Paragraphs, Photo, usePageEnter } from '../../components/ui'
+import { InfoStrip, Paragraphs, Photo, TopBar, chromeStyle, go, usePageEnter } from '../../components/ui'
 
 /** A boutique: its city's landmark, how to find it, and the way to book a visit. */
 export default function BoutiquePage() {
@@ -21,7 +21,8 @@ export default function BoutiquePage() {
   if (!b) return <View className={`ds ${enter}`} />
 
   return (
-    <View className={`ds ${enter}`}>
+    <View className={`ds ${enter}`} style={chromeStyle()}>
+      <TopBar />
       <Photo image={b.image} ratio={100} />
       <InfoStrip place={{ code: b.code, city: b.city }} />
       <View className='section stack'>

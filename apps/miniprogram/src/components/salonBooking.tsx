@@ -2,7 +2,7 @@ import { Text, View } from '@tarojs/components'
 import { useState } from 'react'
 import type { Member, Reservation, Salon } from '@shantung/shared-types'
 import { api, ApiError, useData } from '../services/api'
-import { t, TIERS, when } from '../services/i18n'
+import { t, tierName, when } from '../services/i18n'
 import { store } from '../services/store'
 import { go, Icon, usePopup } from './ui'
 
@@ -27,9 +27,8 @@ export function useSalonBooking() {
             ? 'full'
             : 'open'
 
-  const tierName = (x: Salon) => `${TIERS[x.minTierRank].zh} ${TIERS[x.minTierRank].en}`
   const label = (x: Salon) =>
-    ({ reserved: s.reservedState, past: s.passed, locked: s.membersOnly(TIERS[x.minTierRank].en), full: s.full, open: s.reserveSeat })[state(x)]
+    ({ reserved: s.reservedState, past: s.passed, locked: s.membersOnly(tierName(x.minTierRank)), full: s.full, open: s.reserveSeat })[state(x)]
 
   const act = async (x: Salon, after?: () => void) => {
     const place = x.boutique?.title ?? ''
@@ -37,7 +36,7 @@ export function useSalonBooking() {
       case 'reserved':
         return show({ title: s.alreadyTitle, text: s.alreadySeat(when(x.date), place) })
       case 'locked':
-        return show({ title: s.byInvitationTitle(tierName(x)), text: s.byInvitationText, action: { label: s.seeTiers, run: () => go('/pages/membership/index') } })
+        return show({ title: s.byInvitationTitle(tierName(x.minTierRank)), text: s.byInvitationText, action: { label: s.seeTiers, run: () => go('/pages/membership/index') } })
       case 'open':
         break
       default:

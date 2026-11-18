@@ -342,7 +342,7 @@ body {
 /* The name in the sky of the opening photo: red display capitals, ink tagline (legible on sky and cloud). */
 .hero__title {
   position: absolute;
-  top: var(--ds-space-40);
+  top: calc(var(--content-top, var(--ds-space-0)) + var(--ds-space-8));
   left: 0;
   right: 0;
   display: flex;
@@ -364,7 +364,7 @@ body {
   gap: 0 var(--ds-space-16);
   align-items: flex-start;
   justify-content: space-between;
-  padding: var(--ds-space-32) var(--ds-space-24) var(--ds-space-24);
+  padding: calc(var(--content-top, var(--ds-space-0)) + var(--ds-space-8)) var(--ds-space-24) var(--ds-space-24);
 }
 .feature + .feature {
   margin-top: var(--ds-space-32);
@@ -400,6 +400,7 @@ body {
   font: var(--ds-text-body-lg);
 }
 .checkin {
+  padding-top: var(--content-top, var(--ds-space-0));
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -517,7 +518,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: var(--ds-space-24);
-  padding: var(--ds-space-32) var(--ds-space-24) var(--ds-space-40);
+  padding: calc(var(--content-top, var(--ds-space-0)) + var(--ds-space-8)) var(--ds-space-24) var(--ds-space-40);
   background-color: var(--ds-color-accent-light-9);
   background-size: var(--ds-space-32) var(--ds-space-32);
   background-repeat: repeat;
@@ -635,4 +636,303 @@ body {
 .popup__close {
   margin-left: auto;
   color: var(--ds-color-text-secondary);
+}
+
+/* Top of every page: no title bar. A round back button floats at the height of WeChat's capsule, below the
+   status bar and the notch; content starts under that row (components/ui.tsx, chrome). */
+.topbar {
+  position: fixed;
+  z-index: 50;
+  top: var(--bar-top, var(--ds-space-8));
+  left: var(--ds-space-16);
+  width: var(--bar-h, var(--ds-size-control-sm));
+  height: var(--bar-h, var(--ds-size-control-sm));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border-radius: var(--ds-radius-full);
+  background: var(--ds-color-surface-raised);
+  border: 1px solid var(--ds-color-border-subtle);
+  transition: transform var(--ds-motion-duration-short) var(--ds-motion-easing-enter);
+}
+
+/* Bottom sheet: menus and the profile editor, drawn by the app so every word follows its language. */
+.sheet {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+  background: var(--ds-color-overlay-scrim);
+  animation: fade var(--ds-motion-duration-modal) var(--ds-motion-easing-enter) both;
+}
+.sheet__box {
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--ds-space-8) var(--ds-space-24) calc(var(--ds-space-16) + env(safe-area-inset-bottom));
+  background: var(--ds-color-surface-raised);
+  animation: sheet-in var(--ds-motion-duration-drawer) var(--ds-motion-easing-drawer) both;
+}
+@keyframes sheet-in {
+  from {
+    transform: translateY(100%);
+  }
+}
+.sheet__title {
+  padding: var(--ds-space-16) 0 var(--ds-space-8);
+}
+.sheet__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--ds-size-row-lg);
+  border-bottom: 1px solid var(--ds-color-border-separator);
+  font: var(--ds-text-body-lg);
+}
+.sheet__option.is-selected {
+  font-weight: var(--ds-font-weight-heading);
+}
+.sheet__cancel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--ds-size-row-lg);
+  margin-top: var(--ds-space-8);
+  font: var(--ds-text-label-md);
+  text-transform: uppercase;
+  letter-spacing: var(--ds-font-tracking-caps-label);
+  color: var(--ds-color-text-secondary);
+}
+@media (prefers-reduced-motion: reduce) {
+  .sheet__box {
+    animation-name: fade;
+  }
+}
+
+/* Two lines at most. */
+.clamp-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+/* Profile: one compact row (photo or monogram, name, Edit); editing happens in a sheet. */
+.profile-row {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-16);
+  min-height: var(--ds-size-row-lg);
+  border-top: 1px solid var(--ds-color-border-separator);
+  border-bottom: 1px solid var(--ds-color-border-separator);
+}
+.profile-row__name {
+  flex: 1;
+  font: var(--ds-text-body-lg);
+}
+.profile-row .monogram--empty,
+.profile-edit .monogram--empty {
+  color: var(--ds-color-text-accent);
+}
+.profile-edit {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-16);
+  padding: var(--ds-space-16) 0;
+}
+.profile-edit__photo {
+  width: var(--ds-size-control-cta);
+  height: var(--ds-size-control-cta);
+}
+.profile-edit__photo-btn {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  line-height: inherit;
+}
+.profile-edit__photo-btn::after {
+  border: 0;
+}
+.profile-edit__save {
+  margin-top: var(--ds-space-16);
+}
+
+/* Appointment: a month calendar and a grid of hours. */
+.calendar__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.calendar__nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--ds-size-target-min);
+  height: var(--ds-size-target-min);
+}
+.calendar__nav.is-off {
+  opacity: var(--ds-opacity-disabled-content);
+}
+.calendar__grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+.calendar__weekday,
+.calendar__day {
+  width: calc(100% / 7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-variant-numeric: lining-nums;
+}
+.calendar__weekday {
+  height: var(--ds-size-control-sm);
+  font: var(--ds-text-label-sm);
+  color: var(--ds-color-text-secondary);
+}
+.calendar__day {
+  height: var(--ds-size-target-min);
+  font: var(--ds-text-body-md);
+}
+.calendar__day.is-selected {
+  background: var(--ds-color-bg-accent-bold);
+  color: var(--ds-color-text-on-accent);
+}
+.calendar__day.is-off {
+  color: var(--ds-color-text-disabled);
+}
+.times {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-space-8);
+}
+.time {
+  width: calc((100% - 3 * var(--ds-space-8)) / 4);
+  min-height: var(--ds-size-target-min);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border: 1px solid var(--ds-color-border-default);
+  font-variant-numeric: lining-nums;
+}
+.time.is-selected {
+  background: var(--ds-color-bg-accent-bold);
+  border-color: var(--ds-color-bg-accent-bold);
+  color: var(--ds-color-text-on-accent);
+}
+.time.is-off {
+  color: var(--ds-color-text-disabled);
+  text-decoration: line-through;
+}
+
+/* Release windows, three candidate designs (components/ReleaseWindows.tsx). */
+.options__label {
+  margin-top: var(--ds-space-32);
+}
+.seal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--ds-size-control-sm);
+  height: var(--ds-size-control-sm);
+  padding: 0 var(--ds-space-4);
+  box-sizing: border-box;
+  border: 1px solid var(--ds-color-accent-light-9);
+  color: var(--ds-color-accent-light-9);
+  font-family: var(--ds-font-family-display);
+  font-size: var(--ds-text-title-sm-size);
+}
+.seal--filled {
+  background: var(--ds-color-accent-light-9);
+  color: var(--ds-color-neutral-light-1);
+}
+.band .seal {
+  border-color: var(--ds-color-text-on-accent);
+  color: var(--ds-color-text-on-accent);
+}
+.band .seal--filled {
+  background: var(--ds-color-text-on-accent);
+  color: var(--ds-color-bg-accent-bold);
+}
+.timeline {
+  position: relative;
+  display: flex;
+  margin-top: var(--ds-space-16);
+}
+.timeline__line {
+  display: none;
+}
+.timeline__step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ds-space-6);
+  border-top: 1px solid var(--ds-color-text-on-accent);
+  padding-top: var(--ds-space-12);
+  opacity: var(--ds-opacity-disabled-content);
+}
+.timeline__step.is-open,
+.timeline__step.is-mine {
+  opacity: 1;
+}
+.timeline__dot {
+  width: var(--ds-space-8);
+  height: var(--ds-space-8);
+  margin-top: calc(var(--ds-space-16) * -1);
+  border-radius: var(--ds-radius-full);
+  background: var(--ds-color-text-on-accent);
+}
+.timeline__step.is-mine .timeline__dot {
+  width: var(--ds-space-12);
+  height: var(--ds-space-12);
+  margin-top: calc(var(--ds-space-20) * -1 + var(--ds-space-2));
+}
+.timeline__tier {
+  font-family: var(--ds-font-family-display);
+  font-size: var(--ds-text-title-sm-size);
+}
+.timeline__date {
+  font: var(--ds-text-label-sm);
+  font-variant-numeric: lining-nums;
+}
+.compact {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-16);
+  padding: var(--ds-space-16);
+  border: 1px solid var(--ds-color-border-default);
+}
+.compact__text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-2);
+}
+.compact__side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.countdown {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-12);
+}
+.countdown__value {
+  font-family: var(--ds-font-family-display);
+  font-size: var(--ds-text-headline-md-size);
+  line-height: var(--ds-text-headline-md-line-height);
+  font-variant-numeric: lining-nums;
+}
+.countdown__seals {
+  display: flex;
+  gap: var(--ds-space-8);
 }

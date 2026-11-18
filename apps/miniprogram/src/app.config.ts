@@ -17,8 +17,8 @@ export default defineAppConfig({
   // The invitation card (canvas drawing and QR code) loads on demand, outside the 2 MB main package.
   subPackages: [{ root: 'packages/pass', pages: ['index'] }],
   window: {
-    // A native bar with the back arrow and the page title, in WeChat and (when set explicitly) in Taro's browser build.
-    navigationStyle: 'default',
+    // Pages draw their own top: no title bar, a floating back button below the status bar (components/ui.tsx, TopBar).
+    navigationStyle: 'custom',
     navigationBarBackgroundColor: theme.navBackground,
     navigationBarTextStyle: 'black',
     navigationBarTitleText: 'Shantung',

@@ -88,6 +88,23 @@ const en = {
   fullTitle: 'Fully reserved',
   savedTitle: 'Saved',
   detailsAction: 'Details',
+  cancel: 'Cancel',
+  back: 'Back',
+  edit: 'Edit',
+  save: 'Save',
+  addName: 'Add your name',
+  changePhoto: 'Change photo',
+  profile: 'Your profile',
+  weekdays: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+  monthTitle: (y: number, m: number) => `${MONTHS_LONG[m]} ${y}`,
+  prevMonth: 'Previous month',
+  nextMonth: 'Next month',
+  daysUntil: (n: number) => (n <= 1 ? 'tomorrow' : `in ${n} days`),
+  yourWindow: 'Your window',
+  windowIsOpen: 'Open now',
+  allWindows: 'All windows',
+  piecesLeft: (left: number, of: number) => `${left} of ${of} left`,
+  option: (letter: string, name: string) => `Option ${letter} · ${name}`,
 }
 
 type Strings = typeof en
@@ -178,6 +195,23 @@ const zh: Strings = {
   fullTitle: '已全部预留',
   savedTitle: '已保存',
   detailsAction: '详情',
+  cancel: '取消',
+  back: '返回',
+  edit: '编辑',
+  save: '保存',
+  addName: '添加您的称呼',
+  changePhoto: '更换头像',
+  profile: '个人资料',
+  weekdays: ['一', '二', '三', '四', '五', '六', '日'],
+  monthTitle: (y, m) => `${y}年${m + 1}月`,
+  prevMonth: '上个月',
+  nextMonth: '下个月',
+  daysUntil: (n) => (n <= 1 ? '明天' : `${n}天后`),
+  yourWindow: '您的预留通道',
+  windowIsOpen: '现已开放',
+  allWindows: '全部通道',
+  piecesLeft: (left, of) => `共${of}件，余${left}件`,
+  option: (letter, name) => `方案 ${letter} · ${name}`,
 }
 
 /** The saved choice, else the phone's (WeChat or browser) language: Chinese phones start in Chinese. */
@@ -200,6 +234,9 @@ export const TIERS = [
   { en: 'Kesi', zh: '缂丝' },
 ]
 
+/** A tier's name in the app's language (the card itself keeps both, as a brand mark). */
+export const tierName = (rank: number) => (lang() === 'zh-hans' ? TIERS[rank].zh : TIERS[rank].en)
+
 export function setLang(next: Lang) {
   store.set('lang', next)
   const s = t()
@@ -209,6 +246,7 @@ export function setLang(next: Lang) {
 }
 
 const pad = (n: number) => String(n).padStart(2, '0')
+const MONTHS_LONG = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 const DAYS_EN = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 const DAYS_ZH = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']

@@ -4,7 +4,7 @@ import type { Salon } from '@shantung/shared-types'
 import { useData, useLang } from '../../services/api'
 import { t } from '../../services/i18n'
 import { SeatAction, useSalonBooking } from '../../components/salonBooking'
-import { go, InfoStrip, Notice, Photo, usePageEnter, useReveal } from '../../components/ui'
+import { InfoStrip, Notice, Photo, chromeStyle, go, usePageEnter, useReveal } from '../../components/ui'
 
 /** The list stays short: photo, when and where, title, one line, seats and the action. Details are one tap away. */
 export default function Salons() {
@@ -21,7 +21,7 @@ export default function Salons() {
   })
 
   return (
-    <View className={`ds ${enter}`}>
+    <View className={`ds ${enter}`} style={chromeStyle()}>
       <View className='page-head'>
         <View>
           <Text className='t-display'>{s.privateSalons}</Text>

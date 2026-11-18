@@ -5,7 +5,7 @@ import type { Member } from '@shantung/shared-types'
 import { useData, useLang } from '../../services/api'
 import { loadFonts } from '../../services/fonts'
 import { lang, t } from '../../services/i18n'
-import { Notice, usePageEnter, usePopup } from '../../components/ui'
+import { Notice, TopBar, chromeStyle, usePageEnter, usePopup } from '../../components/ui'
 import { drawPass, H, W } from './draw'
 import './index.css'
 
@@ -103,7 +103,8 @@ export default function Pass() {
 
   const box = size ? { width: `${size.w}px`, height: `${size.h}px` } : undefined
   return (
-    <View className={`ds pass ${process.env.TARO_ENV === 'h5' ? 'pass--h5' : ''} ${enter}`}>
+    <View className={`ds pass ${process.env.TARO_ENV === 'h5' ? 'pass--h5' : ''} ${enter}`} style={chromeStyle()}>
+      <TopBar />
       <Text className='t-sub'>{s.vipPass}</Text>
       <View id='pass-frame' className='pass__frame'>
         <View className='pass__slot' style={box}>

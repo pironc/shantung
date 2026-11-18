@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import type { Story } from '@shantung/shared-types'
 import { useData, useLang } from '../../services/api'
 import { t } from '../../services/i18n'
-import { Notice, Paragraphs, Photo, usePageEnter, useReveal } from '../../components/ui'
+import { Notice, Paragraphs, Photo, TopBar, chromeStyle, usePageEnter, useReveal } from '../../components/ui'
 
 export default function StoryPage() {
   useLang()
@@ -18,10 +18,11 @@ export default function StoryPage() {
     if (st) Taro.setNavigationBarTitle({ title: st.title })
   }, [st?.title])
 
-  if (!st) return <View className={`ds ${enter}`}>{story.error && <Notice text={t().error} tone='danger' />}</View>
+  if (!st) return <View className={`ds ${enter}`} style={chromeStyle()}>{story.error && <Notice text={t().error} tone='danger' />}</View>
 
   return (
-    <View className={`ds ${enter}`}>
+    <View className={`ds ${enter}`} style={chromeStyle()}>
+      <TopBar />
       <Photo image={st.image} ratio={118} />
       <View className='page-head'>
         <View>

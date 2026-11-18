@@ -5,7 +5,7 @@ import type { Boutique, Salon } from '@shantung/shared-types'
 import { useData, useLang } from '../../services/api'
 import { t, TIERS } from '../../services/i18n'
 import { useSalonBooking } from '../../components/salonBooking'
-import { Icon, InfoStrip, Notice, Paragraphs, Photo, usePageEnter } from '../../components/ui'
+import { Icon, InfoStrip, Notice, Paragraphs, Photo, TopBar, chromeStyle, usePageEnter } from '../../components/ui'
 
 /** One salon in full: the story, then the practical facts, then one action. */
 export default function SalonPage() {
@@ -21,14 +21,15 @@ export default function SalonPage() {
     if (x) Taro.setNavigationBarTitle({ title: x.title })
   }, [x?.title])
 
-  if (!x) return <View className={`ds ${enter}`}>{salon.error && <Notice text={s.error} tone='danger' />}</View>
+  if (!x) return <View className={`ds ${enter}`} style={chromeStyle()}>{salon.error && <Notice text={s.error} tone='danger' />}</View>
 
   const shop = boutiques.data?.find((b) => b.code === x.boutique?.code)
   const st = booking.state(x)
   const quiet = st === 'full' || st === 'past'
 
   return (
-    <View className={`ds ${enter}`}>
+    <View className={`ds ${enter}`} style={chromeStyle()}>
+      <TopBar />
       <Photo image={x.image} ratio={100} />
       <InfoStrip iso={x.date} place={x.boutique} />
       <View className='section stack'>

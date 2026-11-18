@@ -8,6 +8,7 @@
   min-height: 0;
   overflow: hidden;
   padding: var(--ds-space-24);
+  padding-top: calc(var(--content-top, var(--ds-space-0)) + var(--ds-space-8));
   box-sizing: border-box;
 }
 /* The browser build's page sits under Taro's navigation bar: fill that page instead of the whole window. */
