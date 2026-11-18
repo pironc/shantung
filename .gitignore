@@ -5,3 +5,6 @@ dist/
 # Reference screenshots of third-party sites: copyrighted, keep local only
 .design-ref/
 DESIGN.md.hand-edited
+
+# Built from apps/cms/seed/packshots/mask.swift on first use
+apps/cms/seed/packshots/mask
