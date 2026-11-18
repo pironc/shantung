@@ -293,6 +293,7 @@ p {
   padding: var(--ds-space-48) var(--ds-space-40);
   text-align: center;
   background: var(--ds-color-surface-raised);
+  border-radius: var(--ds-radius-panel);
 }
 .kiosk__panel > div {
   display: grid;
