@@ -5,7 +5,7 @@ import type { Member } from '@shantung/shared-types'
 import { useData, useLang } from '../../services/api'
 import { loadFonts } from '../../services/fonts'
 import { lang, t } from '../../services/i18n'
-import { Notice } from '../../components/ui'
+import { Notice, usePageEnter } from '../../components/ui'
 import { drawPass, H, W } from './draw'
 import './index.css'
 
@@ -15,6 +15,10 @@ const COPY = {
 }
 
 type Node = { width: number; height: number; getContext(type: '2d'): CanvasRenderingContext2D; createImage?: () => any }
+type Size = { w: number; h: number }
+
+const query = <T,>(select: (q: Taro.SelectorQuery) => Taro.NodesRef, fields: (n: Taro.NodesRef) => Taro.SelectorQuery) =>
+  new Promise<T | null>((resolve) => fields(select(Taro.createSelectorQuery())).exec(([res]) => resolve((res as T) ?? null)))
 
 /** The canvas element: WeChat hands back a native node through a selector query; the browser build has a real <canvas>. */
 function canvasNode(): Promise<Node | null> {
@@ -22,36 +26,46 @@ function canvasNode(): Promise<Node | null> {
     const host = document.querySelector('#pass')
     return Promise.resolve((host?.tagName === 'CANVAS' ? host : host?.querySelector('canvas')) as unknown as Node | null)
   }
-  return new Promise((resolve) =>
-    Taro.createSelectorQuery()
-      .select('#pass')
-      .fields({ node: true, size: true })
-      .exec(([res]) => resolve((res?.node as Node) ?? null)),
-  )
+  return query<{ node: Node }>((q) => q.select('#pass'), (n) => n.fields({ node: true })).then((r) => r?.node ?? null)
 }
 
 export default function Pass() {
   useLang()
   const s = t()
+  const enter = usePageEnter()
   const copy = COPY[lang()]
   const me = useData<Member>('/api/me')
+  const [size, setSize] = useState<Size | null>(null)
   const [canvas, setCanvas] = useState<Node | null>(null)
   const [notice, setNotice] = useState('')
   useDidShow(() => Taro.setNavigationBarTitle({ title: s.vipPass }))
 
+  // Fit the card to the space between the title and the button, at its own proportions: the page never scrolls.
+  useEffect(() => {
+    const timer = setTimeout(async () => {
+      const box = await query<{ width: number; height: number }>((q) => q.select('#pass-frame'), (n) => n.boundingClientRect())
+      if (!box) return
+      const w = Math.floor(Math.min(box.width, (box.height * W) / H))
+      setSize({ w, h: Math.floor((w * H) / W) })
+    }, 50)
+    return () => clearTimeout(timer)
+  }, [])
+
   useEffect(() => {
     const member = me.data
-    if (!member) return
+    if (!member || !size) return
     let live = true
+    setCanvas(null)
     ;(async () => {
       await loadFonts()
       const node = await canvasNode()
       if (!node || !live) return
       const dpr = Taro.getSystemInfoSync().pixelRatio || 2
-      node.width = W * dpr
-      node.height = H * dpr
+      node.width = size.w * dpr
+      node.height = size.h * dpr
       const ctx = node.getContext('2d')
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+      const k = (size.w / W) * dpr
+      ctx.setTransform(k, 0, 0, k, 0, 0)
       const loadImage = (src: string) =>
         new Promise<any>((resolve) => {
           const img = node.createImage ? node.createImage() : new window.Image()
@@ -62,12 +76,12 @@ export default function Pass() {
       // The QR invites a friend to the maison with this member as the referrer.
       const link = `${process.env.TARO_APP_H5_URL}/#/pages/index/index?ref=${member.memberNo}`
       await drawPass(ctx, member, copy, link, loadImage)
-      setCanvas(node)
+      if (live) setCanvas(node)
     })()
     return () => {
       live = false
     }
-  }, [me.data, lang()])
+  }, [me.data, size, lang()])
 
   const save = async () => {
     if (!canvas) return
@@ -87,24 +101,23 @@ export default function Pass() {
     }
   }
 
+  const box = size ? { width: `${size.w}px`, height: `${size.h}px` } : undefined
   return (
-    <View className='ds pass'>
-      <View className='page-head'>
-        <View>
-          <Text className='t-display'>{s.vipPass}</Text>
-          <Text className='t-sub'>Shantung</Text>
+    <View className={`ds pass ${enter}`}>
+      <Text className='t-sub'>{s.vipPass}</Text>
+      <View id='pass-frame' className='pass__frame'>
+        <View className='pass__slot' style={box}>
+          <Canvas type='2d' id='pass' className={`pass__canvas ${canvas ? 'is-ready' : ''}`} style={box} ariaLabel={`${copy.invite[0]} ${copy.invite[1]}`} />
+          {/* Until the card is drawn (fonts, avatar, QR), a satin sheen passes over its outline. */}
+          <View className={`pass__loader ${canvas ? 'is-done' : ''}`} ariaHidden>
+            <View className='pass__sheen' />
+          </View>
         </View>
       </View>
-      <View className='pass__frame'>
-        <Canvas type='2d' id='pass' className='pass__canvas' ariaLabel={`${copy.invite[0]} ${copy.invite[1]}`} />
-      </View>
-      <View className='section'>
-        <Button className='btn' hoverClass='is-pressed' disabled={!canvas} onClick={save}>
-          {process.env.TARO_ENV === 'h5' ? copy.download : copy.save}
-        </Button>
-        <Notice text={notice || (me.error && s.error)} />
-      </View>
-      <View className='spacer' />
+      <Button className={`btn ${!canvas ? 'is-disabled' : ''}`} hoverClass='is-pressed' disabled={!canvas} onClick={save}>
+        {process.env.TARO_ENV === 'h5' ? copy.download : copy.save}
+      </Button>
+      <Notice text={notice || (me.error && s.error)} />
     </View>
   )
 }
