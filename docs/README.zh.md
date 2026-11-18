@@ -113,4 +113,4 @@ docker compose exec bff pnpm --filter bff test   # 50 位客户并发下的席�
 
 ## 致谢
 
-所有照片均采用开放许可；[`apps/cms/seed/photos/CREDITS.md`](../apps/cms/seed/photos/CREDITS.md) 列出了每张照片的作者与许可。标题字体为 Cormorant Garamond（SIL Open Font License）。Shantung、其作品与客户均为虚构。
+所有照片均采用开放许可；[`apps/cms/seed/photos/CREDITS.md`](../apps/cms/seed/photos/CREDITS.md) 列出了每张照片的作者与许可。商品图由这些照片制作，茶叶罐则以代码绘制，脚本见 [`apps/cms/seed/packshots`](../apps/cms/seed/packshots)。标题字体为 Cormorant Garamond（SIL Open Font License）。Shantung、其作品与客户均为虚构。

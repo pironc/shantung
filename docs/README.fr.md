@@ -113,4 +113,4 @@ docker compose exec bff pnpm --filter bff test   # compteur de places avec 50 cl
 
 ## Crédits
 
-Toutes les photos sont sous licence libre ; [`apps/cms/seed/photos/CREDITS.md`](../apps/cms/seed/photos/CREDITS.md) indique l'auteur et la licence de chacune. Les titres sont composés en Cormorant Garamond (SIL Open Font License). Shantung, ses pièces et ses clients sont fictifs.
+Toutes les photos sont sous licence libre ; [`apps/cms/seed/photos/CREDITS.md`](../apps/cms/seed/photos/CREDITS.md) indique l'auteur et la licence de chacune. Les photos produit sont tirées de ces photos, ou dessinées en code pour les boîtes de thé, par les scripts de [`apps/cms/seed/packshots`](../apps/cms/seed/packshots). Les titres sont composés en Cormorant Garamond (SIL Open Font License). Shantung, ses pièces et ses clients sont fictifs.

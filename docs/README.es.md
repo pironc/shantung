@@ -113,4 +113,4 @@ docker compose exec bff pnpm --filter bff test   # contador de plazas con 50 cli
 
 ## Créditos
 
-Todas las fotos tienen licencia abierta; [`apps/cms/seed/photos/CREDITS.md`](../apps/cms/seed/photos/CREDITS.md) indica el autor y la licencia de cada una. La tipografía de los titulares es Cormorant Garamond (SIL Open Font License). Shantung, sus piezas y sus clientes son ficticios.
+Todas las fotos tienen licencia abierta; [`apps/cms/seed/photos/CREDITS.md`](../apps/cms/seed/photos/CREDITS.md) indica el autor y la licencia de cada una. Las fotos de producto se crean a partir de ellas, o se dibujan en código en el caso de las latas de té, con los scripts de [`apps/cms/seed/packshots`](../apps/cms/seed/packshots). La tipografía de los titulares es Cormorant Garamond (SIL Open Font License). Shantung, sus piezas y sus clientes son ficticios.

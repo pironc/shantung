@@ -113,4 +113,4 @@ docker compose exec bff pnpm --filter bff test   # счётчик мест пр�
 
 ## Благодарности
 
-Все фотографии распространяются по открытым лицензиям; в [`apps/cms/seed/photos/CREDITS.md`](../apps/cms/seed/photos/CREDITS.md) для каждой указаны автор и лицензия. Шрифт заголовков — Cormorant Garamond (SIL Open Font License). Shantung, его изделия и клиенты вымышлены.
+Все фотографии распространяются по открытым лицензиям; в [`apps/cms/seed/photos/CREDITS.md`](../apps/cms/seed/photos/CREDITS.md) для каждой указаны автор и лицензия. Снимки товаров собраны из этих фотографий скриптами из [`apps/cms/seed/packshots`](../apps/cms/seed/packshots), а чайные банки нарисованы в коде. Шрифт заголовков — Cormorant Garamond (SIL Open Font License). Shantung, его изделия и клиенты вымышлены.

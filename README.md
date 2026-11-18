@@ -113,4 +113,4 @@ docker compose exec bff pnpm --filter bff test   # seat counter under 50 concurr
 
 ## Credits
 
-Every photo is openly licensed; [`apps/cms/seed/photos/CREDITS.md`](apps/cms/seed/photos/CREDITS.md) lists each one with its author and licence. Display type is Cormorant Garamond (SIL Open Font License). Shantung, its pieces and its clients are fictional.
+Every photo is openly licensed; [`apps/cms/seed/photos/CREDITS.md`](apps/cms/seed/photos/CREDITS.md) lists each one with its author and licence. The product shots are made from these photos, or drawn in code for the tea tins, by the scripts in [`apps/cms/seed/packshots`](apps/cms/seed/packshots). Display type is Cormorant Garamond (SIL Open Font License). Shantung, its pieces and its clients are fictional.
