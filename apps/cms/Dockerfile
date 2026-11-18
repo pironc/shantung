@@ -10,6 +10,7 @@ RUN COMPOSER_ALLOW_SUPERUSER=1 composer require drush/drush:^13 --no-interaction
 ENV PATH="/opt/drupal/vendor/bin:${PATH}"
 
 COPY settings.php web/sites/default/settings.php
+COPY seed seed
 COPY entrypoint.sh /usr/local/bin/shantung-entrypoint
 ENTRYPOINT ["shantung-entrypoint"]
 CMD ["apache2-foreground"]
