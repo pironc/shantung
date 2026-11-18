@@ -91,7 +91,7 @@ foreach ([
 
 foreach ([
   ['SC-PEN-90', 'Scarves', 4800, 'Penglai Mist', '蓬莱云雾', 'Silk twill, 90 × 90 cm', '真丝斜纹，90 × 90 厘米', ['scarf-penglai-mist'],
-    "Peonies drift across a sea-green ground, the colour of the morning haze over Penglai.\n\nHand-rolled edges, printed in Shandong.", "牡丹浮于海青色底上，宛如蓬莱清晨的薄雾。\n\n手工卷边，山东印制。", FALSE, NULL, NULL],
+    "Palace pavilions rise from a sea of cloud, after Yuan Jiang's Penglai Immortal Island of 1708, printed in the blue-grey of the morning haze.\n\nHand-rolled edges, printed in Shandong.", "云海之上楼阁隐现，取自袁江 1708 年所绘《蓬莱仙岛图》，以晨雾般的灰蓝色印制。\n\n手工卷边，山东印制。", FALSE, NULL, NULL],
   ['SC-IMP-90', 'Scarves', 5600, 'Imperial Thread', '御线', 'Silk twill, 90 × 90 cm', '真丝斜纹，90 × 90 厘米', ['scarf-imperial-thread', 'silk-scarf-design'],
     "Lilac clouds on a field of gold, drawn from an archive design for a court scarf.\n\nHand-rolled edges.", "金色底上的丁香色云纹，取自宫廷丝巾的档案图稿。\n\n手工卷边。", FALSE, NULL, NULL],
   ['SC-KES-140', 'Scarves', 12800, 'Cloud Gate', '云门', 'Kesi-woven silk, 140 × 140 cm', '缂丝织造，140 × 140 厘米', ['scarf-kesi-cloud-gate', 'kesi-detail'],
