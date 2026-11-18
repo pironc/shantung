@@ -558,3 +558,113 @@ Append-only, ADR-style (spec 7.9): one entry per decision, newest last. A later 
 - STD-components-toasts-drawers-78: followed; it sets no values (DESIGN.md carries it)
 - STD-visual-details-61: followed; it sets no values (DESIGN.md carries it)
 - STD-visual-details-62: followed; it sets no values (DESIGN.md and review carry it)
+
+## D-0020 · answers.Q-aud-01 = "large"
+- set_by: chosen · locked: no · date: 2026-11-18 · supersedes: D-0017 · source_ref: none
+- reason: sketch: Level 0 answer
+- previous value: "large"
+- also set: dials.density = 15 (from Q-aud-01)
+
+## D-0021 · context.audience = "people who use it now and then, often on a phone"
+- set_by: assumed · locked: no · date: 2026-11-18 · supersedes: none · source_ref: none
+- reason: sketch: plain words for Q-aud-01
+- previous value: ""
+
+## D-0022 · raw.brandColor = "#932b1e"
+- set_by: delegated · locked: no · date: 2026-11-18 · supersedes: none · source_ref: none
+- reason: sketch: picked for them
+
+## D-0023 · answers.Q-plat-01 = ["ios", "android", "web"]
+- set_by: chosen · locked: no · date: 2026-11-18 · supersedes: D-0013 · source_ref: none
+- reason: sketch: Level 0 answer
+- previous value: ["ios", "android", "web"]
+- also set: raw.platforms = ["ios", "android", "web"] (from Q-plat-01)
+
+## D-0024 · macros = ["premium", "heritage", "deferential", "minimal"]
+- set_by: delegated · locked: no · date: 2026-11-18 · supersedes: none · source_ref: none
+- reason: sketch: picked for them (feel words: premium, heritage, calm, minimal)
+- previous value: []
+
+## D-0025 · taste.feelWords = ["premium", "heritage", "calm", "minimal"]
+- set_by: delegated · locked: no · date: 2026-11-18 · supersedes: none · source_ref: none
+- reason: sketch: feel words picked for them
+
+## D-0026 · taste.brief = "dark red, black and white, with sunny clear-blue-sky Chinese architecture"
+- set_by: chosen · locked: no · date: 2026-11-18 · supersedes: none · source_ref: none
+- reason: sketch: the person's picture of the look
+
+## D-0027 · answers.Q-theme-01 = "system-light-dark"
+- set_by: delegated · locked: no · date: 2026-11-18 · supersedes: none · source_ref: none
+- reason: sketch: picked for them
+- also set: raw.flags.darkMode = true (from Q-theme-01)
+- also set: raw.defaultTheme = "system" (from Q-theme-01)
+
+## D-0028 · answers.Q-scope-06 = ["mini program:experience", "advisor portal:operate", "entrance kiosk:experience"]
+- set_by: chosen · locked: no · date: 2026-11-18 · supersedes: none · source_ref: none
+- reason: sketch: Level 0 answer
+- also set: context.surfaces = [{"name": "mini program", "mode": "Experience"}, {"name": "advisor portal", "mode": "Operate"}, {"name": "entrance kiosk", "mode": "Experience"}] (from Q-scope-06)
+- also set: raw.productType = "marketing" (from Q-scope-06)
+- also set: raw.marketingSurfaces = true (from Q-scope-06)
+
+## D-0029 · defaults.persuade = ["spacing", "hero"]
+- set_by: auto_default · locked: no · date: 2026-11-18 · supersedes: none · source_ref: DC-L03-16, DC-L06-03, S-L03-074, S-L06-002
+- reason: Marketing page defaults for what you have not answered, set or locked (main surface: Experience). Confirm or change any of them like any other answer.
+- spacing: Spacious spacing by default, with 48px controls (buttons on the page 48 to 56px) [DC-L03-07, S-L03-082, S-L03-074]
+- hero: Headings step up by at least 1.25, with hero moments and a separate display scale [DC-L06-03, S-L06-002, DC-L02-09]
+
+## D-0030 · answers.Q-dir-01 = "flat2"
+- set_by: delegated · locked: no · date: 2026-11-18 · supersedes: none · source_ref: none
+- reason: delegated: flat surfaces with thin rules over tonal or glass, matching the measured reference (no shadows, 1px lines); to undo, pick Q-dir-01 again
+- also set: preset = "flat2" (from Q-dir-01)
+
+## D-0031 · answers.Q-color-02 = "signature-surface"
+- set_by: delegated · locked: no · date: 2026-11-18 · supersedes: none · source_ref: none
+- reason: delegated: red stays rare (about 4% of the page) but owns full-width bands (salons, limited releases, the Brocade card) over accent-only; to undo, pick Q-color-02 accent
+- also set: overrides.color.brandRole = "accent+signature-surface" (from Q-color-02)
+- also set: overrides.chrome.navTreatment = "neutral" (from Q-color-02)
+- also set: overrides.color.surfaces = "tinted-containers" (from Q-color-02)
+
+## D-0032 · answers.Q-type-01 = "brand-display"
+- set_by: delegated · locked: no · date: 2026-11-18 · supersedes: none · source_ref: none
+- reason: delegated: a free luxury serif for titles and labels, the device font for running text (PingFang/Songti keep Chinese fast, nothing heavy to load in WeChat) over a serif everywhere; to undo, pick Q-type-01 again
+- also set: raw.textFace = "system" (from Q-type-01)
+- also set: raw.displayFace = "=brandFace" (from Q-type-01)
+
+## D-0033 · answers.Q-motion-01 = "two-mode"
+- set_by: delegated · locked: no · date: 2026-11-18 · supersedes: none · source_ref: none
+- reason: delegated: plain, calm motion for most actions and slow, polished moments for a few (tier card reveal, gallery entrances) over springs; owner asked for smooth and premium
+- also set: dials.energy = 50 (from Q-motion-01)
+- also set: raw.flags.motionOff = false (from Q-motion-01)
+
+## D-0034 · overrides.font.family.display = "\"Cormorant Garamond\", \"Songti SC\", \"Noto Serif SC\", \"Noto Serif CJK SC\", serif"
+- set_by: delegated · locked: no · date: 2026-11-18 · supersedes: none · source_ref: none
+- reason: delegated: Cormorant Garamond (SIL OFL, free to self-host) is an open old-style serif of the same class as the measured reference display face; Chinese titles fall back to the phone's own Song serif so nothing heavy loads in WeChat
+
+## D-0035 · overrides.font.family.text = "-apple-system, \"PingFang SC\", \"Hiragino Sans GB\", \"Noto Sans SC\", \"Microsoft YaHei\", Roboto, \"Helvetica Neue\", Arial, sans-serif"
+- set_by: delegated · locked: no · date: 2026-11-18 · supersedes: none · source_ref: none
+- reason: delegated: the device's own sans for running text, with the Chinese system faces listed first after the Apple stack so zh-Hans text never falls back to a Japanese face
+
+## D-0036 · raw.fontLicence = {"web": true, "app": true, "selfHost": true}
+- set_by: delegated · locked: no · date: 2026-11-18 · supersedes: none · source_ref: none
+- reason: Cormorant Garamond is SIL Open Font License 1.1: web, app and self-hosting allowed
+- previous value: {"web": null, "app": null, "selfHost": null}
+
+## D-0037 · dials.energy = 20
+- set_by: delegated · locked: no · date: 2026-11-18 · supersedes: none · source_ref: none
+- reason: delegated: calm and slow (owner: smooth, premium); no bounce
+- previous value: 50
+
+## D-0038 · overrides.font.family.display = ["Cormorant Garamond", "Songti SC", "Noto Serif SC", "Noto Serif CJK SC", "serif"]
+- set_by: delegated · locked: no · date: 2026-11-18 · supersedes: D-0034 · source_ref: none
+- reason: delegated: Cormorant Garamond (SIL OFL) is an open old-style serif of the same class as the measured reference display face; Chinese titles fall back to the phone's own Song serif, so nothing heavy loads in WeChat
+- previous value: "\"Cormorant Garamond\", \"Songti SC\", \"Noto Serif SC\", \"Noto Serif CJK SC\", serif"
+
+## D-0039 · overrides.font.family.text = ["-apple-system", "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", "Roboto", "Helvetica Neue", "Arial", "sans-serif"]
+- set_by: delegated · locked: no · date: 2026-11-18 · supersedes: D-0035 · source_ref: none
+- reason: delegated: the device's own sans for running text, with Chinese system faces early so zh-Hans never falls back to a Japanese face
+- previous value: "-apple-system, \"PingFang SC\", \"Hiragino Sans GB\", \"Noto Sans SC\", \"Microsoft YaHei\", Roboto, \"Helvetica Neue\", Arial, sans-serif"
+
+## D-0040 · hooks.H-photo.status = "open-library"
+- set_by: delegated · locked: no · date: 2026-11-18 · supersedes: none · source_ref: none
+- reason: 27 open-licence photos from Wikimedia Commons (CC0, PD, CC BY, CC BY-SA), reviewed for brands and people, credits in apps/cms/seed/photos/CREDITS.md; a real maison would commission its own shoot
+- previous value: "pending"

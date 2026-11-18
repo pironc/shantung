@@ -5,15 +5,29 @@
   "levers_version": "levers/1.0 2026-09-23",
   "opendesigner": {
     "version": "0.3.1",
-    "created": "0.3.1"
+    "created": "0.3.1",
+    "built": "0.3.1"
   },
   "mode": "standard",
   "name": "Shantung",
   "summary": "",
   "context": {
     "product": "a WeChat Mini Program for the clients of Shantung, a Shandong luxury maison (silk scarves, ties, Laoshan green tea), plus the iPad tools its boutiques use: the advisors portal and an entrance kiosk",
-    "audience": "",
-    "surfaces": [],
+    "audience": "people who use it now and then, often on a phone",
+    "surfaces": [
+      {
+        "name": "mini program",
+        "mode": "Experience"
+      },
+      {
+        "name": "advisor portal",
+        "mode": "Operate"
+      },
+      {
+        "name": "entrance kiosk",
+        "mode": "Experience"
+      }
+    ],
     "entryPath": "",
     "memorable": "",
     "scope": {
@@ -39,11 +53,16 @@
     "brandPresence": null,
     "density": {
       "value": 15,
-      "set_by": "assumed",
+      "set_by": "chosen",
       "detached": true,
-      "decision": "D-0017"
+      "decision": "D-0020"
     },
-    "energy": null,
+    "energy": {
+      "value": 20,
+      "set_by": "delegated",
+      "detached": true,
+      "decision": "D-0037"
+    },
     "roundness": {
       "value": 6,
       "set_by": "reference",
@@ -69,18 +88,23 @@
       "decision": "D-0011"
     }
   },
-  "preset": null,
+  "preset": "flat2",
   "style": null,
   "customStyles": {},
-  "macros": [],
+  "macros": [
+    "premium",
+    "heritage",
+    "deferential",
+    "minimal"
+  ],
   "raw": {
-    "brandColor": null,
+    "brandColor": "#932b1e",
     "primaryActionColor": null,
     "focusColor": null,
     "neutralBase": null,
     "contrastTarget": "AA",
     "textFace": "system",
-    "displayFace": "=textFace",
+    "displayFace": "=brandFace",
     "baseSize": null,
     "spaceUnit": 4,
     "platforms": [
@@ -92,8 +116,8 @@
       "pointer",
       "touch"
     ],
-    "productType": "work-tool",
-    "marketingSurfaces": false,
+    "productType": "marketing",
+    "marketingSurfaces": true,
     "flags": {
       "brandExact": true,
       "tintTowardBrand": false,
@@ -104,9 +128,9 @@
     "overrides": {},
     "brandFace": null,
     "fontLicence": {
-      "web": null,
-      "app": null,
-      "selfHost": null
+      "web": true,
+      "app": true,
+      "selfHost": true
     },
     "fontClass": null,
     "accentCount": null,
@@ -349,7 +373,28 @@
     "font.size.input": {
       "value": 16,
       "unit": "px"
-    }
+    },
+    "color.brandRole": "accent+signature-surface",
+    "chrome.navTreatment": "neutral",
+    "color.surfaces": "tinted-containers",
+    "font.family.display": [
+      "Cormorant Garamond",
+      "Songti SC",
+      "Noto Serif SC",
+      "Noto Serif CJK SC",
+      "serif"
+    ],
+    "font.family.text": [
+      "-apple-system",
+      "PingFang SC",
+      "Hiragino Sans GB",
+      "Noto Sans SC",
+      "Microsoft YaHei",
+      "Roboto",
+      "Helvetica Neue",
+      "Arial",
+      "sans-serif"
+    ]
   },
   "answers": {
     "Q-plat-01": {
@@ -358,9 +403,10 @@
         "android",
         "web"
       ],
-      "set_by": "assumed",
-      "decision": "D-0013",
-      "locked": false
+      "set_by": "chosen",
+      "decision": "D-0023",
+      "locked": false,
+      "via": "sketch"
     },
     "Q-scope-07": {
       "value": "building",
@@ -370,8 +416,51 @@
     },
     "Q-aud-01": {
       "value": "large",
-      "set_by": "assumed",
-      "decision": "D-0017",
+      "set_by": "chosen",
+      "decision": "D-0020",
+      "locked": false,
+      "via": "sketch"
+    },
+    "Q-theme-01": {
+      "value": "system-light-dark",
+      "set_by": "delegated",
+      "decision": "D-0027",
+      "via": "sketch",
+      "locked": false
+    },
+    "Q-scope-06": {
+      "value": [
+        "mini program:experience",
+        "advisor portal:operate",
+        "entrance kiosk:experience"
+      ],
+      "set_by": "chosen",
+      "decision": "D-0028",
+      "via": "sketch",
+      "locked": false
+    },
+    "Q-dir-01": {
+      "value": "flat2",
+      "set_by": "delegated",
+      "decision": "D-0030",
+      "locked": false
+    },
+    "Q-color-02": {
+      "value": "signature-surface",
+      "set_by": "delegated",
+      "decision": "D-0031",
+      "locked": false
+    },
+    "Q-type-01": {
+      "value": "brand-display",
+      "set_by": "delegated",
+      "decision": "D-0032",
+      "locked": false
+    },
+    "Q-motion-01": {
+      "value": "two-mode",
+      "set_by": "delegated",
+      "decision": "D-0033",
       "locked": false
     }
   },
@@ -444,7 +533,7 @@
       "note": ""
     },
     "H-photo": {
-      "status": "pending",
+      "status": "open-library",
       "name": "Photography and art direction",
       "question": "Q-img-01",
       "files": [],
@@ -509,7 +598,8 @@
   },
   "zoom": {},
   "profile": {
-    "voice": "plain"
+    "voice": "plain",
+    "tracking": "on"
   },
   "blocks": {},
   "references": {
@@ -562,9 +652,24 @@
       "status": "accepted"
     }
   },
-  "taste": {},
-  "research": {},
-  "hashes": {},
+  "taste": {
+    "feelWords": [
+      "premium",
+      "heritage",
+      "calm",
+      "minimal"
+    ],
+    "brief": "dark red, black and white, with sunny clear-blue-sky Chinese architecture"
+  },
+  "research": {
+    "status": "skipped",
+    "skipped_why": "delegated: the owner said to work to the end without stopping; the market is known from the brief (luxury maisons' WeChat Mini Programs and in-boutique clienteling in China)",
+    "skipped": "2026-11-18"
+  },
+  "hashes": {
+    "DESIGN.md": "b8a4912f1fef9fad",
+    "PRODUCT.md": "8da1468d6c3135e8"
+  },
   "exports": {
     "prefix": "ds",
     "figmaPlan": "professional",
@@ -3633,5 +3738,13 @@
       "font.size.input": "dimension"
     },
     "snapshots": "standards-state.json"
+  },
+  "checkins": {
+    "last": {
+      "date": "2026-11-18",
+      "decisions": 40,
+      "rounds": 0,
+      "toFix": 3
+    }
   }
 }

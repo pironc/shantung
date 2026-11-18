@@ -3,7 +3,7 @@
 How work runs in this project. Every agent follows it. Written by OpenDesigner on 2026-11-18; edit it to fit.
 
 <!-- od:now: the engine rewrites this block after each command that changes the system; engine.py status prints it -->
-**Now:** step 1 Discover. **Waiting for the owner:** a yes at gate 1 on the brief. **Next:** engine.py build. Last engine command: `set` (2026-11-18).
+**Now:** step 1 Discover. **Waiting for the owner:** a yes at gate 1 on the brief; whether to write the hand-off for later sessions (AGENTS.md and a CLAUDE.md that imports it). **Next:** ask once, then engine.py handoff yes --quote "<their words>" (or handoff no). Last engine command: `build` (2026-11-18).
 <!-- /od:now -->
 
 After a context reset or in a new session, read the Now line first. The engine keeps it current; everything else here is yours to edit.
@@ -38,11 +38,11 @@ Nothing is done until 3 to 5 have run.
 Record each one: `engine.py feedback "<the rule, one line>" --kind note`. Said twice, it is a rule in `RULES.md`: apply it everywhere, in every later round.
 
 ## Brief
-- What it is:
-- Who it's for:
-- The one action:
-- Proof we can show:
-- Words we never use:
+- What it is: the WeChat Mini Program of Shantung, a Shandong maison of silk scarves, ties and Laoshan green tea, plus its boutiques' iPad tools
+- Who it's for: the maison's clients (on phones, now and then) and its boutique advisors (on iPads, all day)
+- The one action: reserve: a seat at a private salon, a limited piece, or a piece to try in the boutique
+- Proof we can show: none yet (fictional maison); assumed
+- Words we never use: cheap, deal, hurry, selling fast, countdown pressure
 
 A site that persuades also gets the site brief (Q-site-01 to 05: goal, roles, proof, how it is found, page families). Record it with `engine.py pick`; PRODUCT.md shows it, and step 4 builds one layout per page family.
 
