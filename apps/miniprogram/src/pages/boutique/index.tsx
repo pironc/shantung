@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import type { Boutique } from '@shantung/shared-types'
 import { useData, useLang } from '../../services/api'
 import { t } from '../../services/i18n'
-import { InfoStrip, Paragraphs, Photo, TopBar, chromeStyle, go, usePageEnter } from '../../components/ui'
+import { AddressFact, InfoStrip, Paragraphs, Photo, TopBar, chromeStyle, go, usePageEnter } from '../../components/ui'
 
 /** A boutique: its city's landmark, how to find it, and the way to book a visit. */
 export default function BoutiquePage() {
@@ -32,10 +32,7 @@ export default function BoutiquePage() {
       <View className='section'>
         <Text className='t-title'>{s.practical}</Text>
         <View className='facts'>
-          <View className='fact'>
-            <Text className='t-label'>{s.address}</Text>
-            <Text>{b.address}</Text>
-          </View>
+          <AddressFact boutique={b} label={s.address} />
           <View className='fact'>
             <Text className='t-label'>{s.hours}</Text>
             <Text>{b.hours}</Text>

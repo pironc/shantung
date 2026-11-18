@@ -3,9 +3,9 @@ import { Button, Text, View } from '@tarojs/components'
 import { useEffect } from 'react'
 import type { Boutique, Salon } from '@shantung/shared-types'
 import { useData, useLang } from '../../services/api'
-import { t, TIERS } from '../../services/i18n'
+import { t } from '../../services/i18n'
 import { useSalonBooking } from '../../components/salonBooking'
-import { Icon, InfoStrip, Notice, Paragraphs, Photo, TopBar, chromeStyle, usePageEnter } from '../../components/ui'
+import { AddressFact, Icon, InfoStrip, Notice, Paragraphs, Photo, TopBar, chromeStyle, usePageEnter } from '../../components/ui'
 
 /** One salon in full: the story, then the practical facts, then one action. */
 export default function SalonPage() {
@@ -25,7 +25,8 @@ export default function SalonPage() {
 
   const shop = boutiques.data?.find((b) => b.code === x.boutique?.code)
   const st = booking.state(x)
-  const quiet = st === 'full' || st === 'past'
+  // Locked, full or passed: a greyed button that does nothing (the label says why).
+  const quiet = st === 'full' || st === 'past' || st === 'locked'
 
   return (
     <View className={`ds ${enter}`} style={chromeStyle()}>
@@ -42,10 +43,7 @@ export default function SalonPage() {
       <View className='section'>
         <Text className='t-title'>{s.practical}</Text>
         <View className='facts'>
-          <View className='fact'>
-            <Text className='t-label'>{s.address}</Text>
-            <Text>{shop ? `${shop.title} · ${shop.address}` : x.boutique?.title}</Text>
-          </View>
+          {shop && <AddressFact boutique={shop} label={s.address} />}
           {shop && (
             <View className='fact'>
               <Text className='t-label'>{s.hours}</Text>
@@ -56,18 +54,12 @@ export default function SalonPage() {
             <Text className='t-label'>{s.seatsLabel}</Text>
             <Text>{s.seatsLeft(x.seatsLeft, x.seats)}</Text>
           </View>
-          <View className='fact'>
-            <Text className='t-label'>{s.invitation}</Text>
-            <Text>
-              {TIERS[x.minTierRank].zh} {TIERS[x.minTierRank].en}
-            </Text>
-          </View>
         </View>
       </View>
       <View className='section'>
-        <Button className={`btn ${st === 'open' ? '' : 'btn--ghost'} ${quiet ? 'is-disabled' : ''}`} hoverClass='is-pressed' disabled={quiet || booking.busy === x.id} onClick={() => booking.act(x, salon.reload)}>
+        <Button className={`btn ${st === 'reserved' ? 'btn--ghost' : ''} ${quiet ? 'is-disabled' : ''}`} hoverClass='is-pressed' disabled={quiet || booking.busy === x.id} onClick={() => booking.act(x, salon.reload)}>
           {st === 'reserved' && <Icon name='check' />}
-          {st === 'locked' && <Icon name='lock' />}
+          {st === 'locked' && <Icon name='lock' muted />}
           <Text>{booking.label(x)}</Text>
         </Button>
       </View>

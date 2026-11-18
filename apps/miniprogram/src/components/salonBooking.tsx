@@ -4,7 +4,7 @@ import type { Member, Reservation, Salon } from '@shantung/shared-types'
 import { api, ApiError, useData } from '../services/api'
 import { t, tierName, when } from '../services/i18n'
 import { store } from '../services/store'
-import { go, Icon, usePopup } from './ui'
+import { Icon, usePopup } from './ui'
 
 export type SeatState = 'reserved' | 'locked' | 'full' | 'past' | 'open'
 
@@ -35,12 +35,10 @@ export function useSalonBooking() {
     switch (state(x)) {
       case 'reserved':
         return show({ title: s.alreadyTitle, text: s.alreadySeat(when(x.date), place) })
-      case 'locked':
-        return show({ title: s.byInvitationTitle(tierName(x.minTierRank)), text: s.byInvitationText, action: { label: s.seeTiers, run: () => go('/pages/membership/index') } })
       case 'open':
         break
       default:
-        return // full or passed: the label already says so
+        return // locked, full or passed: the greyed label already says so
     }
     if (busy) return
     setBusy(x.id)
@@ -76,7 +74,7 @@ export function SeatAction({ salon, booking }: { salon: Salon; booking: ReturnTy
         booking.act(salon)
       }}
     >
-      {icon && <Icon name={icon} />}
+      {icon && <Icon name={icon} muted={st === 'locked'} />}
       <Text>
         {booking.label(salon)}
         {st === 'open' ? ' →' : ''}
