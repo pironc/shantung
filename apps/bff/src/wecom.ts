@@ -106,6 +106,8 @@ export async function wecomRoutes(app: FastifyInstance) {
       connection: 'keep-alive',
       'access-control-allow-origin': '*',
     })
+    // Node holds headers until the first write; send a comment now so the browser sees the stream open.
+    reply.raw.write(': connected\n\n')
     const send = (msg: string) => reply.raw.write(`data: ${msg}\n\n`)
     const ping = setInterval(() => reply.raw.write(': ping\n\n'), 25_000)
     screens.add(send)
