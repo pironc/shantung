@@ -358,3 +358,203 @@ Append-only, ADR-style (spec 7.9): one entry per decision, newest last. A later 
 ## D-0011 · dials.warmth = 50
 - set_by: reference · locked: no · date: 2026-11-18 · supersedes: none · source_ref: lacquer-gallery
 - reason: from reference lacquer-gallery (high confidence): neutral tint chroma 0.0 at hue 90.0 -> A8 anchors
+
+## D-0012 · context.product = "a WeChat Mini Program for the clients of Shantung, a Shandong luxury maison (silk scarves, ties, Laoshan green tea), plus the iPad tools its boutiques use: the advisors portal and an entrance kiosk"
+- set_by: assumed · locked: no · date: 2026-11-18 · supersedes: D-0002 · source_ref: none
+- reason: from the owner's description of the product
+- previous value: "WeChat DevTools: import apps/miniprogram/dist/weapp with the test AppID."
+
+## D-0013 · answers.Q-plat-01 = ["ios", "android", "web"]
+- set_by: assumed · locked: no · date: 2026-11-18 · supersedes: D-0003 · source_ref: none
+- reason: the Mini Program runs inside WeChat on iPhone and Android phones; the browser version and the boutique iPad screens are web
+- previous value: ["web"]
+- also set: raw.platforms = ["ios", "android", "web"] (from Q-plat-01)
+
+## D-0014 · House standards v4 for android, compose, css, ios, swift, web: 138 now apply, 0 no longer apply
+- set_by: standard · locked: yes · date: 2026-11-18 · supersedes: none · source_ref: standards.json v4
+- reason: The platforms or the stack changed, so the house standards were re-scoped: the ones that now apply are applied and locked; the ones that no longer apply are unlocked, not reverted.
+- <details><summary>138 standards</summary> STD-when-to-animate-14, STD-enter-exit-origin-25, STD-enter-exit-origin-33, STD-performance-properties-18, STD-performance-properties-19, STD-performance-properties-20, STD-components-toasts-drawers-08, STD-components-toasts-drawers-60, STD-mobile-touch-30, STD-mobile-touch-33, STD-mobile-touch-34, STD-mobile-touch-35, STD-mobile-touch-36, STD-mobile-touch-37, STD-mobile-touch-38, STD-mobile-touch-39, STD-mobile-touch-41, STD-mobile-touch-42, STD-mobile-touch-44, STD-mobile-touch-48, STD-mobile-touch-51, STD-mobile-touch-60, STD-mobile-touch-61, STD-mobile-touch-62, STD-mobile-touch-67, STD-swift-01, STD-swift-02, STD-swift-03, STD-swift-04, STD-swift-05, STD-swift-06, STD-swift-07, STD-swift-08, STD-swift-09, STD-swift-10, STD-swift-11, STD-swift-12, STD-swift-13, STD-swift-14, STD-swift-15, STD-swift-16, STD-swift-17, STD-swift-18, STD-swift-19, STD-swift-20, STD-swift-21, STD-swift-22, STD-swift-23, STD-swift-24, STD-swift-25, STD-swift-26, STD-swift-27, STD-swift-28, STD-swift-29, STD-swift-30, STD-swift-31, STD-swift-32, STD-swift-33, STD-swift-34, STD-swift-35, STD-swift-36, STD-swift-37, STD-swift-38, STD-swift-39, STD-swift-40, STD-swift-41, STD-swift-42, STD-swift-43, STD-swift-44, STD-swift-45, STD-swift-46, STD-swift-47, STD-swift-48, STD-swift-49, STD-swift-50, STD-swift-51, STD-swift-52, STD-swift-53, STD-swift-54, STD-swift-55, STD-swift-56, STD-swift-57, STD-swift-58, STD-swift-59, STD-swift-60, STD-swift-61, STD-swift-62, STD-swift-63, STD-swift-64, STD-swift-65, STD-swift-66, STD-swift-67, STD-swift-68, STD-swift-69, STD-swift-70, STD-swift-71, STD-swift-72, STD-swift-73, STD-swift-74, STD-swift-75, STD-swift-76, STD-swift-77, STD-swift-78, STD-swift-79, STD-swift-80, STD-swift-81, STD-swift-82, STD-swift-83, STD-swift-84, STD-swift-85, STD-swift-86, STD-swift-87, STD-swift-88, STD-swift-89, STD-swift-90, STD-swift-91, STD-swift-92, STD-swift-93, STD-swift-94, STD-swift-95, STD-swift-96, STD-swift-97, STD-swift-98, STD-swift-99, STD-swift-100, STD-swift-101, STD-swift-102, STD-swift-103, STD-swift-104, STD-swift-105, STD-swift-106, STD-swift-107, STD-swift-108, STD-swift-109, STD-swift-110, STD-swift-111, STD-swift-112, STD-swift-113</details>
+- STD-when-to-animate-14: followed; it sets no values (DESIGN.md and review carry it)
+- STD-enter-exit-origin-25: followed; it sets no values (DESIGN.md and review carry it)
+- STD-enter-exit-origin-33: followed; it sets no values (DESIGN.md and review carry it)
+- STD-performance-properties-18: followed; it sets no values (DESIGN.md and review carry it)
+- STD-performance-properties-19: followed; it sets no values (DESIGN.md and review carry it)
+- STD-performance-properties-20: followed; it sets no values (DESIGN.md and review carry it)
+- STD-components-toasts-drawers-08: followed; it sets no values (DESIGN.md carries it)
+- STD-components-toasts-drawers-60: followed; it sets no values (DESIGN.md carries it)
+- STD-mobile-touch-30: followed; it sets no values (DESIGN.md carries it)
+- STD-mobile-touch-33: followed; it sets no values (DESIGN.md and review carry it)
+- STD-mobile-touch-34: followed; it sets no values (DESIGN.md and review carry it)
+- STD-mobile-touch-35: followed; it sets no values (DESIGN.md carries it)
+- STD-mobile-touch-36: followed; it sets no values (DESIGN.md carries it)
+- STD-mobile-touch-37: followed; it sets no values (DESIGN.md carries it)
+- STD-mobile-touch-38: followed; it sets no values (DESIGN.md carries it)
+- STD-mobile-touch-39: followed; it sets no values (DESIGN.md and review carry it)
+- STD-mobile-touch-41: followed; it sets no values (DESIGN.md and review carry it)
+- STD-mobile-touch-42: followed; it sets no values (DESIGN.md carries it)
+- STD-mobile-touch-44: followed; it sets no values (DESIGN.md carries it)
+- STD-mobile-touch-48: followed; it sets no values (DESIGN.md carries it)
+- STD-mobile-touch-51: motion.spring.spatial.dampingRatio = 1.0
+- STD-mobile-touch-60: followed; it sets no values (DESIGN.md carries it)
+- STD-mobile-touch-61: followed; it sets no values (DESIGN.md and review carry it)
+- STD-mobile-touch-62: followed; it sets no values (DESIGN.md carries it)
+- STD-mobile-touch-67: followed; it sets no values (DESIGN.md carries it)
+- STD-swift-01: followed; it sets no values (DESIGN.md carries it)
+- STD-swift-02: followed; it sets no values (DESIGN.md carries it)
+- STD-swift-03: followed; it sets no values (DESIGN.md carries it)
+- STD-swift-04: followed; it sets no values
+- STD-swift-05: followed; it sets no values
+- STD-swift-06: followed; it sets no values
+- STD-swift-07: followed; it sets no values (DESIGN.md carries it)
+- STD-swift-08: followed; it sets no values
+- STD-swift-09: followed; it sets no values
+- STD-swift-10: followed; it sets no values
+- STD-swift-11: followed; it sets no values
+- STD-swift-12: followed; it sets no values
+- STD-swift-13: followed; it sets no values
+- STD-swift-14: followed; it sets no values
+- STD-swift-15: followed; it sets no values (DESIGN.md carries it)
+- STD-swift-16: followed; it sets no values (DESIGN.md carries it)
+- STD-swift-17: followed; it sets no values (DESIGN.md carries it)
+- STD-swift-18: followed; it sets no values (DESIGN.md carries it)
+- STD-swift-19: followed; it sets no values (DESIGN.md and review carry it)
+- STD-swift-20: followed; it sets no values
+- STD-swift-21: followed; it sets no values
+- STD-swift-22: followed; it sets no values
+- STD-swift-23: followed; it sets no values
+- STD-swift-24: followed; it sets no values
+- STD-swift-25: followed; it sets no values
+- STD-swift-26: followed; it sets no values
+- STD-swift-27: followed; it sets no values
+- STD-swift-28: followed; it sets no values
+- STD-swift-29: followed; it sets no values
+- STD-swift-30: followed; it sets no values
+- STD-swift-31: followed; it sets no values
+- STD-swift-32: followed; it sets no values
+- STD-swift-33: followed; it sets no values
+- STD-swift-34: followed; it sets no values
+- STD-swift-35: followed; it sets no values (DESIGN.md carries it)
+- STD-swift-36: followed; it sets no values (review carries it)
+- STD-swift-37: followed; it sets no values
+- STD-swift-38: followed; it sets no values
+- STD-swift-39: followed; it sets no values
+- STD-swift-40: followed; it sets no values
+- STD-swift-41: followed; it sets no values
+- STD-swift-42: followed; it sets no values
+- STD-swift-43: followed; it sets no values (DESIGN.md and review carry it)
+- STD-swift-44: followed; it sets no values (DESIGN.md carries it)
+- STD-swift-45: followed; it sets no values (DESIGN.md carries it)
+- STD-swift-46: followed; it sets no values (DESIGN.md carries it)
+- STD-swift-47: followed; it sets no values
+- STD-swift-48: followed; it sets no values
+- STD-swift-49: followed; it sets no values
+- STD-swift-50: followed; it sets no values
+- STD-swift-51: followed; it sets no values
+- STD-swift-52: followed; it sets no values (review carries it)
+- STD-swift-53: followed; it sets no values
+- STD-swift-54: followed; it sets no values
+- STD-swift-55: followed; it sets no values
+- STD-swift-56: followed; it sets no values
+- STD-swift-57: followed; it sets no values
+- STD-swift-58: followed; it sets no values
+- STD-swift-59: followed; it sets no values
+- STD-swift-60: followed; it sets no values (review carries it)
+- STD-swift-61: followed; it sets no values
+- STD-swift-62: followed; it sets no values
+- STD-swift-63: followed; it sets no values
+- STD-swift-64: followed; it sets no values
+- STD-swift-65: followed; it sets no values
+- STD-swift-66: followed; it sets no values
+- STD-swift-67: followed; it sets no values
+- STD-swift-68: followed; it sets no values
+- STD-swift-69: followed; it sets no values (review carries it)
+- STD-swift-70: followed; it sets no values
+- STD-swift-71: followed; it sets no values
+- STD-swift-72: followed; it sets no values
+- STD-swift-73: followed; it sets no values
+- STD-swift-74: followed; it sets no values
+- STD-swift-75: followed; it sets no values
+- STD-swift-76: followed; it sets no values
+- STD-swift-77: followed; it sets no values
+- STD-swift-78: followed; it sets no values
+- STD-swift-79: followed; it sets no values
+- STD-swift-80: followed; it sets no values
+- STD-swift-81: followed; it sets no values
+- STD-swift-82: followed; it sets no values
+- STD-swift-83: followed; it sets no values
+- STD-swift-84: followed; it sets no values
+- STD-swift-85: followed; it sets no values
+- STD-swift-86: followed; it sets no values
+- STD-swift-87: followed; it sets no values
+- STD-swift-88: followed; it sets no values (review carries it)
+- STD-swift-89: followed; it sets no values
+- STD-swift-90: followed; it sets no values
+- STD-swift-91: followed; it sets no values
+- STD-swift-92: followed; it sets no values
+- STD-swift-93: followed; it sets no values
+- STD-swift-94: followed; it sets no values
+- STD-swift-95: followed; it sets no values
+- STD-swift-96: followed; it sets no values
+- STD-swift-97: followed; it sets no values (DESIGN.md and review carry it)
+- STD-swift-98: followed; it sets no values
+- STD-swift-99: followed; it sets no values
+- STD-swift-100: followed; it sets no values
+- STD-swift-101: followed; it sets no values
+- STD-swift-102: followed; it sets no values
+- STD-swift-103: followed; it sets no values
+- STD-swift-104: followed; it sets no values
+- STD-swift-105: followed; it sets no values
+- STD-swift-106: followed; it sets no values
+- STD-swift-107: followed; it sets no values
+- STD-swift-108: followed; it sets no values
+- STD-swift-109: followed; it sets no values
+- STD-swift-110: followed; it sets no values
+- STD-swift-111: followed; it sets no values
+- STD-swift-112: followed; it sets no values
+- STD-swift-113: followed; it sets no values
+
+## D-0015 · House standards: 1 value back to the engine's own for these platforms
+- set_by: standard · locked: no · date: 2026-11-18 · supersedes: none · source_ref: none
+- reason: The platforms changed, so a value a standard held no longer passes a check the engine enforces (accessibility floors outrank every standard, KNOWLEDGE.md 2). It went back to the engine's own value, as a fresh sketch for these platforms does.
+- STD-mobile-touch-09: size.target.touch went back to the engine's own value for these platforms; 44px would break a check (size.target.touch is 44px, below the 48px minimum)
+
+## D-0016 · answers.Q-scope-07 = "building"
+- set_by: assumed · locked: no · date: 2026-11-18 · supersedes: D-0004 · source_ref: none
+- reason: the repo is a running skeleton with no screens yet; the Dockerfile is for local dev, not a launch
+- previous value: "near-launch"
+
+## D-0017 · answers.Q-aud-01 = "large"
+- set_by: assumed · locked: no · date: 2026-11-18 · supersedes: none · source_ref: none
+- reason: the main surface is the clients' Mini Program, opened now and then on phones; the advisors' iPad portal is used all day and gets its own density later
+- also set: dials.density = 15 (from Q-aud-01)
+
+## D-0018 · raw.stack = ["react"]
+- set_by: assumed · locked: no · date: 2026-11-18 · supersedes: D-0005 · source_ref: none
+- reason: Taro (React) for the Mini Program and Vite + React for the iPad screens, from apps/*/package.json
+- previous value: []
+
+## D-0019 · House standards v4 for android, compose, css, ios, react, swift, web: 21 now apply, 0 no longer apply
+- set_by: standard · locked: yes · date: 2026-11-18 · supersedes: none · source_ref: standards.json v4
+- reason: The platforms or the stack changed, so the house standards were re-scoped: the ones that now apply are applied and locked; the ones that no longer apply are unlocked, not reverted.
+- <details><summary>21 standards</summary> STD-springs-gestures-24, STD-accessibility-motion-03, STD-accessibility-motion-25, STD-components-toasts-drawers-02, STD-components-toasts-drawers-04, STD-components-toasts-drawers-05, STD-components-toasts-drawers-19, STD-components-toasts-drawers-20, STD-components-toasts-drawers-21, STD-components-toasts-drawers-22, STD-components-toasts-drawers-23, STD-components-toasts-drawers-24, STD-components-toasts-drawers-26, STD-components-toasts-drawers-27, STD-components-toasts-drawers-28, STD-components-toasts-drawers-35, STD-components-toasts-drawers-38, STD-components-toasts-drawers-39, STD-components-toasts-drawers-78, STD-visual-details-61, STD-visual-details-62</details>
+- STD-springs-gestures-24: followed; it sets no values (DESIGN.md carries it)
+- STD-accessibility-motion-03: followed; it sets no values (DESIGN.md carries it)
+- STD-accessibility-motion-25: followed; it sets no values (DESIGN.md carries it)
+- STD-components-toasts-drawers-02: followed; it sets no values (DESIGN.md carries it)
+- STD-components-toasts-drawers-04: followed; it sets no values (DESIGN.md carries it)
+- STD-components-toasts-drawers-05: followed; it sets no values (DESIGN.md carries it)
+- STD-components-toasts-drawers-19: followed; it sets no values (DESIGN.md carries it)
+- STD-components-toasts-drawers-20: followed; it sets no values (DESIGN.md carries it)
+- STD-components-toasts-drawers-21: followed; it sets no values (DESIGN.md carries it)
+- STD-components-toasts-drawers-22: followed; it sets no values (DESIGN.md carries it)
+- STD-components-toasts-drawers-23: followed; it sets no values (DESIGN.md carries it)
+- STD-components-toasts-drawers-24: followed; it sets no values (DESIGN.md carries it)
+- STD-components-toasts-drawers-26: followed; it sets no values (DESIGN.md carries it)
+- STD-components-toasts-drawers-27: followed; it sets no values (DESIGN.md carries it)
+- STD-components-toasts-drawers-28: followed; it sets no values (DESIGN.md carries it)
+- STD-components-toasts-drawers-35: followed; it sets no values (DESIGN.md carries it)
+- STD-components-toasts-drawers-38: followed; it sets no values (DESIGN.md carries it)
+- STD-components-toasts-drawers-39: followed; it sets no values (DESIGN.md carries it)
+- STD-components-toasts-drawers-78: followed; it sets no values (DESIGN.md carries it)
+- STD-visual-details-61: followed; it sets no values (DESIGN.md carries it)
+- STD-visual-details-62: followed; it sets no values (DESIGN.md and review carry it)

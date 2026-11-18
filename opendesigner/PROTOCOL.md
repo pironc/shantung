@@ -3,7 +3,7 @@
 How work runs in this project. Every agent follows it. Written by OpenDesigner on 2026-11-18; edit it to fit.
 
 <!-- od:now: the engine rewrites this block after each command that changes the system; engine.py status prints it -->
-**Now:** step 1 Discover. **Waiting for the owner:** a yes at gate 1 on the brief. **Next:** engine.py build. Last engine command: `intake` (2026-11-18).
+**Now:** step 1 Discover. **Waiting for the owner:** a yes at gate 1 on the brief. **Next:** engine.py build. Last engine command: `set` (2026-11-18).
 <!-- /od:now -->
 
 After a context reset or in a new session, read the Now line first. The engine keeps it current; everything else here is yours to edit.
@@ -51,3 +51,11 @@ Read before asking anything. Add every answer given outside the interview. Never
 
 | Date | Question | Answer |
 |---|---|---|
+| 2026-11-18 | Brand colours | Dark red, black and white |
+| 2026-11-18 | Imagery | Chinese architecture under a sunny, clear blue sky |
+| 2026-11-18 | Type feel | A "fancy", luxury serif |
+| 2026-11-18 | Motion feel | Smooth, feels premium |
+| 2026-11-18 | Products | Shantung silk scarves and ties, Laoshan green tea. No payment yet |
+| 2026-11-18 | Surfaces | WeChat Mini Program (WeChat and browser builds), iPad advisors portal, full-screen iPad entrance kiosk |
+| 2026-11-18 | Membership tiers | Thread 丝, Satin 缎, Brocade 锦, Kesi 缂丝 (by invitation). Each tier has its own card design, tied to the client's WeChat avatar and nickname |
+| 2026-11-18 | Reference measurements | A starting point only: adjust from how it looks, the owner's liking and the skills' reports |
