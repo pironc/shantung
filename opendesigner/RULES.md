@@ -33,3 +33,4 @@ The owner's notes on this project, from `engine.py feedback --kind note`. Read t
 | N-22 | Counts read as n/total (8/8 seats left) | 1 | 2026-11-18 |
 | N-23 | Pop-up titles fit on one line | 1 | 2026-11-18 |
 | N-24 | A locked action is a greyed button with a grey lock; no invitation wording, no explanation pop-up | 1 | 2026-11-18 |
+| N-25 | Never show the same fact twice in one block (a count, a city, a name) | 1 | 2026-11-18 |
