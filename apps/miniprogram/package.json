@@ -5,7 +5,9 @@
     "build:weapp": "taro build --type weapp",
     "build:h5": "taro build --type h5",
     "dev:weapp": "taro build --type weapp --watch",
-    "dev:h5": "taro build --type h5 --watch"
+    "dev:h5": "taro build --type h5 --watch",
+    "tokens": "node scripts/tokens.mjs",
+    "typecheck": "tsc --noEmit -p ."
   },
   "browserslist": [
     "defaults and fully supports es6-module",

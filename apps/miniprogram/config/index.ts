@@ -10,11 +10,13 @@ export default defineConfig<'webpack5'>({
   outputRoot: `dist/${process.env.TARO_ENV}`,
   framework: 'react',
   compiler: 'webpack5',
+  // Sizes come from the design tokens in CSS px; no px-to-rpx/rem rewriting, so both builds match the system.
   mini: {
-    postcss: { pxtransform: { enable: true, config: {} } },
+    postcss: { pxtransform: { enable: false, config: {} } },
   },
   h5: {
     publicPath: '/',
     devServer: { host: '0.0.0.0', port: 3001 },
+    postcss: { pxtransform: { enable: false, config: {} } },
   },
 })
