@@ -1,12 +1,14 @@
 import Taro, { useDidShow } from '@tarojs/taro'
 import { Button, Input, Text, View } from '@tarojs/components'
 import { useEffect, useState } from 'react'
-import type { Member, Reservation, Tier } from '@shantung/shared-types'
+import type { Boutique, Member, Product, Reservation, Salon, Tier } from '@shantung/shared-types'
 import { api, signIn, useData, useLang } from '../../services/api'
 import { price, setLang, t, TIERS, when } from '../../services/i18n'
 import { store } from '../../services/store'
 import { TierCard } from '../../components/TierCard'
-import { go, MenuRow, Notice, usePageEnter } from '../../components/ui'
+import { go, Icon, MenuRow, Notice, Photo, usePageEnter, usePopup } from '../../components/ui'
+import { fretUri } from '../../components/art'
+import { theme } from '../../theme'
 
 const AVATAR_PX = 256
 
@@ -40,7 +42,10 @@ export default function Membership() {
   const me = useData<Member>('/api/me')
   const tiers = useData<Tier[]>('/api/tiers')
   const reservations = useData<Reservation[]>('/api/me/reservations')
-  const [notice, setNotice] = useState('')
+  const products = useData<Product[]>('/api/products')
+  const salons = useData<Salon[]>('/api/salons')
+  const boutiques = useData<Boutique[]>('/api/boutiques')
+  const { popup, show } = usePopup()
   const [name, setName] = useState('')
   useDidShow(() => {
     Taro.setNavigationBarTitle({ title: s.membership })
@@ -59,7 +64,7 @@ export default function Membership() {
       store.set('member', await api<Member>('PATCH', '/api/me', patch))
       me.reload()
     } catch {
-      setNotice(s.error)
+      show({ title: s.errorTitle, text: s.error })
     }
   }
   const saveName = () => name.trim() && name.trim() !== member?.nickname && update({ nickname: name.trim() })
@@ -77,7 +82,11 @@ export default function Membership() {
   return (
     <View className={`ds ${enter}`}>
       {/* The card sits on a coloured stage so it reads as an object: lacquer red, or ink for the red Brocade card. */}
-      <View className={`stage ${member?.tierRank === 3 ? 'stage--ink' : ''}`}>
+      <View
+        className={`stage ${member?.tierRank === 3 ? 'stage--ink' : ''}`}
+        // Hui wen fret, the border motif of silk, faded into the stage: ink on red, ivory on ink.
+        style={{ backgroundImage: `url(${member?.tierRank === 3 ? fretUri(theme.paper, 0.08) : fretUri()})` }}
+      >
         <Text className='t-display'>{s.membership}</Text>
         {member && <TierCard member={member} />}
         {tier && (
@@ -92,7 +101,7 @@ export default function Membership() {
       </View>
 
       <View className='wrap'>
-        <Notice text={me.offline ? s.offline : notice || (me.error && s.error)} />
+        <Notice text={me.offline ? s.offline : me.error && s.error} />
       </View>
 
       {member && (
@@ -132,18 +141,35 @@ export default function Membership() {
       <View className='section'>
         <Text className='t-title'>{s.reservations}</Text>
         {(reservations.data ?? []).length === 0 && <Text className='t-muted'>{s.none}</Text>}
-        {(reservations.data ?? []).map((r) => (
-          <View key={r.id} className='row stack'>
-            <Text className='t-label t-label--accent'>{s.kind[r.kind]}</Text>
-            <Text>{r.title}</Text>
-            {r.at && (
-              <Text className='t-small t-muted'>
-                {r.kind === 'try' ? `${s.until} ` : ''}
-                {when(r.at)}
-              </Text>
-            )}
-          </View>
-        ))}
+        <View className='bookings'>
+          {(reservations.data ?? []).map((r) => {
+            // Each reservation opens what it is for: the piece, the salon, or the boutique of the appointment.
+            const product = products.data?.find((x) => x.id === r.itemId)
+            const salon = salons.data?.find((x) => x.id === r.itemId)
+            const shop = boutiques.data?.find((x) => x.code === r.boutique)
+            const target =
+              r.kind === 'salon' ? `/pages/salon/index?id=${r.itemId}` : r.kind === 'appointment' ? `/pages/boutique/index?code=${r.boutique}` : `/pages/product/index?id=${r.itemId}`
+            return (
+              <View key={r.id} className='booking' hoverClass='is-pressed-row' ariaRole='link' onClick={() => go(target)}>
+                <View className='booking__thumb'>
+                  <Photo image={salon?.image ?? product?.images[0] ?? shop?.image} ratio={125} />
+                </View>
+                <View className='booking__text'>
+                  <Text className='t-label t-label--accent'>{s.kind[r.kind]}</Text>
+                  <Text className='booking__title'>{salon?.title ?? product?.title ?? shop?.title ?? r.title}</Text>
+                  {r.at && (
+                    <Text className='t-small t-muted'>
+                      {r.kind === 'try' ? `${s.until} ` : ''}
+                      {when(r.at)}
+                    </Text>
+                  )}
+                  <Text className='t-small t-muted'>{shop?.title}</Text>
+                </View>
+                <Icon name='chevron' />
+              </View>
+            )
+          })}
+        </View>
       </View>
 
       <View className='section stack'>
@@ -157,6 +183,7 @@ export default function Membership() {
         </View>
       </View>
       <View className='spacer' />
+      {popup}
     </View>
   )
 }
