@@ -73,11 +73,11 @@ if (\Drupal::entityQuery('node')->accessCheck(FALSE)->count()->execute() > 0) {
 
 $b = [];
 foreach ([
-  ['QD01', 'Qingdao Flagship', '青岛旗舰店', 'Qingdao', '青岛', '12 Zhanshan Road, Shinan District, Qingdao', '青岛市市南区湛山路12号', 'lattice-garden',
+  ['QD01', 'Qingdao Flagship', '青岛旗舰店', 'Qingdao', '青岛', '12 Zhanshan Road, Shinan District, Qingdao', '青岛市市南区湛山路12号', 'qingdao-huilan',
     'The maison\'s first house, a short walk from the sea, with a tea room overlooking the garden.', '本坊第一家旗舰店，距海边仅数步之遥，茶室临园而设。'],
-  ['SH01', 'Shanghai', '上海店', 'Shanghai', '上海', '88 Fumin Road, Jing\'an District, Shanghai', '上海市静安区富民路88号', 'teahouse-lattice',
+  ['SH01', 'Shanghai', '上海店', 'Shanghai', '上海', '88 Fumin Road, Jing\'an District, Shanghai', '上海市静安区富民路88号', 'shanghai-jingan',
     'A lane house in Jing\'an, with a private salon on the first floor.', '静安区的一栋老洋房，二楼设有私享沙龙。'],
-  ['BJ01', 'Beijing', '北京店', 'Beijing', '北京', '9 Wudaoying Hutong, Dongcheng District, Beijing', '北京市东城区五道营胡同9号', 'garden-wall',
+  ['BJ01', 'Beijing', '北京店', 'Beijing', '北京', '9 Wudaoying Hutong, Dongcheng District, Beijing', '北京市东城区五道营胡同9号', 'temple-of-heaven',
     'A courtyard house in the hutongs, where the kesi collection is shown by appointment.', '胡同里的一座四合院，缂丝系列需预约鉴赏。'],
 ] as [$code, $en, $zh, $cityEn, $cityZh, $addrEn, $addrZh, $img, $txtEn, $txtZh]) {
   $b[$code] = node('boutique',
