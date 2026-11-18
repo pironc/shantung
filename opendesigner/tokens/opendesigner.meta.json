@@ -678,6 +678,10 @@
       ],
       "inferred": false
     },
+    "radius.panel": {
+      "value": "{radius.16}",
+      "override": true
+    },
     "reduced:motion.transition.enter": {
       "value": {
         "duration": "{motion.duration.reduced-fade}",
@@ -3591,6 +3595,7 @@
     "primitives.tokens.json:motion.spring.momentum",
     "primitives.tokens.json:motion.spring.rotation",
     "primitives.tokens.json:motion.spring.sheet",
+    "semantic.tokens.json:radius.panel",
     "semantic.tokens.json:size.target.min",
     "motion.reduced.tokens.json:motion.transition.enter",
     "motion.reduced.tokens.json:motion.transition.exit",
@@ -3695,7 +3700,7 @@
       "case": "sentence"
     }
   },
-  "stateHash": "e3f9aad5b5568d13",
+  "stateHash": "030d4aece9f54446",
   "fileHashes": {
     "motion.reduced.tokens.json": "d646a96de314ea27",
     "motion.standard.tokens.json": "74134143dccc82a3",
@@ -3706,7 +3711,7 @@
     "semantic.density.comfortable.tokens.json": "a3779838b5028bcc",
     "semantic.density.compact.tokens.json": "76b160a5107bbd83",
     "semantic.density.spacious.tokens.json": "684b0a5681b220fb",
-    "semantic.tokens.json": "1612577a274f43f8"
+    "semantic.tokens.json": "a30f0c8f05a9b3d0"
   },
   "profile": {
     "id": "persuade",

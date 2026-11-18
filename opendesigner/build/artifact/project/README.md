@@ -374,7 +374,7 @@ Decisions: D-0009 (dials.depth).
 
 ## Shapes
 
-> Zoom: sketch (0 of 3), 1 decision in this area. To zoom in, answer Q-shape-01.
+> Zoom: sketch (0 of 3), 2 decisions in this area. To zoom in, answer Q-shape-01.
 <!-- od:zoom area=shape level=0 -->
 
 **Buttons and fields have 0px corners; cards have 0px corners.**
@@ -392,7 +392,7 @@ Buttons are **square**; square and pill corners are a choice (Q-shape-01), never
 - Corners (Q-shape-04, DC-L04-04): the radii are the same everywhere; iOS draws them continuous (`DS.Radius.shape(...)`, `.continuous`), Android circular (`RoundedCornerShape`), the web and Figma circular.
 - Signature shapes: none generated; a brand shape library is a designer asset (hook H-motif).
 
-Decisions: D-0007 (dials.roundness).
+Decisions: D-0007 (dials.roundness), D-0045 (overrides.radius.panel).
 
 </details>
 
@@ -709,7 +709,7 @@ Decisions: D-0023 (answers.Q-plat-01).
 
 ## Decisions
 
-**44 decisions so far.** Each one says who set it and why.
+**45 decisions so far.** Each one says who set it and why.
 Designers: decision history with reasons · Code: `opendesigner/decisions.md`
 
 <details><summary>More</summary>
@@ -748,6 +748,7 @@ Your own decisions first (the newest value per path), then your changes to stand
 | D-0042 | `font.tracking.caps-display` | 0.04 | delegated | delegated: serif capitals in titles and navigation read luxurious with air between letters (measured reference); 0.01em was too tight for Cormorant caps |
 | D-0043 | `motion.distance.photo-zoom` | {"value": 16, "unit": "px"} | delegated | house rule: photos settle into place as they enter; expressed as a 16px zoom inset (scale 1.04 on a ~400px photo) because the token set has no scale type |
 | D-0044 | `motion.duration.page` | {"value": 320, "unit": "ms"} | chosen | owner: page changes need a quick but visible entrance |
+| D-0045 | `radius.panel` | "{radius.16}" | chosen | A panel floating over a full-bleed photo (the kiosk card) is rounded so it reads as an object, not a flat white plane; other containers stay square |
 | D-0006 | standards | House standards v4: 291 applied | standard (locked) | OpenDesigner's house standards (sources marked non-negotiable) are applied without asking and locked. Change one only when the person asks: engine.py... |
 | D-0014 | standards | House standards v4 for android, compose, css, ios, swift, web: 138 now apply, 0 no longer apply | standard (locked) | The platforms or the stack changed, so the house standards were re-scoped: the ones that now apply are applied and locked; the ones that no longer apply are... |
 | D-0015 | standards | House standards: 1 value back to the engine's own for these platforms | standard | The platforms changed, so a value a standard held no longer passes a check the engine enforces (accessibility floors outrank every standard, KNOWLEDGE.md... |

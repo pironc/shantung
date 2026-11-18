@@ -407,7 +407,8 @@
     "motion.duration.page": {
       "value": 320,
       "unit": "ms"
-    }
+    },
+    "radius.panel": "{radius.16}"
   },
   "answers": {
     "Q-plat-01": {
@@ -680,7 +681,7 @@
     "skipped": "2026-11-18"
   },
   "hashes": {
-    "DESIGN.md": "3d0bc5911d476265",
+    "DESIGN.md": "7ea55526eb61d14d",
     "PRODUCT.md": "8da1468d6c3135e8"
   },
   "exports": {
@@ -3755,7 +3756,7 @@
   "checkins": {
     "last": {
       "date": "2026-11-18",
-      "decisions": 40,
+      "decisions": 45,
       "rounds": 0,
       "toFix": 3
     }

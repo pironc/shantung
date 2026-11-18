@@ -182,6 +182,7 @@ public extension DS {
         public static let radiusFull: CGFloat = 9999
         public static let radiusNested: CGFloat = 0
         public static let radiusOverlay: CGFloat = 0
+        public static let radiusPanel: CGFloat = 16
         public static let radiusPerson: CGFloat = 9999
         /// Continuous corners, as iOS draws its own controls (DC-L04-04, Q-shape-04): the same radii, a smoother curve.
         /// Use DS.Radius.shape(DS.Radius.radiusContainer) instead of a plain RoundedRectangle.

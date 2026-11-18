@@ -719,6 +719,16 @@
         "unit": "px"
       },
       "$description": "Focus ring radius = control radius + ring offset (Atlassian radius + 2px, S-L04-016)."
+    },
+    "panel": {
+      "$value": "{radius.16}",
+      "$type": "dimension",
+      "$description": "Added by a person (engine.py set).",
+      "$extensions": {
+        "opendesigner": {
+          "source": "person"
+        }
+      }
     }
   },
   "border": {

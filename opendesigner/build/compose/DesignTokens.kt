@@ -277,6 +277,7 @@ object DsSpace {
     val radiusFull = 999.dp
     val radiusNested = 0.dp
     val radiusOverlay = 0.dp
+    val radiusPanel = 16.dp
     val radiusPerson = 999.dp
     val sizeControlCta = 56.dp
     val sizeControlLg = 56.dp

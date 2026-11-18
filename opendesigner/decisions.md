@@ -688,3 +688,9 @@ Append-only, ADR-style (spec 7.9): one entry per decision, newest last. A later 
 - reason: owner: page changes need a quick but visible entrance
 - quote: "Going from one page another should have a rather quick, but visible transition with a premium feel."
 - new duration token in primitives.tokens.json
+
+## D-0045 · overrides.radius.panel = "{radius.16}"
+- set_by: chosen · locked: no · date: 2026-11-18 · supersedes: none · source_ref: none
+- reason: A panel floating over a full-bleed photo (the kiosk card) is rounded so it reads as an object, not a flat white plane; other containers stay square
+- quote: "make sure the white card has rounded corners so it doesn't look like a big flat white plane"
+- new dimension token in semantic.tokens.json

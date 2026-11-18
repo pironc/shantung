@@ -34,3 +34,4 @@ The owner's notes on this project, from `engine.py feedback --kind note`. Read t
 | N-23 | Pop-up titles fit on one line | 1 | 2026-11-18 |
 | N-24 | A locked action is a greyed button with a grey lock; no invitation wording, no explanation pop-up | 1 | 2026-11-18 |
 | N-25 | Never show the same fact twice in one block (a count, a city, a name) | 1 | 2026-11-18 |
+| N-26 | A white panel floating over a full-bleed photo gets rounded corners (radius.panel), so it never reads as a flat white plane; other containers stay square. | 1 | 2026-11-18 |
