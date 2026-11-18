@@ -12,11 +12,11 @@ export default function Collection() {
   const enter = usePageEnter()
   const products = useData<Product[]>('/api/products')
   const [category, setCategory] = useState('')
+  const [swaps, setSwaps] = useState(0)
   const reveal = useReveal(products.data)
   useDidShow(() => Taro.setNavigationBarTitle({ title: s.collection }))
 
   const categories = [...new Set((products.data ?? []).map((p) => p.category))]
-  const shown = (products.data ?? []).filter((p) => !category || p.category === category)
 
   return (
     <View className={`ds ${enter}`} style={chromeStyle()}>
@@ -33,7 +33,11 @@ export default function Collection() {
             className={`tabs__item ${category === c ? 'is-active' : ''}`}
             ariaRole='tab'
             ariaSelected={category === c}
-            onClick={() => setCategory(c)}
+            onClick={() => {
+              if (c === category) return
+              setCategory(c)
+              setSwaps((n) => n + 1)
+            }}
           >
             {c || s.all}
           </Text>
@@ -43,9 +47,15 @@ export default function Collection() {
         <Notice text={products.offline ? s.offline : products.error && s.error} />
       </View>
       <View className='section'>
-        <View className='grid'>
-          {shown.map((p) => (
-            <View key={p.id} id={`p-${p.id}`} className={`stack ${reveal(`p-${p.id}`)} reveal--quick`} onClick={() => go(`/pages/product/index?id=${p.id}`)}>
+        {/* Every card stays mounted and a tab only hides the others: loaded photos never reload and blink,
+            and the reveal observer, which watches the cards present on load, still sees them all. */}
+        <View className={`grid ${swaps ? (swaps % 2 ? 'swap-a' : 'swap-b') : ''}`}>
+          {(products.data ?? []).map((p) => (
+            <View
+              key={p.id}
+              id={`p-${p.id}`}
+              className={`stack ${reveal(`p-${p.id}`)} reveal--quick ${category && p.category !== category ? 'is-hidden' : ''}`}
+              onClick={() => go(`/pages/product/index?id=${p.id}`)}>
               <Photo image={p.images[0]} ratio={125}>
                 {p.limited && <Text className='photo__tag'>{s.limited}</Text>}
               </Photo>

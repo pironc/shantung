@@ -139,6 +139,16 @@ body {
 .grid > * {
   width: calc(50% - var(--ds-space-8));
 }
+.grid > .is-hidden {
+  display: none;
+}
+/* A filter swap (Collection tabs): the grid fades back in; a/b restarts the animation on every swap. */
+.swap-a {
+  animation: fade-a var(--ds-motion-duration-medium) var(--ds-motion-easing-enter) backwards;
+}
+.swap-b {
+  animation: fade-b var(--ds-motion-duration-medium) var(--ds-motion-easing-enter) backwards;
+}
 
 .photo {
   position: relative;

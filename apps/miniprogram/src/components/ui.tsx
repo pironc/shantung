@@ -71,8 +71,10 @@ export function usePageEnter() {
   return shows % 2 ? 'page-in-a' : 'page-in-b'
 }
 
-/** A photo at a fixed ratio (height / width, in %), cropped to fill: layout never jumps while it loads. */
-/** A photo at a fixed ratio. It fades in once loaded instead of popping; children (a tag) sit over it. */
+/**
+ * A photo at a fixed ratio (height / width, in %), cropped to fill: layout never jumps while it loads.
+ * It fades in once loaded instead of popping; children (a tag) sit over it.
+ */
 export function Photo({ image, ratio = 125, className = '', children }: { image: Img | null | undefined; ratio?: number; className?: string; children?: ReactNode }) {
   const [loaded, setLoaded] = useState(false)
   return (
