@@ -2,7 +2,7 @@ import Taro, { useDidShow } from '@tarojs/taro'
 import { Text, View } from '@tarojs/components'
 import type { Boutique, Member, Product, Salon, Story } from '@shantung/shared-types'
 import { useData, useLang } from '../../services/api'
-import { t, windowLine } from '../../services/i18n'
+import { place, t, windowLine } from '../../services/i18n'
 import { store } from '../../services/store'
 import { Icon, InfoStrip, Notice, Photo, chromeStyle, go, usePageEnter, useReveal } from '../../components/ui'
 
@@ -46,10 +46,7 @@ export default function Discover() {
                 <Text className='t-label'>{s.limitedRelease}</Text>
                 <Text className='t-title'>{p.title}</Text>
                 <Text className='t-small'>{p.subtitle}</Text>
-                <View className='split-row t-label'>
-                  <Text>{s.pieces(p.limited!.pieces)}</Text>
-                  <Text>{s.left(p.limited!.remaining)}</Text>
-                </View>
+                <Text className='t-label'>{s.piecesLeft(p.limited!.remaining, p.limited!.pieces)}</Text>
                 <Text className='t-small'>{windowLine(p, rank)}</Text>
                 <View className='btn-text' hoverClass='is-pressed' ariaRole='button'>
                   {s.discoverMore} →
@@ -106,9 +103,8 @@ export default function Discover() {
           {boutiques.data.map((b) => (
             <View key={b.id} className='row row--link' hoverClass='is-pressed-row' ariaRole='link' onClick={() => go(`/pages/boutique/index?code=${b.code}`)}>
               <View className='stack'>
-                <Text className='t-sub'>{b.city}</Text>
-                <Text>{b.title}</Text>
-                <Text className='t-small t-muted'>{b.address}</Text>
+                <Text className='t-sub'>{place(b).name}</Text>
+                <Text className='t-small t-muted'>{place(b).address}</Text>
               </View>
               <Icon name='chevron' />
             </View>

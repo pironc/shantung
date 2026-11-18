@@ -265,3 +265,13 @@ export function windowLine(p: Product, rank: number) {
   const opens = p.limited?.windows.find((w) => w.tierRank === rank)?.opensAt
   return opens && Date.parse(opens) > Date.now() ? t().windowOpens(when(opens, false)) : t().windowOpen
 }
+
+/**
+ * A boutique's name and address without repeats: the city that ends an English address (or opens a Chinese one,
+ * 北京市…) is dropped when the name already carries it.
+ */
+export function place(b: { title: string; city: string; address: string }) {
+  const named = b.title.includes(b.city)
+  const address = named ? b.address.replace(new RegExp(`,\\s*${b.city}$`), '').replace(new RegExp(`^${b.city}市?`), '') : b.address
+  return { name: b.title, address, cityOnly: b.title === b.city }
+}
