@@ -3,24 +3,17 @@ import { Button, Input, Text, View } from '@tarojs/components'
 import { useEffect, useState } from 'react'
 import type { Boutique, Member, Product, Reservation, Salon, Tier } from '@shantung/shared-types'
 import { api, signIn, useData, useLang } from '../../services/api'
-import { price, setLang, t, TIERS, when } from '../../services/i18n'
+import { lang, setLang, t, TIERS, when } from '../../services/i18n'
 import { store } from '../../services/store'
-import { TierCard } from '../../components/TierCard'
-import { go, Icon, MenuRow, Notice, Photo, usePageEnter, usePopup } from '../../components/ui'
+import { Monogram, TierCard } from '../../components/TierCard'
+import { Icon, MenuRow, Notice, Photo, SheetFrame, chromeStyle, go, usePageEnter, usePopup, useSheet } from '../../components/ui'
 import { fretUri } from '../../components/art'
 import { theme } from '../../theme'
 
 const AVATAR_PX = 256
 
-/** WeChat hands back a local file; the browser build gets one from the file picker. Either way: a small JPEG data URL. */
-async function avatarDataUrl(path: string): Promise<string> {
-  if (process.env.TARO_ENV === 'weapp') {
-    const base64 = Taro.getFileSystemManager().readFileSync(path, 'base64') as string
-    return `data:image/jpeg;base64,${base64}`
-  }
-  const img = new window.Image()
-  img.src = path
-  await img.decode()
+/** A square JPEG data URL, small enough to store with the profile. */
+function squareJpeg(img: HTMLImageElement) {
   const side = Math.min(img.width, img.height)
   const canvas = document.createElement('canvas')
   canvas.width = canvas.height = AVATAR_PX
@@ -28,12 +21,25 @@ async function avatarDataUrl(path: string): Promise<string> {
   return canvas.toDataURL('image/jpeg', 0.85)
 }
 
-/** The language picker most apps use: a native action sheet from a settings row. */
-const chooseLanguage = () =>
-  Taro.showActionSheet({ itemList: ['English', '简体中文'] }).then(
-    ({ tapIndex }) => setLang(tapIndex === 1 ? 'zh-hans' : 'en'),
-    () => {}, // dismissed
-  )
+/** WeChat hands back a local file from its own (localised) avatar picker. */
+const weappAvatar = (path: string) => `data:image/jpeg;base64,${Taro.getFileSystemManager().readFileSync(path, 'base64') as string}`
+
+/** The browser build opens the phone's own photo picker (localised by the phone, unlike Taro's menu). */
+const browserAvatar = () =>
+  new Promise<string | null>((resolve) => {
+    const input = document.createElement('input')
+    input.type = 'file'
+    input.accept = 'image/*'
+    input.onchange = () => {
+      const file = input.files?.[0]
+      if (!file) return resolve(null)
+      const img = new window.Image()
+      img.onload = () => resolve(squareJpeg(img))
+      img.onerror = () => resolve(null)
+      img.src = URL.createObjectURL(file)
+    }
+    input.click()
+  })
 
 export default function Membership() {
   useLang()
@@ -46,18 +52,17 @@ export default function Membership() {
   const salons = useData<Salon[]>('/api/salons')
   const boutiques = useData<Boutique[]>('/api/boutiques')
   const { popup, show } = usePopup()
+  const { sheet, show: choose } = useSheet()
+  const [editing, setEditing] = useState(false)
   const [name, setName] = useState('')
   useDidShow(() => {
-    Taro.setNavigationBarTitle({ title: s.membership })
     me.reload()
     reservations.reload()
   })
 
   const member = me.data
-  // The field keeps what the client types; it is saved when they leave it.
-  useEffect(() => setName(member?.nickname ?? ''), [member?.nickname])
+  useEffect(() => setName(member?.nickname ?? ''), [member?.nickname, editing])
   const tier = tiers.data?.find((x) => x.rank === member?.tierRank)
-  const next = tiers.data?.find((x) => x.rank === (member?.tierRank ?? 0) + 1 && !x.invitationOnly)
 
   const update = async (patch: Partial<Pick<Member, 'nickname' | 'avatarUrl'>>) => {
     try {
@@ -67,12 +72,17 @@ export default function Membership() {
       show({ title: s.errorTitle, text: s.error })
     }
   }
-  const saveName = () => name.trim() && name.trim() !== member?.nickname && update({ nickname: name.trim() })
 
-  const pickAvatarInBrowser = async () => {
-    const { tempFilePaths } = await Taro.chooseImage({ count: 1, sizeType: ['compressed'] })
-    if (tempFilePaths[0]) update({ avatarUrl: await avatarDataUrl(tempFilePaths[0]) })
+  const saveName = async () => {
+    setEditing(false)
+    if (name.trim() && name.trim() !== member?.nickname) await update({ nickname: name.trim() })
   }
+
+  const chooseLanguage = () =>
+    choose(s.language, [
+      { label: 'English', selected: lang() === 'en', run: () => setLang('en') },
+      { label: '简体中文', selected: lang() === 'zh-hans', run: () => setLang('zh-hans') },
+    ])
 
   const viewAs = async (rank: number) => {
     await signIn(rank)
@@ -80,7 +90,7 @@ export default function Membership() {
   }
 
   return (
-    <View className={`ds ${enter}`}>
+    <View className={`ds ${enter}`} style={chromeStyle()}>
       {/* The card sits on a coloured stage so it reads as an object: lacquer red, or ink for the red Brocade card. */}
       <View
         className={`stage ${member?.tierRank === 3 ? 'stage--ink' : ''}`}
@@ -94,8 +104,7 @@ export default function Membership() {
             <Text className='t-title'>
               {TIERS[tier.rank].zh} {TIERS[tier.rank].en}
             </Text>
-            <Text>{tier.description}</Text>
-            {next && <Text className='t-small'>{s.nextTier(`${TIERS[next.rank].zh} ${TIERS[next.rank].en}`, price(next.threshold))}</Text>}
+            <Text className='clamp-2'>{tier.description}</Text>
           </View>
         )}
       </View>
@@ -105,28 +114,12 @@ export default function Membership() {
       </View>
 
       {member && (
-        <View className='section stack'>
-          {process.env.TARO_ENV === 'weapp' ? (
-            // WeChat's own avatar picker: the client chooses what to share.
-            <Button className='btn btn--ghost' openType='chooseAvatar' onChooseAvatar={async (e) => update({ avatarUrl: await avatarDataUrl(e.detail.avatarUrl) })}>
-              {s.chooseAvatar}
-            </Button>
-          ) : (
-            <Button className='btn btn--ghost' hoverClass='is-pressed' onClick={pickAvatarInBrowser}>
-              {s.chooseAvatar}
-            </Button>
-          )}
-          <Text className='t-label'>{s.nickname}</Text>
-          <Input
-            className='field'
-            type='nickname'
-            maxlength={32}
-            value={name}
-            placeholder={s.nicknamePlaceholder}
-            onInput={(e) => setName(e.detail.value)}
-            onBlur={saveName}
-            onConfirm={saveName}
-          />
+        <View className='section'>
+          <View className='profile-row' hoverClass='is-pressed-row' ariaRole='button' onClick={() => setEditing(true)}>
+            <Monogram member={member} className='profile-row__photo' />
+            <Text className={`profile-row__name ${member.nickname ? '' : 't-muted'}`}>{member.nickname || s.addName}</Text>
+            <Text className='btn-text'>{s.edit}</Text>
+          </View>
         </View>
       )}
 
@@ -183,6 +176,30 @@ export default function Membership() {
         </View>
       </View>
       <View className='spacer' />
+
+      {/* Profile editor: photo and name in a sheet, so the page itself stays compact. */}
+      {editing && member && (
+        <SheetFrame title={s.profile} onClose={() => setEditing(false)}>
+          <View className='profile-edit'>
+            <Monogram member={member} className='profile-edit__photo' />
+            {process.env.TARO_ENV === 'weapp' ? (
+              <Button className='btn-text profile-edit__photo-btn' openType='chooseAvatar' onChooseAvatar={(e) => update({ avatarUrl: weappAvatar(e.detail.avatarUrl) })}>
+                {s.changePhoto}
+              </Button>
+            ) : (
+              <View className='btn-text' hoverClass='is-pressed' ariaRole='button' onClick={() => browserAvatar().then((url) => (url ? update({ avatarUrl: url }) : undefined))}>
+                {s.changePhoto}
+              </View>
+            )}
+          </View>
+          <Text className='t-label'>{s.nickname}</Text>
+          <Input className='field' type='nickname' maxlength={32} value={name} placeholder={s.nicknamePlaceholder} onInput={(e) => setName(e.detail.value)} onConfirm={saveName} />
+          <Button className='btn profile-edit__save' hoverClass='is-pressed' onClick={saveName}>
+            <Text>{s.save}</Text>
+          </Button>
+        </SheetFrame>
+      )}
+      {sheet}
       {popup}
     </View>
   )
