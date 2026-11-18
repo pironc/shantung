@@ -1,0 +1,21 @@
+uuid: 1b228e89-d52e-4e38-8a3e-42de2438700e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_date
+    - node.type.salon
+  module:
+    - datetime
+id: node.salon.field_date
+field_name: field_date
+entity_type: node
+bundle: salon
+label: 'Date and time'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

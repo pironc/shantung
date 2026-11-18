@@ -1,0 +1,21 @@
+uuid: 7a099cb6-7fbb-4a69-901d-4ccf79215074
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_invitation
+    - taxonomy.vocabulary.tier
+id: taxonomy_term.tier.field_invitation
+field_name: field_invitation
+entity_type: taxonomy_term
+bundle: tier
+label: 'By invitation only'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

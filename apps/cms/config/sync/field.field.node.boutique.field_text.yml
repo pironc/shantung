@@ -1,0 +1,19 @@
+uuid: ff4313ca-63e4-48c0-a9f9-147dbea17e69
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_text
+    - node.type.boutique
+id: node.boutique.field_text
+field_name: field_text
+entity_type: node
+bundle: boutique
+label: Text
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

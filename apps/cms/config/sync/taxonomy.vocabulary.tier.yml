@@ -1,0 +1,9 @@
+uuid: b9cceaa2-1664-4f34-a86a-feea7e39a6f0
+langcode: en
+status: true
+dependencies: {  }
+name: 'Membership tier'
+vid: tier
+description: null
+weight: 0
+new_revision: false

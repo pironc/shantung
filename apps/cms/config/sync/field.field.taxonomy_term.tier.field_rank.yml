@@ -1,0 +1,23 @@
+uuid: cb90cdf2-c4f2-4162-8e5e-110c3c687d74
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_rank
+    - taxonomy.vocabulary.tier
+id: taxonomy_term.tier.field_rank
+field_name: field_rank
+entity_type: taxonomy_term
+bundle: tier
+label: 'Rank (1 = entry)'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

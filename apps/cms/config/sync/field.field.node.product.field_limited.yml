@@ -1,0 +1,21 @@
+uuid: 72f88207-a775-4ee7-9d1f-619625e51d86
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_limited
+    - node.type.product
+id: node.product.field_limited
+field_name: field_limited
+entity_type: node
+bundle: product
+label: 'Limited release'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

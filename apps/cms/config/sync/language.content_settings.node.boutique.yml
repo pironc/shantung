@@ -1,0 +1,16 @@
+uuid: d65e97f3-20ce-4683-bb52-e4135c703792
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.boutique
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: node.boutique
+target_entity_type_id: node
+target_bundle: boutique
+default_langcode: en
+language_alterable: true

@@ -1,0 +1,19 @@
+uuid: dde80fbe-7f46-4777-9c37-e5bf0d893edb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_city
+    - node.type.boutique
+id: node.boutique.field_city
+field_name: field_city
+entity_type: node
+bundle: boutique
+label: City
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

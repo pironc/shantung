@@ -1,0 +1,21 @@
+uuid: 253aee51-f53b-483e-9ed1-4d2702309808
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_release
+    - node.type.product
+  module:
+    - datetime
+id: node.product.field_release
+field_name: field_release
+entity_type: node
+bundle: product
+label: 'Release opens (Kesi first; each lower tier one day later)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

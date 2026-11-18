@@ -1,0 +1,23 @@
+uuid: 25c404a5-2109-44ed-b1ec-6ab88374a16b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_threshold
+    - taxonomy.vocabulary.tier
+id: taxonomy_term.tier.field_threshold
+field_name: field_threshold
+entity_type: taxonomy_term
+bundle: tier
+label: 'Yearly spend to reach it (CNY)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

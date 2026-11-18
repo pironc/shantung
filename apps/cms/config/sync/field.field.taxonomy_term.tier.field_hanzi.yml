@@ -1,0 +1,19 @@
+uuid: c563313c-fc5b-40ca-91db-24947ba0b491
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_hanzi
+    - taxonomy.vocabulary.tier
+id: taxonomy_term.tier.field_hanzi
+field_name: field_hanzi
+entity_type: taxonomy_term
+bundle: tier
+label: 'Chinese character'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

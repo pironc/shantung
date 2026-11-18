@@ -1,0 +1,19 @@
+uuid: d77a42ad-8e9d-40f9-a2b7-e4e176584004
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hours
+    - node.type.boutique
+id: node.boutique.field_hours
+field_name: field_hours
+entity_type: node
+bundle: boutique
+label: 'Opening hours'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

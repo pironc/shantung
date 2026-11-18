@@ -1,0 +1,77 @@
+uuid: fadabd57-9061-4b43-a3ca-3df4b61fe72d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.tier.field_hanzi
+    - field.field.taxonomy_term.tier.field_invitation
+    - field.field.taxonomy_term.tier.field_rank
+    - field.field.taxonomy_term.tier.field_threshold
+    - taxonomy.vocabulary.tier
+  module:
+    - text
+id: taxonomy_term.tier.default
+targetEntityType: taxonomy_term
+bundle: tier
+mode: default
+content:
+  description:
+    type: text_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_hanzi:
+    type: string_textfield
+    weight: 102
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_invitation:
+    type: boolean_checkbox
+    weight: 104
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_rank:
+    type: number
+    weight: 101
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_threshold:
+    type: number
+    weight: 103
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 100
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+hidden: {  }

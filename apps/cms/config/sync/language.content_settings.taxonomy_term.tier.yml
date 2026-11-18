@@ -1,0 +1,16 @@
+uuid: ebffa1fa-8bea-41a5-87cc-d360a272c6f4
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.tier
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: taxonomy_term.tier
+target_entity_type_id: taxonomy_term
+target_bundle: tier
+default_langcode: en
+language_alterable: true

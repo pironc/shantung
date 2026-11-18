@@ -1,0 +1,19 @@
+uuid: 6dbbb70d-1348-461f-b2e8-0850c75acd05
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_subtitle
+    - node.type.boutique
+id: node.boutique.field_subtitle
+field_name: field_subtitle
+entity_type: node
+bundle: boutique
+label: Subtitle
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

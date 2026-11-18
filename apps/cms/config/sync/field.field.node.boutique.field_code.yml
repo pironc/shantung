@@ -1,0 +1,19 @@
+uuid: 54369085-9f30-42bb-ac66-2bc175d201c6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_code
+    - node.type.boutique
+id: node.boutique.field_code
+field_name: field_code
+entity_type: node
+bundle: boutique
+label: 'Boutique code (kiosk check-in)'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

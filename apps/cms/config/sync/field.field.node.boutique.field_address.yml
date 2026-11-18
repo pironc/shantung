@@ -1,0 +1,19 @@
+uuid: b5a07614-148f-4f81-8769-3084f94760cf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_address
+    - node.type.boutique
+id: node.boutique.field_address
+field_name: field_address
+entity_type: node
+bundle: boutique
+label: Address
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

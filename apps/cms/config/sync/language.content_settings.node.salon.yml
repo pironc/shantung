@@ -1,0 +1,16 @@
+uuid: 84b1dfbd-e9c4-4857-9b00-a160cc849ffb
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.salon
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: node.salon
+target_entity_type_id: node
+target_bundle: salon
+default_langcode: en
+language_alterable: true

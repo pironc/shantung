@@ -1,0 +1,11 @@
+uuid: 8686b567-009f-4e17-8c9e-6126291f1096
+langcode: en
+status: true
+dependencies: {  }
+name: Boutique
+type: boutique
+description: null
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

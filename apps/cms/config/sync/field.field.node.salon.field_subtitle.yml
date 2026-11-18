@@ -1,0 +1,19 @@
+uuid: 9e91d642-2449-4c61-8fbe-db21e0cf9535
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_subtitle
+    - node.type.salon
+id: node.salon.field_subtitle
+field_name: field_subtitle
+entity_type: node
+bundle: salon
+label: Subtitle
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

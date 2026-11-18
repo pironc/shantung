@@ -1,0 +1,18 @@
+uuid: 7d5f8769-c6db-4b4f-9e72-b036db589e1b
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_limited
+field_name: field_limited
+entity_type: node
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,47 @@
+uuid: c7fef955-682e-420e-9b67-da0da9813afe
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.boutique
+    - node.type.product
+    - node.type.salon
+    - node.type.story
+    - taxonomy.vocabulary.category
+    - taxonomy.vocabulary.tier
+  module:
+    - content_translation
+    - node
+    - system
+    - taxonomy
+    - toolbar
+id: content_editor
+label: 'Content editor'
+weight: 2
+is_admin: false
+permissions:
+  - 'access content overview'
+  - 'access taxonomy overview'
+  - 'access toolbar'
+  - 'create boutique content'
+  - 'create content translations'
+  - 'create product content'
+  - 'create salon content'
+  - 'create story content'
+  - 'create terms in category'
+  - 'create terms in tier'
+  - 'delete any boutique content'
+  - 'delete any product content'
+  - 'delete any salon content'
+  - 'delete any story content'
+  - 'delete content translations'
+  - 'edit any boutique content'
+  - 'edit any product content'
+  - 'edit any salon content'
+  - 'edit any story content'
+  - 'edit terms in category'
+  - 'edit terms in tier'
+  - 'translate any entity'
+  - 'update content translations'
+  - 'view own unpublished content'
+  - 'view the administration theme'

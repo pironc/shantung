@@ -1,0 +1,23 @@
+uuid: 2f6da5eb-3f70-44f9-88de-42378271c2a0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_stock
+    - node.type.product
+id: node.product.field_stock
+field_name: field_stock
+entity_type: node
+bundle: product
+label: 'Pieces available (limited releases)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
