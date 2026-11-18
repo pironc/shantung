@@ -77,24 +77,35 @@ const shown = new Set<string>()
 /**
  * A photo at a fixed ratio (height / width, in %), cropped to fill: layout never jumps while it loads.
  * It fades in the first time it loads instead of popping; children (a tag) sit over it.
+ * `packshot`: a product on the studio ground, which the empty frame already shows, so only the product fades in.
+ * `eager`: load now even if hidden (a small set kept mounted, like the Collection's tabs).
  */
-export function Photo({ image, ratio = 125, className = '', children }: { image: Img | null | undefined; ratio?: number; className?: string; children?: ReactNode }) {
-  const [loaded, setLoaded] = useState(() => !!image && shown.has(image.url))
+export function Photo({
+  image,
+  ratio = 125,
+  className = '',
+  packshot = false,
+  eager = false,
+  children,
+}: { image: Img | null | undefined; ratio?: number; className?: string; packshot?: boolean; eager?: boolean; children?: ReactNode }) {
+  const [loaded, setLoaded] = useState(false)
+  // Checked on every render, not only the first: a copy mounted while hidden must not fade in a photo already shown.
+  const ready = loaded || (!!image && shown.has(image.url))
   const done = () => {
     if (image) shown.add(image.url)
     setLoaded(true)
   }
   return (
-    <View className={`photo ${className}`} style={{ paddingTop: `${ratio}%` }}>
+    <View className={`photo ${packshot ? 'photo--packshot' : ''} ${className}`} style={{ paddingTop: `${ratio}%` }}>
       {image && (
         <Image
-          className={`photo__img ${loaded ? 'is-loaded' : ''}`}
+          className={`photo__img ${ready ? 'is-loaded' : ''}`}
           src={image.url}
           mode='aspectFill'
           // WeChat lazy-loads three screens ahead. Taro's H5 lazyLoad only starts once the photo is on screen (the tab
           // bar's scroller clips its observer), so the browser's own lazy loading, which looks further ahead, does it there.
-          lazyLoad={process.env.TARO_ENV !== 'h5'}
-          nativeProps={{ loading: 'lazy' }}
+          lazyLoad={!eager && process.env.TARO_ENV !== 'h5'}
+          nativeProps={{ loading: eager ? 'eager' : 'lazy' }}
           onLoad={done}
           onError={done}
           ariaLabel={image.alt}

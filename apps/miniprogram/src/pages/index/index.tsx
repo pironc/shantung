@@ -41,7 +41,7 @@ export default function Discover() {
         <View className='section'>
           {limited.map((p) => (
             <View key={p.id} id={`l-${p.id}`} className={`feature ${reveal(`l-${p.id}`)}`} onClick={() => go(`/pages/product/index?id=${p.id}`)}>
-              <Photo image={p.images[0]} ratio={100}>
+              <Photo image={p.images[0]} ratio={100} packshot>
                 <Text className='photo__tag'>{s.limited}</Text>
               </Photo>
               <View className='band stack'>

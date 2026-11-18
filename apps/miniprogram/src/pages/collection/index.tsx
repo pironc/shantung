@@ -57,7 +57,7 @@ export default function Collection() {
                 .filter((p) => !c || p.category === c)
                 .map((p) => (
                   <View key={p.id} className='stack' onClick={() => go(`/pages/product/index?id=${p.id}`)}>
-                    <Photo image={p.images[0]} ratio={125}>
+                    <Photo image={p.images[0]} ratio={125} packshot eager>
                       {p.limited && <Text className='photo__tag'>{s.limited}</Text>}
                     </Photo>
                     <Text className='t-sub card-title'>{p.title}</Text>

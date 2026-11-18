@@ -168,6 +168,10 @@ body {
   width: 100%;
   background: var(--ds-color-bg-neutral-subtle);
 }
+/* Product packshots sit on the studio ground; the empty frame is that ground, so a late photo never changes tone. */
+.photo--packshot {
+  background: var(--ds-color-surface-sunken);
+}
 .photo__img {
   position: absolute;
   top: 0;

@@ -69,7 +69,7 @@ export default function ProductPage() {
       <Swiper indicatorDots={p.images.length > 1} indicatorActiveColor={theme.accent} style={{ height: '125vw' }}>
         {p.images.map((img) => (
           <SwiperItem key={img.url}>
-            <Photo image={img} ratio={125} />
+            <Photo image={img} ratio={125} packshot={img === p.images[0]} />
           </SwiperItem>
         ))}
       </Swiper>
