@@ -1,0 +1,81 @@
+name: shantung
+
+
+# Same build for every Node service; BuildKit shares the layers, so it is built once.
+x-node: &node
+  build: .
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: drupal
+      POSTGRES_USER: drupal
+      POSTGRES_PASSWORD: drupal
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U drupal"]
+      interval: 2s
+      retries: 30
+
+  redis:
+    image: redis:7-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 2s
+      retries: 30
+
+  cms:
+    build: apps/cms
+    ports: ["${CMS_PORT:-8081}:80"]
+    environment:
+      DB_HOST: postgres
+      DB_NAME: drupal
+      DB_USER: drupal
+      DB_PASSWORD: drupal
+      DRUPAL_HASH_SALT: local-dev-only-salt
+    volumes:
+      - cms_files:/opt/drupal/web/sites/default/files
+      - ./apps/cms/config:/opt/drupal/config
+    depends_on:
+      postgres: { condition: service_healthy }
+
+  bff:
+    <<: *node
+    command: pnpm --filter bff dev
+    ports: ["3000:3000"]
+    environment:
+      REDIS_URL: redis://redis:6379
+      CMS_URL: http://cms
+    volumes:
+      - ./apps/bff/src:/repo/apps/bff/src
+    depends_on:
+      redis: { condition: service_healthy }
+      cms: { condition: service_started }
+
+  clienteling:
+    <<: *node
+    command: pnpm --filter clienteling dev
+    ports: ["3002:3002"]
+    volumes:
+      - ./apps/clienteling/src:/repo/apps/clienteling/src
+
+  miniprogram-h5:
+    <<: *node
+    command: pnpm --filter miniprogram dev:h5
+    ports: ["3001:3001"]
+    volumes:
+      - ./apps/miniprogram/src:/repo/apps/miniprogram/src
+
+  miniprogram-weapp:
+    <<: *node
+    command: pnpm --filter miniprogram dev:weapp
+    volumes:
+      - ./apps/miniprogram/src:/repo/apps/miniprogram/src
+      # Compiled WXML/WXSS/JS lands on the host, where WeChat DevTools opens it.
+      - ./apps/miniprogram/dist:/repo/apps/miniprogram/dist
+
+volumes:
+  pgdata:
+  cms_files:
