@@ -1,10 +1,10 @@
-import Taro, { useDidShow } from '@tarojs/taro'
+import Taro, { useDidShow, useRouter } from '@tarojs/taro'
 import { Button, Text, View } from '@tarojs/components'
 import { useEffect, useState } from 'react'
 import type { Boutique } from '@shantung/shared-types'
 import { api, ApiError, useData, useLang } from '../../services/api'
 import { t, when } from '../../services/i18n'
-import { Notice, usePageEnter } from '../../components/ui'
+import { usePageEnter, usePopup } from '../../components/ui'
 
 /** The next seven days in boutique time (Shanghai, UTC+8), as YYYY-MM-DD. */
 const days = () =>
@@ -15,11 +15,12 @@ export default function Appointment() {
   const s = t()
   const enter = usePageEnter()
   const boutiques = useData<Boutique[]>('/api/boutiques')
-  const [shop, setShop] = useState('')
+  // Arriving from a boutique's page preselects it.
+  const [shop, setShop] = useState(useRouter().params.b ?? '')
+  const { popup, show } = usePopup()
   const [day, setDay] = useState(days()[0])
   const [slot, setSlot] = useState('')
   const [busy, setBusy] = useState(false)
-  const [message, setMessage] = useState<{ text: string; tone: 'accent' | 'danger' } | null>(null)
   const slots = useData<{ at: string; free: boolean }[]>(shop ? `/api/boutiques/${shop}/slots?date=${day}` : null)
   useDidShow(() => Taro.setNavigationBarTitle({ title: s.appointment }))
   useEffect(() => {
@@ -28,12 +29,12 @@ export default function Appointment() {
 
   const confirm = async () => {
     setBusy(true)
-    setMessage(null)
     try {
       await api('POST', '/api/appointments', { boutique: shop, at: slot })
-      setMessage({ text: s.appointmentDone, tone: 'accent' })
+      const shopName = boutiques.data?.find((b) => b.code === shop)?.title ?? shop
+      show({ title: s.appointmentTitle, text: `${when(slot)}, ${shopName}. ${s.appointmentDone}` })
     } catch (e) {
-      setMessage({ text: e instanceof ApiError && e.status === 409 ? s.slotTaken : s.error, tone: 'danger' })
+      show(e instanceof ApiError && e.status === 409 ? { title: s.slotTaken } : { title: s.errorTitle, text: s.error })
     } finally {
       setSlot('')
       setBusy(false)
@@ -87,9 +88,9 @@ export default function Appointment() {
         <Button className={`btn ${!slot || busy ? 'is-disabled' : ''}`} hoverClass='is-pressed' disabled={!slot || busy} onClick={confirm}>
           {s.confirm}
         </Button>
-        <Notice text={message?.text} tone={message?.tone} />
       </View>
       <View className='spacer' />
+      {popup}
     </View>
   )
 }

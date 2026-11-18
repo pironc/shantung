@@ -5,7 +5,7 @@ import type { Member } from '@shantung/shared-types'
 import { useData, useLang } from '../../services/api'
 import { loadFonts } from '../../services/fonts'
 import { lang, t } from '../../services/i18n'
-import { Notice, usePageEnter } from '../../components/ui'
+import { Notice, usePageEnter, usePopup } from '../../components/ui'
 import { drawPass, H, W } from './draw'
 import './index.css'
 
@@ -37,7 +37,7 @@ export default function Pass() {
   const me = useData<Member>('/api/me')
   const [size, setSize] = useState<Size | null>(null)
   const [canvas, setCanvas] = useState<Node | null>(null)
-  const [notice, setNotice] = useState('')
+  const { popup, show } = usePopup()
   useDidShow(() => Taro.setNavigationBarTitle({ title: s.vipPass }))
 
   // Fit the card to the space between the title and the button, at its own proportions: the page never scrolls.
@@ -95,15 +95,15 @@ export default function Pass() {
     try {
       const { tempFilePath } = await Taro.canvasToTempFilePath({ canvas } as unknown as Taro.canvasToTempFilePath.Option)
       await Taro.saveImageToPhotosAlbum({ filePath: tempFilePath })
-      setNotice(copy.saved)
+      show({ title: s.savedTitle, text: copy.saved })
     } catch {
-      setNotice(s.error) // includes the client declining photo access
+      show({ title: s.errorTitle, text: s.error }) // includes the client declining photo access
     }
   }
 
   const box = size ? { width: `${size.w}px`, height: `${size.h}px` } : undefined
   return (
-    <View className={`ds pass ${enter}`}>
+    <View className={`ds pass ${process.env.TARO_ENV === 'h5' ? 'pass--h5' : ''} ${enter}`}>
       <Text className='t-sub'>{s.vipPass}</Text>
       <View id='pass-frame' className='pass__frame'>
         <View className='pass__slot' style={box}>
@@ -117,7 +117,8 @@ export default function Pass() {
       <Button className={`btn ${!canvas ? 'is-disabled' : ''}`} hoverClass='is-pressed' disabled={!canvas} onClick={save}>
         {process.env.TARO_ENV === 'h5' ? copy.download : copy.save}
       </Button>
-      <Notice text={notice || (me.error && s.error)} />
+      <Notice text={me.error && s.error} />
+      {popup}
     </View>
   )
 }

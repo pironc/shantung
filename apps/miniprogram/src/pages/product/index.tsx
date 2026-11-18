@@ -1,12 +1,12 @@
 import Taro, { useRouter } from '@tarojs/taro'
 import { Button, Swiper, SwiperItem, Text, View } from '@tarojs/components'
 import { useEffect, useState } from 'react'
-import type { Boutique, Member, Product } from '@shantung/shared-types'
+import type { Boutique, Member, Product, Reservation } from '@shantung/shared-types'
 import { api, ApiError, useData, useLang } from '../../services/api'
 import { price, t, TIERS, when, windowLine } from '../../services/i18n'
 import { store } from '../../services/store'
 import { theme } from '../../theme'
-import { BoutiquePicker, Notice, Paragraphs, Photo, usePageEnter } from '../../components/ui'
+import { BoutiquePicker, Icon, Notice, Paragraphs, Photo, usePageEnter, usePopup } from '../../components/ui'
 
 export default function ProductPage() {
   useLang()
@@ -16,9 +16,10 @@ export default function ProductPage() {
   const product = useData<Product>(`/api/products/${id}`)
   const boutiques = useData<Boutique[]>('/api/boutiques')
   const wishlist = useData<string[]>('/api/wishlist')
+  const mine = useData<Reservation[]>('/api/me/reservations')
+  const { popup, show } = usePopup()
   const [shop, setShop] = useState('')
   const [busy, setBusy] = useState(false)
-  const [message, setMessage] = useState<{ text: string; tone: 'accent' | 'danger' } | null>(null)
   const rank = store.get<Member>('member')?.tierRank ?? 1
   const p = product.data
 
@@ -35,21 +36,24 @@ export default function ProductPage() {
   const closed = Boolean(myOpens && Date.parse(myOpens) > Date.now())
   const soldOut = p.limited?.remaining === 0
   const saved = wishlist.data?.includes(p.id)
+  const held = mine.data?.find((r) => r.itemId === p.id && (r.kind === 'limited' || r.kind === 'try'))
+  const shopName = (code: string) => boutiques.data?.find((b) => b.code === code)?.title ?? code
 
   const reserve = async () => {
+    if (held) return show({ title: s.alreadyTitle, text: s.alreadyPiece(shopName(held.boutique)) })
     // The button already says why it is unavailable; tapping it does nothing more.
     if (closed || soldOut || !shop || busy) return
     setBusy(true)
-    setMessage(null)
     try {
       await api('POST', `/api/products/${p.id}/reserve`, { boutique: shop })
-      setMessage({ text: s.reserved, tone: 'accent' })
+      show({ title: s.reservedTitle, text: (p.limited ? s.reservedText : s.tryText)(shopName(shop)) })
       product.reload()
     } catch (e) {
       const status = e instanceof ApiError ? e.status : 0
-      setMessage({ text: status === 409 ? (soldOut ? s.full : s.already) : status === 403 ? s.notYet : s.error, tone: 'danger' })
+      show(status === 409 ? { title: e instanceof ApiError && e.message === 'Nothing left' ? s.fullTitle : s.alreadyTitle } : { title: s.errorTitle, text: s.error })
     } finally {
       setBusy(false)
+      mine.reload()
     }
   }
 
@@ -103,15 +107,22 @@ export default function ProductPage() {
         <Text className='t-label'>{s.pickBoutique}</Text>
         <BoutiquePicker boutiques={boutiques.data ?? []} value={shop} onChange={setShop} />
         <View className='spacer-sm' />
-        <Button className={`btn ${busy || !shop || closed || soldOut ? 'is-disabled' : ''}`} hoverClass='is-pressed' disabled={busy || !shop || closed || soldOut} onClick={reserve}>
-          {soldOut ? s.full : closed ? s.notYet : p.limited ? s.reserve : s.reserveTry}
+        <Button
+          className={`btn ${held ? 'btn--ghost' : ''} ${!held && (busy || !shop || closed || soldOut) ? 'is-disabled' : ''}`}
+          hoverClass='is-pressed'
+          disabled={!held && (busy || !shop || closed || soldOut)}
+          onClick={reserve}
+        >
+          {held && <Icon name='check' />}
+          {/* A bare text node beside the icon is dropped by Taro's browser build: keep the label in Text. */}
+          <Text>{held ? s.reservedState : soldOut ? s.full : closed ? s.notYet : p.limited ? s.reserve : s.reserveTry}</Text>
         </Button>
-        <Notice text={message?.text} tone={message?.tone} />
         <View className='btn-text' hoverClass='is-pressed' ariaRole='button' onClick={save}>
           {saved ? s.saved : `${s.saveWishlist} →`}
         </View>
       </View>
       <View className='spacer' />
+      {popup}
     </View>
   )
 }

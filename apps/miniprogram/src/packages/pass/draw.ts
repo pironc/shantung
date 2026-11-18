@@ -1,6 +1,7 @@
 import qrcode from 'qrcode-generator'
 import type { Member } from '@shantung/shared-types'
 import { theme as c } from '../../theme'
+import { KESI_ROWS } from '../../components/art'
 import { DISPLAY_FONT } from '../../services/fonts'
 import { TIERS } from '../../services/i18n'
 
@@ -63,15 +64,22 @@ function band(ctx: Ctx, rank: number) {
       ctx.stroke()
     }
   } else if (rank === 4) {
-    // Kesi: colour blocks parted by hairline slits.
-    const y = BAND * 0.6
-    const h = BAND * 0.16
-    const stops = [0, 0.22, 0.37, 0.71, 0.79, 1]
-    const colours = [c.brand, c.paper, c.brand, c.paper, c.brand]
-    colours.forEach((colour, i) => {
-      ctx.fillStyle = colour
-      ctx.fillRect(stops[i] * W + (i ? 1 : 0), y, (stops[i + 1] - stops[i]) * W - (i ? 1 : 0), h)
-    })
+    // Kesi: the same slit-woven swatch as the member card, under the seal.
+    const left = W * 0.58
+    const width = W - PAD - left
+    const scale = 0.6
+    let y = 68 // ends inside the band
+    for (const [h, segments] of KESI_ROWS) {
+      let x = left
+      for (const [f, k] of segments) {
+        if (k !== '-') {
+          ctx.fillStyle = k === 'r' ? c.brand : c.paper
+          ctx.fillRect(x, y, width * f - 2, h * scale)
+        }
+        x += width * f
+      }
+      y += h * scale + 2
+    }
   }
   ctx.restore()
 }

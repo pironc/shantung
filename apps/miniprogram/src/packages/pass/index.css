@@ -10,6 +10,10 @@
   padding: var(--ds-space-24);
   box-sizing: border-box;
 }
+/* The browser build's page sits under Taro's navigation bar: fill that page instead of the whole window. */
+.pass.pass--h5 {
+  height: 100%;
+}
 .pass__frame {
   flex: 1;
   min-height: 0;
