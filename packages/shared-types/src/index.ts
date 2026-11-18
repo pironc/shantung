@@ -55,6 +55,9 @@ export interface Boutique {
   hours: string
   text: string
   image: Image | null
+  /** GCJ-02, as Chinese map apps expect; null when not set. */
+  latitude: number | null
+  longitude: number | null
 }
 
 export interface Salon {

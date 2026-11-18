@@ -95,6 +95,8 @@ export const boutiques = (lang: Lang) =>
       hours: b.attributes.field_hours ?? '',
       text: b.attributes.field_text ?? '',
       image: images(b.relationships.field_image, inc)[0] ?? null,
+      latitude: b.attributes.field_latitude == null ? null : Number(b.attributes.field_latitude),
+      longitude: b.attributes.field_longitude == null ? null : Number(b.attributes.field_longitude),
     }))
   })
 
