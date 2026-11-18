@@ -46,10 +46,12 @@ export default function Collection() {
         <View className='grid'>
           {shown.map((p) => (
             <View key={p.id} id={`p-${p.id}`} className={`stack ${reveal(`p-${p.id}`)} reveal--quick`} onClick={() => go(`/pages/product/index?id=${p.id}`)}>
-              <Photo image={p.images[0]} ratio={125} />
-              {p.limited && <Text className='t-label t-label--accent'>{s.limited}</Text>}
-              <Text className='t-sub'>{p.title}</Text>
-              <Text className='t-small t-muted'>{p.subtitle}</Text>
+              <Photo image={p.images[0]} ratio={125}>
+                {p.limited && <Text className='photo__tag'>{s.limited}</Text>}
+              </Photo>
+              <Text className='t-sub card-title'>{p.title}</Text>
+              {/* Material only ("Kesi-woven silk"); the size stays on the product page. */}
+              <Text className='t-small t-muted card-line'>{p.subtitle.split(/[,，]/)[0]}</Text>
               <Text className='t-small'>{price(p.price)}</Text>
             </View>
           ))}

@@ -152,6 +152,36 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
+  opacity: 0;
+  transition: opacity var(--ds-motion-duration-long) var(--ds-motion-easing-enter);
+}
+.photo__img.is-loaded {
+  opacity: 1;
+}
+/* A tag on the photo's corner (Limited), so it never pushes the card's text down. */
+.photo__tag {
+  position: absolute;
+  top: var(--ds-space-8);
+  left: var(--ds-space-8);
+  padding: var(--ds-space-4) var(--ds-space-8);
+  background: var(--ds-color-surface-base);
+  color: var(--ds-color-text-accent);
+  font: var(--ds-text-label-sm);
+  letter-spacing: var(--ds-font-tracking-caps-label);
+  text-transform: uppercase;
+}
+/* Cards in a grid share one shape: title on up to two lines, then one line, then the price. */
+.card-title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.card-line {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 /* Red band: featured content sits on lacquer red. */

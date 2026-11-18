@@ -72,10 +72,26 @@ export function usePageEnter() {
 }
 
 /** A photo at a fixed ratio (height / width, in %), cropped to fill: layout never jumps while it loads. */
-export function Photo({ image, ratio = 125, className = '' }: { image: Img | null | undefined; ratio?: number; className?: string }) {
+/** A photo at a fixed ratio. It fades in once loaded instead of popping; children (a tag) sit over it. */
+export function Photo({ image, ratio = 125, className = '', children }: { image: Img | null | undefined; ratio?: number; className?: string; children?: ReactNode }) {
+  const [loaded, setLoaded] = useState(false)
   return (
     <View className={`photo ${className}`} style={{ paddingTop: `${ratio}%` }}>
-      {image && <Image className='photo__img' src={image.url} mode='aspectFill' lazyLoad ariaLabel={image.alt} />}
+      {image && (
+        <Image
+          className={`photo__img ${loaded ? 'is-loaded' : ''}`}
+          src={image.url}
+          mode='aspectFill'
+          // WeChat lazy-loads three screens ahead. Taro's H5 lazyLoad only starts once the photo is on screen (the tab
+          // bar's scroller clips its observer), so the browser's own lazy loading, which looks further ahead, does it there.
+          lazyLoad={process.env.TARO_ENV !== 'h5'}
+          nativeProps={{ loading: 'lazy' }}
+          onLoad={() => setLoaded(true)}
+          onError={() => setLoaded(true)}
+          ariaLabel={image.alt}
+        />
+      )}
+      {children}
     </View>
   )
 }

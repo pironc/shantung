@@ -35,3 +35,4 @@ The owner's notes on this project, from `engine.py feedback --kind note`. Read t
 | N-24 | A locked action is a greyed button with a grey lock; no invitation wording, no explanation pop-up | 1 | 2026-11-18 |
 | N-25 | Never show the same fact twice in one block (a count, a city, a name) | 1 | 2026-11-18 |
 | N-26 | A white panel floating over a full-bleed photo gets rounded corners (radius.panel), so it never reads as a flat white plane; other containers stay square. | 1 | 2026-11-18 |
+| N-27 | Product cards in a grid keep the same text rows: a Limited tag sits on the photo's corner, never above the title; the card shows the material only, the size stays on the product page. Photos load before they scroll into view and fade in once loaded, never pop. | 1 | 2026-11-19 |
