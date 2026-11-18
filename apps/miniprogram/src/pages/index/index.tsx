@@ -4,7 +4,7 @@ import type { Boutique, Member, Product, Salon, Story } from '@shantung/shared-t
 import { useData, useLang } from '../../services/api'
 import { t, windowLine } from '../../services/i18n'
 import { store } from '../../services/store'
-import { DateStrip, go, Notice, Photo, usePageEnter, useReveal } from '../../components/ui'
+import { go, Icon, InfoStrip, Notice, Photo, usePageEnter, useReveal } from '../../components/ui'
 
 export default function Discover() {
   useLang()
@@ -68,9 +68,8 @@ export default function Discover() {
           <View id='salon' className={`stack ${reveal('salon')}`} onClick={() => go('/pages/salons/index')}>
             <View>
               <Photo image={salon.image} ratio={66} />
-              <DateStrip iso={salon.date} />
+              <InfoStrip iso={salon.date} place={salon.boutique} />
             </View>
-            <Text className='t-label t-label--accent'>{salon.boutique?.title}</Text>
             <Text className='t-name'>{salon.title}</Text>
             <Text className='t-muted'>{salon.subtitle}</Text>
             <View className='btn-text' hoverClass='is-pressed' ariaRole='button'>
@@ -105,11 +104,13 @@ export default function Discover() {
             <Text className='t-title'>{s.boutiques}</Text>
           </View>
           {boutiques.data.map((b) => (
-            <View key={b.id} className='row stack'>
-              <Text className='t-sub'>{b.city}</Text>
-              <Text>{b.title}</Text>
-              <Text className='t-small t-muted'>{b.address}</Text>
-              <Text className='t-small t-muted'>{b.hours}</Text>
+            <View key={b.id} className='row row--link' hoverClass='is-pressed-row' ariaRole='link' onClick={() => go(`/pages/boutique/index?code=${b.code}`)}>
+              <View className='stack'>
+                <Text className='t-sub'>{b.city}</Text>
+                <Text>{b.title}</Text>
+                <Text className='t-small t-muted'>{b.address}</Text>
+              </View>
+              <Icon name='chevron' />
             </View>
           ))}
           <View className='btn-text' hoverClass='is-pressed' ariaRole='button' onClick={() => go('/pages/appointment/index')}>
