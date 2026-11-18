@@ -3,10 +3,10 @@ import { Button, Input, Text, View } from '@tarojs/components'
 import { useEffect, useState } from 'react'
 import type { Member, Reservation, Tier } from '@shantung/shared-types'
 import { api, signIn, useData, useLang } from '../../services/api'
-import { price, t, TIERS, when } from '../../services/i18n'
+import { price, setLang, t, TIERS, when } from '../../services/i18n'
 import { store } from '../../services/store'
 import { TierCard } from '../../components/TierCard'
-import { go, LangToggle, Notice } from '../../components/ui'
+import { go, MenuRow, Notice, usePageEnter } from '../../components/ui'
 
 const AVATAR_PX = 256
 
@@ -26,9 +26,17 @@ async function avatarDataUrl(path: string): Promise<string> {
   return canvas.toDataURL('image/jpeg', 0.85)
 }
 
+/** The language picker most apps use: a native action sheet from a settings row. */
+const chooseLanguage = () =>
+  Taro.showActionSheet({ itemList: ['English', '简体中文'] }).then(
+    ({ tapIndex }) => setLang(tapIndex === 1 ? 'zh-hans' : 'en'),
+    () => {}, // dismissed
+  )
+
 export default function Membership() {
   useLang()
   const s = t()
+  const enter = usePageEnter()
   const me = useData<Member>('/api/me')
   const tiers = useData<Tier[]>('/api/tiers')
   const reservations = useData<Reservation[]>('/api/me/reservations')
@@ -43,7 +51,6 @@ export default function Membership() {
   const member = me.data
   // The field keeps what the client types; it is saved when they leave it.
   useEffect(() => setName(member?.nickname ?? ''), [member?.nickname])
-  const saveName = () => name.trim() && name.trim() !== member?.nickname && update({ nickname: name.trim() })
   const tier = tiers.data?.find((x) => x.rank === member?.tierRank)
   const next = tiers.data?.find((x) => x.rank === (member?.tierRank ?? 0) + 1 && !x.invitationOnly)
 
@@ -55,6 +62,7 @@ export default function Membership() {
       setNotice(s.error)
     }
   }
+  const saveName = () => name.trim() && name.trim() !== member?.nickname && update({ nickname: name.trim() })
 
   const pickAvatarInBrowser = async () => {
     const { tempFilePaths } = await Taro.chooseImage({ count: 1, sizeType: ['compressed'] })
@@ -67,18 +75,24 @@ export default function Membership() {
   }
 
   return (
-    <View className='ds'>
-      <View className='page-head'>
-        <View>
-          <Text className='t-display'>{s.membership}</Text>
-          <Text className='t-sub'>Shantung</Text>
-        </View>
-        <LangToggle />
+    <View className={`ds ${enter}`}>
+      {/* The card sits on a coloured stage so it reads as an object: lacquer red, or ink for the red Brocade card. */}
+      <View className={`stage ${member?.tierRank === 3 ? 'stage--ink' : ''}`}>
+        <Text className='t-display'>{s.membership}</Text>
+        {member && <TierCard member={member} />}
+        {tier && (
+          <View className='stack'>
+            <Text className='t-title'>
+              {TIERS[tier.rank].zh} {TIERS[tier.rank].en}
+            </Text>
+            <Text>{tier.description}</Text>
+            {next && <Text className='t-small'>{s.nextTier(`${TIERS[next.rank].zh} ${TIERS[next.rank].en}`, price(next.threshold))}</Text>}
+          </View>
+        )}
       </View>
 
       <View className='wrap'>
         <Notice text={me.offline ? s.offline : notice || (me.error && s.error)} />
-        {member && <TierCard member={member} />}
       </View>
 
       {member && (
@@ -107,21 +121,13 @@ export default function Membership() {
         </View>
       )}
 
-      {tier && (
-        <View className='section stack'>
-          <Text className='t-title'>
-            {TIERS[tier.rank].zh} {TIERS[tier.rank].en}
-          </Text>
-          <Text>{tier.description}</Text>
-          {next && <Text className='t-small t-muted'>{s.nextTier(`${TIERS[next.rank].zh} ${TIERS[next.rank].en}`, price(next.threshold))}</Text>}
-          <View className='btn-text' hoverClass='is-pressed' ariaRole='button' onClick={() => go('/packages/pass/index')}>
-            {s.vipPass} →
-          </View>
-          <View className='btn-text' hoverClass='is-pressed' ariaRole='button' onClick={() => go('/pages/appointment/index')}>
-            {s.bookAppointment} →
-          </View>
+      <View className='section'>
+        <View className='menu'>
+          <MenuRow label={s.vipPass} onClick={() => go('/packages/pass/index')} />
+          <MenuRow label={s.bookAppointment} onClick={() => go('/pages/appointment/index')} />
+          <MenuRow label={s.language} value={s.languageName} onClick={chooseLanguage} />
         </View>
-      )}
+      </View>
 
       <View className='section'>
         <Text className='t-title'>{s.reservations}</Text>
