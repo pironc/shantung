@@ -4,10 +4,11 @@ import { useEffect } from 'react'
 import type { Story } from '@shantung/shared-types'
 import { useData, useLang } from '../../services/api'
 import { t } from '../../services/i18n'
-import { Notice, Paragraphs, Photo, useReveal } from '../../components/ui'
+import { Notice, Paragraphs, Photo, usePageEnter, useReveal } from '../../components/ui'
 
 export default function StoryPage() {
   useLang()
+  const enter = usePageEnter()
   const { id } = useRouter().params
   const story = useData<Story>(`/api/stories/${id}`)
   const reveal = useReveal(story.data)
@@ -17,10 +18,10 @@ export default function StoryPage() {
     if (st) Taro.setNavigationBarTitle({ title: st.title })
   }, [st?.title])
 
-  if (!st) return <View className='ds'>{story.error && <Notice text={t().error} tone='danger' />}</View>
+  if (!st) return <View className={`ds ${enter}`}>{story.error && <Notice text={t().error} tone='danger' />}</View>
 
   return (
-    <View className='ds'>
+    <View className={`ds ${enter}`}>
       <Photo image={st.image} ratio={118} />
       <View className='page-head'>
         <View>
@@ -31,10 +32,10 @@ export default function StoryPage() {
       <View className='wrap'>
         <Paragraphs text={st.text} />
       </View>
-      <View className='section stagger'>
+      <View className='section stories'>
         {st.gallery.map((img, i) => (
-          <View key={img.url} id={`g-${i}`} className={`${['', 'stagger__item--left', 'stagger__item--right'][i % 3]} ${reveal(`g-${i}`)}`}>
-            <Photo image={img} ratio={i % 3 === 0 ? 66 : 125} />
+          <View key={img.url} id={`g-${i}`} className={reveal(`g-${i}`)}>
+            <Photo image={img} ratio={66} />
           </View>
         ))}
       </View>

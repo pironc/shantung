@@ -2,13 +2,14 @@ import Taro, { useDidShow } from '@tarojs/taro'
 import { Text, View } from '@tarojs/components'
 import type { Boutique, Member, Product, Salon, Story } from '@shantung/shared-types'
 import { useData, useLang } from '../../services/api'
-import { t, when, windowLine } from '../../services/i18n'
+import { t, windowLine } from '../../services/i18n'
 import { store } from '../../services/store'
-import { go, LangToggle, Notice, Photo, useReveal } from '../../components/ui'
+import { DateStrip, go, Notice, Photo, usePageEnter, useReveal } from '../../components/ui'
 
 export default function Discover() {
   useLang()
   const s = t()
+  const enter = usePageEnter()
   const stories = useData<Story[]>('/api/stories')
   const products = useData<Product[]>('/api/products')
   const salons = useData<Salon[]>('/api/salons')
@@ -23,16 +24,14 @@ export default function Discover() {
   const offline = stories.offline || products.offline
 
   return (
-    <View className='ds'>
+    <View className={`ds ${enter}`}>
+      {/* The name sits in the sky of the opening photo. */}
       <View className='hero'>
         <Photo image={hero?.image} ratio={118} />
-        <View className='hero__lang'>
-          <LangToggle onDark />
+        <View className='hero__title'>
+          <Text className='t-display hero__name'>Shantung</Text>
+          <Text className='t-label hero__tagline'>{s.tagline}</Text>
         </View>
-      </View>
-      <View className='masthead'>
-        <Text className='t-display'>Shantung</Text>
-        <Text className='t-label'>{s.tagline}</Text>
       </View>
       <View className='wrap'>
         <Notice text={offline ? s.offline : stories.error && s.error} />
@@ -47,9 +46,10 @@ export default function Discover() {
                 <Text className='t-label'>{s.limitedRelease}</Text>
                 <Text className='t-title'>{p.title}</Text>
                 <Text className='t-small'>{p.subtitle}</Text>
-                <Text className='t-label'>
-                  {s.pieces(p.limited!.pieces)} · {s.left(p.limited!.remaining)}
-                </Text>
+                <View className='split-row t-label'>
+                  <Text>{s.pieces(p.limited!.pieces)}</Text>
+                  <Text>{s.left(p.limited!.remaining)}</Text>
+                </View>
                 <Text className='t-small'>{windowLine(p, rank)}</Text>
                 <View className='btn-text' hoverClass='is-pressed' ariaRole='button'>
                   {s.discoverMore} →
@@ -66,10 +66,11 @@ export default function Discover() {
             <Text className='t-title'>{s.privateSalons}</Text>
           </View>
           <View id='salon' className={`stack ${reveal('salon')}`} onClick={() => go('/pages/salons/index')}>
-            <Photo image={salon.image} ratio={66} />
-            <Text className='t-label t-label--accent'>
-              {when(salon.date)} · {salon.boutique?.city}
-            </Text>
+            <View>
+              <Photo image={salon.image} ratio={66} />
+              <DateStrip iso={salon.date} />
+            </View>
+            <Text className='t-label t-label--accent'>{salon.boutique?.title}</Text>
             <Text className='t-name'>{salon.title}</Text>
             <Text className='t-muted'>{salon.subtitle}</Text>
             <View className='btn-text' hoverClass='is-pressed' ariaRole='button'>
@@ -84,16 +85,11 @@ export default function Discover() {
           <View className='section__head'>
             <Text className='t-title'>{s.stories}</Text>
           </View>
-          <View className='stagger'>
-            {stories.data.map((story, i) => (
-              <View
-                key={story.id}
-                id={`s-${story.id}`}
-                className={`${['', 'stagger__item--left', 'stagger__item--right'][i % 3]} ${reveal(`s-${story.id}`)}`}
-                onClick={() => go(`/pages/story/index?id=${story.id}`)}
-              >
-                <Photo image={story.image} ratio={i % 3 === 0 ? 66 : 125} />
-                <View className='stagger__caption stack'>
+          <View className='stories'>
+            {stories.data.map((story) => (
+              <View key={story.id} id={`s-${story.id}`} className={reveal(`s-${story.id}`)} onClick={() => go(`/pages/story/index?id=${story.id}`)}>
+                <Photo image={story.image} ratio={66} />
+                <View className='stories__caption stack'>
                   <Text className='t-sub'>{story.title}</Text>
                   <Text className='t-small t-muted'>{story.subtitle}</Text>
                 </View>
