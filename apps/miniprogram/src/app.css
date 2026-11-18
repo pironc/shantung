@@ -139,15 +139,27 @@ body {
 .grid > * {
   width: calc(50% - var(--ds-space-8));
 }
-.grid > .is-hidden {
+/* Collection tabs: one grid per tab. The new grid is already in place underneath; the old one lies over it on the
+   page colour and dissolves, so the switch never passes through white. */
+.grid-stack {
+  position: relative;
+}
+.grid.is-off {
   display: none;
 }
-/* A filter swap (Collection tabs): the grid fades back in; a/b restarts the animation on every swap. */
-.swap-a {
-  animation: fade-a var(--ds-motion-duration-medium) var(--ds-motion-easing-enter) backwards;
+.grid.is-leaving {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: var(--ds-color-surface-base);
+  pointer-events: none;
+  animation: fade-out var(--ds-motion-duration-long) var(--ds-motion-easing-exit) forwards;
 }
-.swap-b {
-  animation: fade-b var(--ds-motion-duration-medium) var(--ds-motion-easing-enter) backwards;
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
 }
 
 .photo {

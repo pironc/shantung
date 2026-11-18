@@ -71,12 +71,19 @@ export function usePageEnter() {
   return shows % 2 ? 'page-in-a' : 'page-in-b'
 }
 
+/** Photos this session has already shown: a second copy of one appears at once instead of fading in again. */
+const shown = new Set<string>()
+
 /**
  * A photo at a fixed ratio (height / width, in %), cropped to fill: layout never jumps while it loads.
- * It fades in once loaded instead of popping; children (a tag) sit over it.
+ * It fades in the first time it loads instead of popping; children (a tag) sit over it.
  */
 export function Photo({ image, ratio = 125, className = '', children }: { image: Img | null | undefined; ratio?: number; className?: string; children?: ReactNode }) {
-  const [loaded, setLoaded] = useState(false)
+  const [loaded, setLoaded] = useState(() => !!image && shown.has(image.url))
+  const done = () => {
+    if (image) shown.add(image.url)
+    setLoaded(true)
+  }
   return (
     <View className={`photo ${className}`} style={{ paddingTop: `${ratio}%` }}>
       {image && (
@@ -88,8 +95,8 @@ export function Photo({ image, ratio = 125, className = '', children }: { image:
           // bar's scroller clips its observer), so the browser's own lazy loading, which looks further ahead, does it there.
           lazyLoad={process.env.TARO_ENV !== 'h5'}
           nativeProps={{ loading: 'lazy' }}
-          onLoad={() => setLoaded(true)}
-          onError={() => setLoaded(true)}
+          onLoad={done}
+          onError={done}
           ariaLabel={image.alt}
         />
       )}

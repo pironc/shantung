@@ -4,7 +4,7 @@ import { useState } from 'react'
 import type { Product } from '@shantung/shared-types'
 import { useData, useLang } from '../../services/api'
 import { price, t } from '../../services/i18n'
-import { Notice, Photo, chromeStyle, go, usePageEnter, useReveal } from '../../components/ui'
+import { Notice, Photo, chromeStyle, go, usePageEnter } from '../../components/ui'
 
 export default function Collection() {
   useLang()
@@ -12,8 +12,7 @@ export default function Collection() {
   const enter = usePageEnter()
   const products = useData<Product[]>('/api/products')
   const [category, setCategory] = useState('')
-  const [swaps, setSwaps] = useState(0)
-  const reveal = useReveal(products.data)
+  const [leaving, setLeaving] = useState<string | null>(null)
   useDidShow(() => Taro.setNavigationBarTitle({ title: s.collection }))
 
   const categories = [...new Set((products.data ?? []).map((p) => p.category))]
@@ -35,8 +34,8 @@ export default function Collection() {
             ariaSelected={category === c}
             onClick={() => {
               if (c === category) return
+              setLeaving(category)
               setCategory(c)
-              setSwaps((n) => n + 1)
             }}
           >
             {c || s.all}
@@ -47,22 +46,26 @@ export default function Collection() {
         <Notice text={products.offline ? s.offline : products.error && s.error} />
       </View>
       <View className='section'>
-        {/* Every card stays mounted and a tab only hides the others: loaded photos never reload and blink,
-            and the reveal observer, which watches the cards present on load, still sees them all. */}
-        <View className={`grid ${swaps ? (swaps % 2 ? 'swap-a' : 'swap-b') : ''}`}>
-          {(products.data ?? []).map((p) => (
+        {/* One grid per tab, all kept mounted: the old grid lies over the new one and dissolves, never through white. */}
+        <View className='grid-stack'>
+          {['', ...categories].map((c) => (
             <View
-              key={p.id}
-              id={`p-${p.id}`}
-              className={`stack ${reveal(`p-${p.id}`)} reveal--quick ${category && p.category !== category ? 'is-hidden' : ''}`}
-              onClick={() => go(`/pages/product/index?id=${p.id}`)}>
-              <Photo image={p.images[0]} ratio={125}>
-                {p.limited && <Text className='photo__tag'>{s.limited}</Text>}
-              </Photo>
-              <Text className='t-sub card-title'>{p.title}</Text>
-              {/* Material only ("Kesi-woven silk"); the size stays on the product page. */}
-              <Text className='t-small t-muted card-line'>{p.subtitle.split(/[,，]/)[0]}</Text>
-              <Text className='t-small'>{price(p.price)}</Text>
+              key={c || 'all'}
+              className={`grid ${c === category ? '' : c === leaving ? 'is-leaving' : 'is-off'}`}
+              onAnimationEnd={c === leaving ? () => setLeaving(null) : undefined}>
+              {(products.data ?? [])
+                .filter((p) => !c || p.category === c)
+                .map((p) => (
+                  <View key={p.id} className='stack' onClick={() => go(`/pages/product/index?id=${p.id}`)}>
+                    <Photo image={p.images[0]} ratio={125}>
+                      {p.limited && <Text className='photo__tag'>{s.limited}</Text>}
+                    </Photo>
+                    <Text className='t-sub card-title'>{p.title}</Text>
+                    {/* Material only ("Kesi-woven silk"); the size stays on the product page. */}
+                    <Text className='t-small t-muted card-line'>{p.subtitle.split(/[,，]/)[0]}</Text>
+                    <Text className='t-small'>{price(p.price)}</Text>
+                  </View>
+                ))}
             </View>
           ))}
         </View>
