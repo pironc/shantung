@@ -189,7 +189,7 @@ body {
   letter-spacing: var(--ds-font-tracking-caps-display);
   line-height: 1;
   transition:
-    transform var(--ds-motion-duration-short) var(--ds-motion-easing-enter),
+    background-color var(--ds-motion-duration-short) var(--ds-motion-easing-enter),
     opacity var(--ds-motion-duration-short) var(--ds-motion-easing-enter);
 }
 .btn::after {
@@ -217,12 +217,16 @@ body {
   color: var(--ds-color-text-accent);
   transition: opacity var(--ds-motion-duration-short) var(--ds-motion-easing-enter);
 }
+/* Press feedback is colour only: nothing scales (owner: scaling reads cheap, not premium). */
 .is-pressed {
-  transform: scale(0.97); /* press feedback, as the animation skill sets it: 0.97, never smaller */
-}
-.btn-text.is-pressed {
-  transform: none;
   opacity: var(--ds-opacity-disabled-content);
+}
+.ds .btn.is-pressed {
+  opacity: 1;
+  background: var(--ds-color-bg-accent-bold-pressed);
+}
+.ds .btn--ghost.is-pressed {
+  background: var(--ds-color-bg-neutral-subtle);
 }
 
 /* Chips: boutiques, categories, days, times, tiers. */
@@ -328,10 +332,6 @@ body {
   }
   .reveal {
     transform: none;
-  }
-  .is-pressed {
-    transform: none;
-    opacity: var(--ds-opacity-disabled-content);
   }
 }
 
@@ -557,6 +557,12 @@ body {
   margin-top: var(--ds-space-16);
   border-top: 1px solid var(--ds-color-border-separator);
 }
+.fact__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-space-12);
+}
 .fact {
   display: flex;
   flex-direction: column;
@@ -624,6 +630,12 @@ body {
   background: var(--ds-color-surface-raised);
   animation: page-a var(--ds-motion-duration-modal) var(--ds-motion-easing-enter) both;
 }
+/* One line: the title names the outcome, the text below explains it. */
+.popup__title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .popup__text {
   font: var(--ds-text-body-lg);
 }
@@ -643,8 +655,8 @@ body {
 .topbar {
   position: fixed;
   z-index: 50;
-  top: var(--bar-top, var(--ds-space-8));
-  left: var(--ds-space-16);
+  top: var(--bar-top, var(--ds-space-12));
+  left: var(--bar-left, var(--ds-space-12));
   width: var(--bar-h, var(--ds-size-control-sm));
   height: var(--bar-h, var(--ds-size-control-sm));
   display: flex;
@@ -654,7 +666,7 @@ body {
   border-radius: var(--ds-radius-full);
   background: var(--ds-color-surface-raised);
   border: 1px solid var(--ds-color-border-subtle);
-  transition: transform var(--ds-motion-duration-short) var(--ds-motion-easing-enter);
+  transition: opacity var(--ds-motion-duration-short) var(--ds-motion-easing-enter);
 }
 
 /* Bottom sheet: menus and the profile editor, drawn by the app so every word follows its language. */

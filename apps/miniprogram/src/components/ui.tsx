@@ -6,7 +6,7 @@ import { t, when } from '../services/i18n'
 import { theme } from '../theme'
 import { iconUri, type IconName } from './art'
 
-type Chrome = { statusBar: number; barTop: number; barHeight: number; contentTop: number }
+type Chrome = { statusBar: number; barTop: number; barLeft: number; barHeight: number; contentTop: number }
 let chromeCache: Chrome | undefined
 
 /**
@@ -17,12 +17,18 @@ let chromeCache: Chrome | undefined
 export function chrome(): Chrome {
   if (chromeCache) return chromeCache
   let statusBar = 0
+  let windowWidth = 0
   try {
-    statusBar = Taro.getSystemInfoSync().statusBarHeight || 0
+    const info = Taro.getSystemInfoSync()
+    statusBar = info.statusBarHeight || 0
+    windowWidth = info.windowWidth
   } catch {
     // keep 0
   }
-  let barTop = statusBar + 8
+  // The same gap above and beside the back button. In WeChat it mirrors the capsule's own right-hand gap.
+  const GAP = 12
+  let barTop = statusBar + GAP
+  let barLeft = GAP
   let barHeight = 32
   // Only WeChat has the capsule; Taro's browser build answers this call with a rejected promise.
   if (process.env.TARO_ENV === 'weapp') {
@@ -30,16 +36,17 @@ export function chrome(): Chrome {
     if (capsule?.height) {
       barTop = capsule.top
       barHeight = capsule.height
+      barLeft = windowWidth ? windowWidth - capsule.right : GAP
     }
   }
-  chromeCache = { statusBar, barTop, barHeight, contentTop: barTop + barHeight + 8 }
+  chromeCache = { statusBar, barTop, barLeft, barHeight, contentTop: barTop + barHeight + 8 }
   return chromeCache
 }
 
 /** The page root's custom properties for the top offsets (CSS reads --content-top, --bar-top, --bar-h). */
 export const chromeStyle = () => {
   const c = chrome()
-  return `--status-bar: ${c.statusBar}px; --bar-top: ${c.barTop}px; --bar-h: ${c.barHeight}px; --content-top: ${c.contentTop}px`
+  return `--status-bar: ${c.statusBar}px; --bar-top: ${c.barTop}px; --bar-left: ${c.barLeft}px; --bar-h: ${c.barHeight}px; --content-top: ${c.contentTop}px`
 }
 
 const back = () => (Taro.getCurrentPages().length > 1 ? Taro.navigateBack() : Taro.switchTab({ url: '/pages/index/index' }))
@@ -109,8 +116,32 @@ export function useReveal(ready: unknown) {
 }
 
 /** A line icon from components/art.ts; decorative, so hidden from screen readers (the text beside it carries the meaning). */
-export const Icon = ({ name, light = false }: { name: IconName; light?: boolean }) => (
-  <Image className='icon' src={iconUri(name, light ? theme.paper : theme.accent)} ariaHidden />
+export const Icon = ({ name, light = false, muted = false }: { name: IconName; light?: boolean; muted?: boolean }) => (
+  <Image className='icon' src={iconUri(name, light ? theme.paper : muted ? theme.textSecondary : theme.accent)} ariaHidden />
+)
+
+/**
+ * Open a boutique in the phone's map app. WeChat shows its map, with a choice of Amap, Tencent or Apple Maps;
+ * the browser build opens Amap (高德), the default in China, which hands over to its app when installed.
+ */
+export function openMap(b: Pick<Boutique, 'title' | 'address' | 'latitude' | 'longitude'>) {
+  if (b.latitude == null || b.longitude == null) return
+  if (process.env.TARO_ENV === 'weapp') {
+    Taro.openLocation({ latitude: b.latitude, longitude: b.longitude, name: b.title, address: b.address, scale: 16 })
+    return
+  }
+  window.location.href = `https://uri.amap.com/marker?position=${b.longitude},${b.latitude}&name=${encodeURIComponent(b.title)}&coordinate=gaode&callnative=1&src=shantung`
+}
+
+/** The address, once, as a row that opens the map. */
+export const AddressFact = ({ boutique, label }: { boutique: Boutique; label: string }) => (
+  <View className='fact fact--link' hoverClass='is-pressed-row' ariaRole='link' onClick={() => openMap(boutique)}>
+    <Text className='t-label'>{label}</Text>
+    <View className='fact__row'>
+      <Text>{boutique.address}</Text>
+      <Icon name='pin' />
+    </View>
+  </View>
 )
 
 const isIcon = (code: string): code is IconName => ['BJ01', 'QD01', 'SH01'].includes(code)
@@ -207,7 +238,7 @@ export function usePopup() {
   const popup = msg && (
     <View className='popup' onClick={close}>
       <View className='popup__box' ariaRole='alertdialog' ariaLabel={msg.title} onClick={(e) => e.stopPropagation()}>
-        <Text className='t-title'>{msg.title}</Text>
+        <Text className='t-sub popup__title'>{msg.title}</Text>
         {msg.text && <Text className='popup__text'>{msg.text}</Text>}
         <View className='popup__actions'>
           {msg.action && (

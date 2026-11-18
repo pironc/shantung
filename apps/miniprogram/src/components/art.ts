@@ -23,6 +23,7 @@ const ICONS = {
   // Shanghai: Jing'an Temple, a sweeping hall roof under its spire.
   SH01: 'M12 2.5V8 M10.5 4.5h3 M10 6.5h4 M3 12c3.2-.4 6.2-1.8 9-4 2.8 2.2 5.8 3.6 9 4z M5 12v8h14v-8 M10.5 20v-4.5h3V20 M3 20.5h18',
   lock: 'M6.5 11h11v9.5h-11z M8.5 11V8.5a3.5 3.5 0 0 1 7 0V11',
+  pin: 'M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z M12 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z',
   check: 'M5 12.5l4.5 4.5L19 7.5',
   chevron: 'M9.5 6l6 6-6 6',
   back: 'M14.5 5.5L8 12l6.5 6.5',
