@@ -51,10 +51,10 @@ $at = fn(int $offsetDays, string $time = '10:00') => gmdate('Y-m-d\\TH:i:s', str
 // Tiers: the client's card. Rank decides the order of limited-release windows.
 $tiers = [];
 foreach ([
-  [1, 'Thread', '丝', 0, FALSE, 'A single silk thread, where every story begins. Welcome to the maison.', '一根丝线，故事由此开始。欢迎来到本坊。'],
-  [2, 'Satin', '缎', 30000, FALSE, 'Woven and lustrous. Early access to new collections and private salons.', '织就的光泽。优先鉴赏新系列，受邀参加私享沙龙。'],
-  [3, 'Brocade', '锦', 120000, FALSE, 'The richest silk, patterns woven in. A dedicated advisor and first windows on limited pieces.', '最华美的丝织，纹样织入其中。专属顾问，限量作品优先预留。'],
-  [4, 'Kesi', '缂丝', 0, TRUE, 'Carved silk, once reserved for the court: an inch of kesi is worth an inch of gold. By invitation only.', '缂丝，昔为宫廷御用，一寸缂丝一寸金。仅限受邀。'],
+  [1, 'Thread', '丝', 0, FALSE, 'A single silk thread, where every story begins.', '一根丝线，故事由此开始。'],
+  [2, 'Satin', '缎', 30000, FALSE, 'Early access to new collections and private salons.', '优先鉴赏新系列，受邀参加私享沙龙。'],
+  [3, 'Brocade', '锦', 120000, FALSE, 'A dedicated advisor and early windows on limited pieces.', '专属顾问，限量作品优先预留。'],
+  [4, 'Kesi', '缂丝', 0, TRUE, 'Carved silk, once reserved for the court.', '缂丝，昔为宫廷御用。'],
 ] as [$rank, $name, $hanzi, $threshold, $invite, $en, $zh]) {
   $tiers[$name] = term('tier',
     ['name' => $name, 'description' => $en, 'field_rank' => $rank, 'field_hanzi' => $hanzi, 'field_threshold' => $threshold, 'field_invitation' => $invite],
