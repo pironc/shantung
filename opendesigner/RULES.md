@@ -28,3 +28,8 @@ The owner's notes on this project, from `engine.py feedback --kind note`. Read t
 | N-17 | Descriptions are at most two lines | 1 | 2026-11-18 |
 | N-18 | No page title in a top bar; a floating back button sits below the status bar and never covers content | 1 | 2026-11-18 |
 | N-19 | A link to one item opens that item, never the list it belongs to | 1 | 2026-11-18 |
+| N-20 | Buttons never scale when pressed; press feedback is a colour change only | 1 | 2026-11-18 |
+| N-21 | An address is shown once, without repeating the city before it, and opens the phone's map app | 1 | 2026-11-18 |
+| N-22 | Counts read as n/total (8/8 seats left) | 1 | 2026-11-18 |
+| N-23 | Pop-up titles fit on one line | 1 | 2026-11-18 |
+| N-24 | A locked action is a greyed button with a grey lock; no invitation wording, no explanation pop-up | 1 | 2026-11-18 |
