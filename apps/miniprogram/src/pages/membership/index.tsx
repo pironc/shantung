@@ -1,6 +1,6 @@
 import Taro, { useDidShow } from '@tarojs/taro'
 import { Button, Input, Text, View } from '@tarojs/components'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { Member, Reservation, Tier } from '@shantung/shared-types'
 import { api, signIn, useData, useLang } from '../../services/api'
 import { price, t, TIERS, when } from '../../services/i18n'
@@ -33,6 +33,7 @@ export default function Membership() {
   const tiers = useData<Tier[]>('/api/tiers')
   const reservations = useData<Reservation[]>('/api/me/reservations')
   const [notice, setNotice] = useState('')
+  const [name, setName] = useState('')
   useDidShow(() => {
     Taro.setNavigationBarTitle({ title: s.membership })
     me.reload()
@@ -40,6 +41,9 @@ export default function Membership() {
   })
 
   const member = me.data
+  // The field keeps what the client types; it is saved when they leave it.
+  useEffect(() => setName(member?.nickname ?? ''), [member?.nickname])
+  const saveName = () => name.trim() && name.trim() !== member?.nickname && update({ nickname: name.trim() })
   const tier = tiers.data?.find((x) => x.rank === member?.tierRank)
   const next = tiers.data?.find((x) => x.rank === (member?.tierRank ?? 0) + 1 && !x.invitationOnly)
 
@@ -94,9 +98,11 @@ export default function Membership() {
             className='field'
             type='nickname'
             maxlength={32}
-            value={member.nickname}
+            value={name}
             placeholder={s.nicknamePlaceholder}
-            onBlur={(e) => e.detail.value.trim() && e.detail.value !== member.nickname && update({ nickname: e.detail.value.trim() })}
+            onInput={(e) => setName(e.detail.value)}
+            onBlur={saveName}
+            onConfirm={saveName}
           />
         </View>
       )}
