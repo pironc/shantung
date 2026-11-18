@@ -45,7 +45,8 @@ function node(string $type, array $en, array $zh): Node {
 }
 
 $day = 86400;
-$at = fn(int $offsetDays, string $time = '10:00') => gmdate('Y-m-d', time() + $offsetDays * $day) . "T{$time}:00";
+// Times are given in boutique time (Shanghai, UTC+8) and stored in UTC, as Drupal expects.
+$at = fn(int $offsetDays, string $time = '10:00') => gmdate('Y-m-d\\TH:i:s', strtotime(gmdate('Y-m-d', time() + $offsetDays * $day) . " $time:00 +08:00"));
 
 // Tiers: the client's card. Rank decides the order of limited-release windows.
 $tiers = [];
