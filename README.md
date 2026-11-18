@@ -34,7 +34,7 @@
 The client app and boutique tools of **Shantung**, a fictional Shandong maison of silk scarves, ties and Laoshan green tea. A portfolio piece modelled on how agencies build luxury clienteling for China: a headless CMS, a BFF, a WeChat Mini Program and the advisors' iPad screens. Payments are out of scope.
 
 <p align="center">
-  <img src="assets/shantung.jpg" alt="Shantung Mini Program: Discover, a silk scarf, the Kesi membership card, private salons and the appointment calendar" width="820">
+  <img src="assets/shantung.webp" alt="Shantung Mini Program: Discover, a silk scarf, the Kesi membership card, private salons and the appointment calendar" width="820">
 </p>
 
 ## Features
@@ -47,7 +47,7 @@ The client app and boutique tools of **Shantung**, a fictional Shandong maison o
 * **Private salons and appointments:** salon seats by tier, one-to-one appointments with a calendar and a grid of free times, reserve-to-try in a boutique (held 48 hours), and a wishlist.
 
 <p align="center">
-  <img src="assets/cards.jpg" alt="The four membership cards: Thread, Satin, Brocade and Kesi" width="820">
+  <img src="assets/cards.webp" alt="The four membership cards: Thread, Satin, Brocade and Kesi" width="820">
 </p>
 
 ### For the boutique: the advisors' iPads
@@ -56,7 +56,7 @@ The client app and boutique tools of **Shantung**, a fictional Shandong maison o
 * **Entrance kiosk:** a full-screen QR code that changes every five minutes. A client scans it with WeChat, is checked in, and their advisor sees the arrival.
 
 <p align="center">
-  <img src="assets/clienteling.jpg" alt="The advisor portal with a client profile, beside the entrance kiosk in Qingdao" width="820">
+  <img src="assets/clienteling.webp" alt="The advisor portal with a client profile, beside the entrance kiosk in Qingdao" width="820">
 </p>
 
 ### Under the hood

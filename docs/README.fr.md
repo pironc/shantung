@@ -34,7 +34,7 @@
 L'application client et les outils de boutique de **Shantung**, une maison fictive du Shandong qui vend des carrés et des cravates en soie ainsi que du thé vert du Laoshan. Un projet de portfolio inspiré de la façon dont les agences construisent le clienteling de luxe pour la Chine : un CMS headless, un BFF, un Mini Program WeChat et les écrans iPad des conseillers. Le paiement n'est pas couvert.
 
 <p align="center">
-  <img src="../assets/shantung.jpg" alt="Le Mini Program Shantung : Découvrir, un carré de soie, la carte de membre Kesi, les salons privés et le calendrier des rendez-vous" width="820">
+  <img src="../assets/shantung.webp" alt="Le Mini Program Shantung : Découvrir, un carré de soie, la carte de membre Kesi, les salons privés et le calendrier des rendez-vous" width="820">
 </p>
 
 ## Fonctionnalités
@@ -47,7 +47,7 @@ L'application client et les outils de boutique de **Shantung**, une maison ficti
 * **Salons privés et rendez-vous :** des places en salon selon le niveau, des rendez-vous individuels avec un calendrier et une grille des horaires libres, la réservation pour essayer en boutique (gardée 48 heures) et une liste d'envies.
 
 <p align="center">
-  <img src="../assets/cards.jpg" alt="Les quatre cartes de membre : Thread, Satin, Brocade et Kesi" width="820">
+  <img src="../assets/cards.webp" alt="Les quatre cartes de membre : Thread, Satin, Brocade et Kesi" width="820">
 </p>
 
 ### Pour la boutique : les iPad des conseillers
@@ -56,7 +56,7 @@ L'application client et les outils de boutique de **Shantung**, une maison ficti
 * **Borne d'accueil :** un QR code plein écran qui change toutes les cinq minutes. Le client le scanne avec WeChat, son arrivée est enregistrée et son conseiller la voit.
 
 <p align="center">
-  <img src="../assets/clienteling.jpg" alt="Le portail du conseiller avec la fiche d'un client, à côté de la borne d'accueil de Qingdao" width="820">
+  <img src="../assets/clienteling.webp" alt="Le portail du conseiller avec la fiche d'un client, à côté de la borne d'accueil de Qingdao" width="820">
 </p>
 
 ### Sous le capot

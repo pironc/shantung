@@ -34,7 +34,7 @@
 La app para clientes y las herramientas de boutique de **Shantung**, una maison ficticia de Shandong que vende pañuelos y corbatas de seda y té verde de Laoshan. Un proyecto de portfolio inspirado en cómo las agencias construyen el clienteling de lujo para China: un CMS headless, un BFF, un Mini Program de WeChat y las pantallas de iPad de los asesores. Los pagos quedan fuera del alcance.
 
 <p align="center">
-  <img src="../assets/shantung.jpg" alt="Mini Program de Shantung: Descubrir, un pañuelo de seda, la tarjeta de miembro Kesi, los salones privados y el calendario de citas" width="820">
+  <img src="../assets/shantung.webp" alt="Mini Program de Shantung: Descubrir, un pañuelo de seda, la tarjeta de miembro Kesi, los salones privados y el calendario de citas" width="820">
 </p>
 
 ## Funcionalidades
@@ -47,7 +47,7 @@ La app para clientes y las herramientas de boutique de **Shantung**, una maison 
 * **Salones privados y citas:** plazas en salones según el nivel, citas individuales con un calendario y una cuadrícula de horas libres, reserva para probar en boutique (guardada 48 horas) y una lista de deseos.
 
 <p align="center">
-  <img src="../assets/cards.jpg" alt="Las cuatro tarjetas de miembro: Thread, Satin, Brocade y Kesi" width="820">
+  <img src="../assets/cards.webp" alt="Las cuatro tarjetas de miembro: Thread, Satin, Brocade y Kesi" width="820">
 </p>
 
 ### Para la boutique: los iPads de los asesores
@@ -56,7 +56,7 @@ La app para clientes y las herramientas de boutique de **Shantung**, una maison 
 * **Quiosco de entrada:** un código QR a pantalla completa que cambia cada cinco minutos. El cliente lo escanea con WeChat, queda registrado y su asesor ve la llegada.
 
 <p align="center">
-  <img src="../assets/clienteling.jpg" alt="El portal del asesor con la ficha de un cliente, junto al quiosco de entrada de Qingdao" width="820">
+  <img src="../assets/clienteling.webp" alt="El portal del asesor con la ficha de un cliente, junto al quiosco de entrada de Qingdao" width="820">
 </p>
 
 ### Por dentro

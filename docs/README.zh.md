@@ -34,7 +34,7 @@
 **Shantung** 的客户应用与精品店工具。Shantung 是一家虚构的山东品牌，经营丝巾、领带与崂山绿茶。这是一个作品集项目，参照了代理公司为中国市场打造奢侈品客户经营（clienteling）的方式：一个无头 CMS、一个 BFF、一个微信小程序，以及顾问使用的 iPad 屏幕。支付不在本项目范围内。
 
 <p align="center">
-  <img src="../assets/shantung.zh.jpg" alt="Shantung 小程序：探索、丝巾、缂丝会员卡、私享沙龙与预约日历" width="820">
+  <img src="../assets/shantung.zh.webp" alt="Shantung 小程序：探索、丝巾、缂丝会员卡、私享沙龙与预约日历" width="820">
 </p>
 
 ## 功能特性
@@ -47,7 +47,7 @@
 * **私享沙龙与预约：** 按等级预留沙龙席位；一对一到店预约，配有日历与可选时段；预约到店试戴（保留 48 小时）；以及心愿单。
 
 <p align="center">
-  <img src="../assets/cards.jpg" alt="四张会员卡：丝、缎、锦与缂丝" width="820">
+  <img src="../assets/cards.webp" alt="四张会员卡：丝、缎、锦与缂丝" width="820">
 </p>
 
 ### 面向精品店：顾问的 iPad
@@ -56,7 +56,7 @@
 * **入口签到屏：** 全屏二维码每五分钟更新一次。客户用微信扫码即完成签到，专属顾问随即看到到店提醒。
 
 <p align="center">
-  <img src="../assets/clienteling.jpg" alt="顾问门户中的客户档案，旁边是青岛店的入口签到屏" width="820">
+  <img src="../assets/clienteling.webp" alt="顾问门户中的客户档案，旁边是青岛店的入口签到屏" width="820">
 </p>
 
 ### 技术实现
