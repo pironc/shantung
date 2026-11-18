@@ -1,7 +1,9 @@
 """A silk square folded in four, top-down on the studio ground: a corner of the design on top, the folded edges of the
 layers beneath showing on two sides, a rolled hem, a silk sheen. Same ground, size and shadow as pack.py.
 usage: scarf.py SRC OUT --box x0,y0,x1,y1 (pixels: a square of the design, its corner at the top left) [--turn DEG]
-       [--clone x0,y0,x1,y1,dx,dy ...] (cover a mark in the source with the patch dx,dy pixels away)"""
+       [--clone x0,y0,x1,y1,dx,dy ...] (cover a mark in the source with the patch dx,dy pixels away)
+       [--tint R,G,B] (re-dye the ground: the source's median colour becomes this, ink stays ink)
+       [--border R,G,B] (print a band and a hairline along the two hemmed sides, so a painting reads as a carre)"""
 import argparse
 import numpy as np
 from PIL import Image, ImageFilter, ImageDraw
@@ -19,6 +21,7 @@ def main():
     ap = argparse.ArgumentParser(); ap.add_argument('src'); ap.add_argument('out')
     ap.add_argument('--box', required=True); ap.add_argument('--turn', type=float, default=0)
     ap.add_argument('--clone', action='append', default=[])
+    ap.add_argument('--tint'); ap.add_argument('--border')
     a = ap.parse_args()
     x0, y0, x1, y1 = map(int, a.box.split(','))
     side = int(W * 0.64) * S
@@ -30,6 +33,20 @@ def main():
         src.paste(patch, (cx0, cy0), m.filter(ImageFilter.GaussianBlur(2)))
     top = src.crop((x0, y0, x1, y1)).resize((side, side), Image.LANCZOS)
     t = np.asarray(top, np.float32)
+    if a.tint:
+        target = np.array(list(map(float, a.tint.split(','))), np.float32)
+        w = np.array([0.299, 0.587, 0.114], np.float32)
+        ground = np.median(t.reshape(-1, 3), 0)
+        lum = (t * w).sum(-1, keepdims=True) / max(float((ground * w).sum()), 1)
+        cast = ground - ground.mean()                                    # the old silk's yellowing
+        sat = t - t.mean(-1, keepdims=True) - cast                       # the painting's own colours, without it
+        t = np.clip(target * np.clip(lum, 0, 1.08) + 0.5 * sat, 0, 255)
+    if a.border:
+        col = np.array(list(map(float, a.border.split(','))), np.float32)
+        b, line, gap = int(side * 0.045), max(2, side // 500), int(side * 0.012)
+        t[:b, :] = col; t[:, :b] = col
+        t[b + gap:b + gap + line, b + gap:] = col; t[b + gap:, b + gap:b + gap + line] = col
+    top = Image.fromarray(t.astype(np.uint8))
 
     # Silk: light from the top left, a broad soft sheen across the diagonal, a faint weave of shade.
     yy, xx = np.mgrid[0:side, 0:side].astype(np.float32) / side

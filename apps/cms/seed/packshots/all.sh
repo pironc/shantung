@@ -9,3 +9,4 @@ python3 -c "from PIL import Image; Image.open('../photos/brocade-robe.jpg').conv
 python3 tie.py ../photos/printed-ties.jpg ../photos/tie-lattice.jpg --crop 0.5,0,1,1 --keep 1
 python3 tie.py ../photos/printed-ties.jpg ../photos/tie-taishan-stripe.jpg --crop 0,0,0.5,1 --keep 0.88 --skin repp-stripe
 python3 tie.py ../photos/printed-ties.jpg ../photos/tie-golden-thread.jpg --crop 0.5,0,1,1 --keep 1 --mirror --skin raw-silk --motif ../photos/shantung-sleeve.jpg --motif-box 600,690,940,1030 --motif-at 0.5,0.66 --motif-width 0.5
+python3 scarf.py ../photos/penglai-yuan-jiang.jpg ../photos/scarf-penglai-mist.jpg --box 0,900,1920,2820 --tint 206,214,208 --border 60,78,80
