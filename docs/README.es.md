@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <strong>Clienteling de lujo para China: un Mini Program de WeChat para los clientes, pantallas de iPad para los asesores y un único CMS headless detrás de ambos.</strong>
+  <strong>Clienteling de lujo para China: un Mini Program de WeChat para los clientes,<br>pantallas de iPad para los asesores y un único CMS headless detrás de ambos.</strong>
 </p>
 
 <p align="center">

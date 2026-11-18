@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <strong>Luxury clienteling for China: a WeChat Mini Program for clients, iPad screens for advisors, one headless CMS behind both.</strong>
+  <strong>Luxury clienteling for China: a WeChat Mini Program for clients,<br>iPad screens for advisors, one headless CMS behind both.</strong>
 </p>
 
 <p align="center">

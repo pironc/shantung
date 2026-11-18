@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <strong>面向中国市场的奢侈品客户经营：为客户打造的微信小程序，为顾问准备的 iPad 屏幕，背后是同一个无头 CMS。</strong>
+  <strong>面向中国市场的奢侈品客户经营：为客户打造的微信小程序，<br>为精品店顾问准备的 iPad 屏幕，背后是同一个无头 CMS。</strong>
 </p>
 
 <p align="center">
