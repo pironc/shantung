@@ -6,7 +6,8 @@ import { api, ApiError, useData, useLang } from '../../services/api'
 import { price, t, TIERS, when, windowLine } from '../../services/i18n'
 import { store } from '../../services/store'
 import { theme } from '../../theme'
-import { BoutiquePicker, Icon, Notice, Paragraphs, Photo, usePageEnter, usePopup } from '../../components/ui'
+import { ReleaseWindows } from '../../components/ReleaseWindows'
+import { BoutiquePicker, Icon, Notice, Paragraphs, Photo, TopBar, chromeStyle, usePageEnter, usePopup } from '../../components/ui'
 
 export default function ProductPage() {
   useLang()
@@ -30,7 +31,7 @@ export default function ProductPage() {
     if (!shop && boutiques.data?.[0]) setShop(boutiques.data[0].code)
   }, [boutiques.data])
 
-  if (!p) return <View className={`ds ${enter}`}>{product.error && <Notice text={s.error} tone='danger' />}</View>
+  if (!p) return <View className={`ds ${enter}`} style={chromeStyle()}>{product.error && <Notice text={s.error} tone='danger' />}</View>
 
   const myOpens = p.limited?.windows.find((w) => w.tierRank === rank)?.opensAt
   const closed = Boolean(myOpens && Date.parse(myOpens) > Date.now())
@@ -63,7 +64,8 @@ export default function ProductPage() {
   }
 
   return (
-    <View className={`ds ${enter}`}>
+    <View className={`ds ${enter}`} style={chromeStyle()}>
+      <TopBar />
       <Swiper indicatorDots={p.images.length > 1} indicatorActiveColor={theme.accent} style={{ height: '125vw' }}>
         {p.images.map((img) => (
           <SwiperItem key={img.url}>
@@ -83,25 +85,8 @@ export default function ProductPage() {
         <Paragraphs text={p.text} />
       </View>
 
-      {p.limited && (
-        <View className='section'>
-          <View className='band stack'>
-            <Text className='t-label'>
-              {s.pieces(p.limited.pieces)} · {s.left(p.limited.remaining)}
-            </Text>
-            <Text className='t-title'>{windowLine(p, rank)}</Text>
-            <Text className='t-label'>{s.windows}</Text>
-            {p.limited.windows.map((w) => (
-              <View key={w.tierRank} className={`windows__row ${w.tierRank === rank ? 'is-mine' : ''}`}>
-                <Text>
-                  {TIERS[w.tierRank].zh} {TIERS[w.tierRank].en}
-                </Text>
-                <Text>{when(w.opensAt)}</Text>
-              </View>
-            ))}
-          </View>
-        </View>
-      )}
+      {/* Three designs for the release windows, for the owner to choose from (components/ReleaseWindows.tsx). */}
+      {p.limited && <ReleaseWindows release={p.limited} rank={rank} />}
 
       <View className='section stack'>
         <Text className='t-label'>{s.pickBoutique}</Text>
