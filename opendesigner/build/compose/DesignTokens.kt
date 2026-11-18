@@ -362,6 +362,7 @@ object DsMotion {
     const val durationMediumExitMs = 160
     const val durationMicroMs = 100
     const val durationModalMs = 250
+    const val durationPageMs = 320
     const val durationReducedFadeMs = 200
     const val durationRevealMs = 600
     const val durationShortMs = 150

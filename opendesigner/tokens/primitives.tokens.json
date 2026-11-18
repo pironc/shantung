@@ -3102,6 +3102,19 @@
           }
         }
       },
+      "page": {
+        "$value": {
+          "value": 320,
+          "unit": "ms"
+        },
+        "$type": "duration",
+        "$description": "Added by a person (engine.py set).",
+        "$extensions": {
+          "opendesigner": {
+            "source": "person"
+          }
+        }
+      },
       "reduced-fade": {
         "$value": {
           "value": 200,

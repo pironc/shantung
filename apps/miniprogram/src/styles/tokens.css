@@ -240,6 +240,7 @@
   --ds-motion-duration-long-exit: 200ms;
   --ds-motion-duration-drawer: 500ms;
   --ds-motion-duration-modal: 250ms;
+  --ds-motion-duration-page: 320ms;
   --ds-motion-duration-reduced-fade: 200ms;
   --ds-motion-duration-reveal: 600ms;
   --ds-motion-duration-stagger: 50ms;

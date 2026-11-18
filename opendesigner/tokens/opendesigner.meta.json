@@ -419,6 +419,13 @@
       },
       "override": true
     },
+    "motion.duration.page": {
+      "value": {
+        "value": 320,
+        "unit": "ms"
+      },
+      "override": true
+    },
     "motion.duration.reduced-fade": {
       "value": {
         "value": 200,
@@ -3559,6 +3566,7 @@
     "primitives.tokens.json:motion.duration.medium",
     "primitives.tokens.json:motion.duration.micro",
     "primitives.tokens.json:motion.duration.modal",
+    "primitives.tokens.json:motion.duration.page",
     "primitives.tokens.json:motion.duration.reduced-fade",
     "primitives.tokens.json:motion.duration.reveal",
     "primitives.tokens.json:motion.duration.short",
@@ -3687,12 +3695,12 @@
       "case": "sentence"
     }
   },
-  "stateHash": "25530ffef4e4d154",
+  "stateHash": "e3f9aad5b5568d13",
   "fileHashes": {
     "motion.reduced.tokens.json": "d646a96de314ea27",
     "motion.standard.tokens.json": "74134143dccc82a3",
     "opendesigner.resolver.json": "b34c0004f4d2dc1b",
-    "primitives.tokens.json": "9e510c65bb06f3df",
+    "primitives.tokens.json": "71968643a086c395",
     "semantic.color.dark.tokens.json": "9ce02af05cb88928",
     "semantic.color.light.tokens.json": "98c533301097f7e6",
     "semantic.density.comfortable.tokens.json": "a3779838b5028bcc",

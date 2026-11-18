@@ -403,6 +403,10 @@
     "motion.distance.photo-zoom": {
       "value": 16,
       "unit": "px"
+    },
+    "motion.duration.page": {
+      "value": 320,
+      "unit": "ms"
     }
   },
   "answers": {
@@ -676,7 +680,7 @@
     "skipped": "2026-11-18"
   },
   "hashes": {
-    "DESIGN.md": "5ec5fd59cc75e20e",
+    "DESIGN.md": "3d0bc5911d476265",
     "PRODUCT.md": "8da1468d6c3135e8"
   },
   "exports": {

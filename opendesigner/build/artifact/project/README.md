@@ -115,8 +115,8 @@ These are hand-written rules that every Shantung screen follows. Token names are
 | Kesi 缂丝 (by invitation) | Black, with red and white blocks separated by hairline vertical slits, the mark of kesi weaving |
 
 **Motion.** Calm.
-- Entrances fade and rise 12 px over `motion.duration.reveal`, with `motion.easing.enter`.
-- Photos settle from 1.04 to 1 scale as they enter.
+- Entrances fade and rise 12 px (`motion.distance.reveal`) over `motion.duration.reveal`, with `motion.easing.enter`.
+- Photos open from a 16 px inset frame (`motion.distance.photo-zoom`) as they enter.
 - Nothing bounces.
 - The card reveal and the satin sheen are the only showpiece moments.
 - With reduced motion turned on, everything only fades.
@@ -528,7 +528,7 @@ Every rule, with its values, reasons and sources: `opendesigner/standards.md` (i
 
 ## Motion
 
-> Zoom: broad (1 of 3), 4 decisions in this area. To zoom in, answer Q-motion-07, Q-motion-08.
+> Zoom: broad (1 of 3), 5 decisions in this area. To zoom in, answer Q-motion-07, Q-motion-08.
 <!-- od:zoom area=motion level=1 -->
 
 **Most movements take 200ms.** They turn into fades when a person asks for less motion.
@@ -553,6 +553,7 @@ Designers: motion system: duration, easing, springs · Code: `motion.duration.*,
 | `motion.duration.long-exit` | 200ms | derived: about 0.8 x long |
 | `motion.duration.drawer` | 500ms | set by house standard STD-enter-exit-origin-41 |
 | `motion.duration.modal` | 250ms | set by house standard STD-enter-exit-origin-11 |
+| `motion.duration.page` | 320ms | your value |
 | `motion.duration.reduced-fade` | 200ms | set by house standard STD-accessibility-motion-02 |
 | `motion.duration.reveal` | 600ms | set by house standard STD-enter-exit-origin-26 |
 | `motion.duration.stagger` | 50ms | set by house standard STD-enter-exit-origin-13 |
@@ -564,7 +565,7 @@ Designers: motion system: duration, easing, springs · Code: `motion.duration.*,
 - Springs are stored as damping and stiffness in `$extensions.opendesigner.spring` because DTCG 2025.10 has no spring type.
 - Haptics: light intensity where the platform has them; sound: hook H-sound is pending.
 
-Decisions: D-0006 (34 values, standards), D-0033 (answers.Q-motion-01), D-0037 (dials.energy), D-0041 (overrides.motion.distance.reveal), D-0043 (overrides.motion.distance.photo-zoom).
+Decisions: D-0006 (34 values, standards), D-0033 (answers.Q-motion-01), D-0037 (dials.energy), D-0041 (overrides.motion.distance.reveal), D-0043 (overrides.motion.distance.photo-zoom), D-0044 (overrides.motion.duration.page).
 
 </details>
 
@@ -708,7 +709,7 @@ Decisions: D-0023 (answers.Q-plat-01).
 
 ## Decisions
 
-**43 decisions so far.** Each one says who set it and why.
+**44 decisions so far.** Each one says who set it and why.
 Designers: decision history with reasons · Code: `opendesigner/decisions.md`
 
 <details><summary>More</summary>
@@ -746,6 +747,7 @@ Your own decisions first (the newest value per path), then your changes to stand
 | D-0041 | `motion.distance.reveal` | {"value": 12, "unit": "px"} | delegated | house rule: entrances rise 12px while fading in |
 | D-0042 | `font.tracking.caps-display` | 0.04 | delegated | delegated: serif capitals in titles and navigation read luxurious with air between letters (measured reference); 0.01em was too tight for Cormorant caps |
 | D-0043 | `motion.distance.photo-zoom` | {"value": 16, "unit": "px"} | delegated | house rule: photos settle into place as they enter; expressed as a 16px zoom inset (scale 1.04 on a ~400px photo) because the token set has no scale type |
+| D-0044 | `motion.duration.page` | {"value": 320, "unit": "ms"} | chosen | owner: page changes need a quick but visible entrance |
 | D-0006 | standards | House standards v4: 291 applied | standard (locked) | OpenDesigner's house standards (sources marked non-negotiable) are applied without asking and locked. Change one only when the person asks: engine.py... |
 | D-0014 | standards | House standards v4 for android, compose, css, ios, swift, web: 138 now apply, 0 no longer apply | standard (locked) | The platforms or the stack changed, so the house standards were re-scoped: the ones that now apply are applied and locked; the ones that no longer apply are... |
 | D-0015 | standards | House standards: 1 value back to the engine's own for these platforms | standard | The platforms changed, so a value a standard held no longer passes a check the engine enforces (accessibility floors outrank every standard, KNOWLEDGE.md... |

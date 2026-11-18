@@ -222,6 +222,7 @@ public extension DS {
         public static let durationMediumExit: Double = 0.16
         public static let durationMicro: Double = 0.1
         public static let durationModal: Double = 0.25
+        public static let durationPage: Double = 0.32
         public static let durationReducedFade: Double = 0.2
         public static let durationReveal: Double = 0.6
         public static let durationShort: Double = 0.15

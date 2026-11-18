@@ -682,3 +682,9 @@ Append-only, ADR-style (spec 7.9): one entry per decision, newest last. A later 
 - set_by: delegated · locked: no · date: 2026-11-18 · supersedes: none · source_ref: none
 - reason: house rule: photos settle into place as they enter; expressed as a 16px zoom inset (scale 1.04 on a ~400px photo) because the token set has no scale type
 - new dimension token in semantic.tokens.json
+
+## D-0044 · overrides.motion.duration.page = {"value": 320, "unit": "ms"}
+- set_by: chosen · locked: no · date: 2026-11-18 · supersedes: none · source_ref: none
+- reason: owner: page changes need a quick but visible entrance
+- quote: "Going from one page another should have a rather quick, but visible transition with a premium feel."
+- new duration token in primitives.tokens.json
