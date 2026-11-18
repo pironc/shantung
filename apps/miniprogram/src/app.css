@@ -168,14 +168,14 @@ body {
 .photo__img.is-loaded {
   opacity: 1;
 }
-/* A tag on the photo's corner (Limited), so it never pushes the card's text down. */
+/* A tag on the photo's corner (Limited), so it never pushes the card's text down: lacquer red, like the seal. */
 .photo__tag {
   position: absolute;
   top: var(--ds-space-8);
   left: var(--ds-space-8);
   padding: var(--ds-space-4) var(--ds-space-8);
-  background: var(--ds-color-surface-base);
-  color: var(--ds-color-text-accent);
+  background: var(--ds-color-bg-accent-bold);
+  color: var(--ds-color-text-on-accent);
   font: var(--ds-text-label-sm);
   letter-spacing: var(--ds-font-tracking-caps-label);
   text-transform: uppercase;
