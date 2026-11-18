@@ -1,3 +1,6 @@
 node_modules/
 dist/
 .DS_Store
+
+# Reference screenshots of third-party sites: copyrighted, keep local only
+.design-ref/

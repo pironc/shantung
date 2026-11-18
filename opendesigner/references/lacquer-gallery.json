@@ -1,0 +1,369 @@
+{
+ "method": "estimated",
+ "source": "stitched.png",
+ "files": null,
+ "elements": null,
+ "color": {
+  "accents": [
+   {
+    "hex": "#96262c",
+    "count": 1,
+    "oklch": [
+     0.45,
+     0.147,
+     23
+    ],
+    "sources": {
+     "estimated": 1
+    },
+    "score": 0
+   }
+  ],
+  "neutrals": [
+   {
+    "hex": "#ffffff",
+    "count": 750,
+    "oklch": [
+     1.0,
+     0.0,
+     90
+    ]
+   },
+   {
+    "hex": "#f6f6ef",
+    "count": 27,
+    "oklch": [
+     0.971,
+     0.009,
+     107
+    ]
+   },
+   {
+    "hex": "#f7f7f0",
+    "count": 4,
+    "oklch": [
+     0.974,
+     0.009,
+     107
+    ]
+   },
+   {
+    "hex": "#efefef",
+    "count": 2,
+    "oklch": [
+     0.952,
+     0.0,
+     90
+    ]
+   },
+   {
+    "hex": "#e1e1e1",
+    "count": 2,
+    "oklch": [
+     0.91,
+     0.0,
+     90
+    ]
+   },
+   {
+    "hex": "#000000",
+    "count": 2,
+    "oklch": [
+     0.0,
+     0.0,
+     0
+    ]
+   },
+   {
+    "hex": "#c8c8c8",
+    "count": 2,
+    "oklch": [
+     0.833,
+     0.0,
+     90
+    ]
+   },
+   {
+    "hex": "#d5d5d5",
+    "count": 2,
+    "oklch": [
+     0.873,
+     0.0,
+     90
+    ]
+   }
+  ],
+  "confidence": "low",
+  "count": 37,
+  "basis": "no interactive elements with a chromatic color; ranked every color by count x chroma",
+  "borders": {},
+  "note": "the accent hex is the reference's identity, a measurement only: carry its role and chroma level, never the hue as the person's primary",
+  "neutralTint": {
+   "chroma": 0.0,
+   "hue": 90,
+   "count": 2,
+   "confidence": "low"
+  },
+  "accentChroma": 0.147,
+  "chromaticShare": 0.039
+ },
+ "type": {
+  "scale": null,
+  "families": [
+   "old-style serif (display, uppercase)",
+   "neo-grotesque sans (body)"
+  ],
+  "minorFaces": [],
+  "systemFaces": [],
+  "weights": [],
+  "body": {
+   "px": 17.0,
+   "confidence": "low"
+  }
+ },
+ "space": null,
+ "radius": {
+  "mostCommon": 0.0,
+  "control": {
+   "px": 0.0,
+   "confidence": "low"
+  }
+ },
+ "depth": {
+  "shadows": [],
+  "hint": "borders",
+  "levels": [],
+  "rings": 0,
+  "ignored": {},
+  "count": 0,
+  "confidence": "low",
+  "basis": "no elevation shadows; white or transparent fades, glows, insets and text shadows ignored"
+ },
+ "motion": {
+  "note": "no UI transitions found; do not infer Energy from this source",
+  "count": 0,
+  "confidence": "none"
+ },
+ "surfaces": {
+  "pageBg": "#ffffff",
+  "areas": [
+   {
+    "hex": "#ffffff",
+    "share": 0.75,
+    "oklch": [
+     1.0,
+     0.0,
+     90
+    ],
+    "chromatic": false
+   },
+   {
+    "hex": "#96262c",
+    "share": 0.037,
+    "oklch": [
+     0.45,
+     0.147,
+     23
+    ],
+    "chromatic": true
+   },
+   {
+    "hex": "#f6f6ef",
+    "share": 0.027,
+    "oklch": [
+     0.971,
+     0.009,
+     107
+    ],
+    "chromatic": false
+   },
+   {
+    "hex": "#f7f7f0",
+    "share": 0.004,
+    "oklch": [
+     0.974,
+     0.009,
+     107
+    ],
+    "chromatic": false
+   },
+   {
+    "hex": "#efefef",
+    "share": 0.002,
+    "oklch": [
+     0.952,
+     0.0,
+     90
+    ],
+    "chromatic": false
+   },
+   {
+    "hex": "#e1e1e1",
+    "share": 0.002,
+    "oklch": [
+     0.91,
+     0.0,
+     90
+    ],
+    "chromatic": false
+   },
+   {
+    "hex": "#000000",
+    "share": 0.002,
+    "oklch": [
+     0.0,
+     0.0,
+     0
+    ],
+    "chromatic": false
+   },
+   {
+    "hex": "#c8c8c8",
+    "share": 0.002,
+    "oklch": [
+     0.833,
+     0.0,
+     90
+    ],
+    "chromatic": false
+   },
+   {
+    "hex": "#d5d5d5",
+    "share": 0.002,
+    "oklch": [
+     0.873,
+     0.0,
+     90
+    ],
+    "chromatic": false
+   },
+   {
+    "hex": "#dadada",
+    "share": 0.002,
+    "oklch": [
+     0.888,
+     0.0,
+     90
+    ],
+    "chromatic": false
+   },
+   {
+    "hex": "#3d1517",
+    "share": 0.002,
+    "oklch": [
+     0.259,
+     0.063,
+     20
+    ],
+    "chromatic": true
+   },
+   {
+    "hex": "#7d7d7d",
+    "share": 0.002,
+    "oklch": [
+     0.59,
+     0.0,
+     90
+    ],
+    "chromatic": false
+   }
+  ],
+  "text": [],
+  "textShare": 0.0,
+  "chromaticShare": 0.039,
+  "chromaticBackground": 0.039,
+  "chromaticText": 0.0,
+  "worlds": [],
+  "order": [],
+  "colourIsPlace": false,
+  "gradients": 0,
+  "imagery": null,
+  "whitespace": 0.738,
+  "blankRows": 0.325,
+  "air": null,
+  "confidence": "medium",
+  "basis": "area of each background colour on a 16 px grid over the whole page (document order approximates paint order)"
+ },
+ "whitespace": 0.738,
+ "blankRows": 0.325,
+ "air": null,
+ "layout": {
+  "docHeight": 13948
+ },
+ "summary": {
+  "bodySize": {
+   "value": 17.0,
+   "confidence": "low",
+   "count": null,
+   "basis": null
+  },
+  "accent": {
+   "value": {
+    "chroma": 0.147,
+    "usedOn": [
+     "estimated"
+    ]
+   },
+   "confidence": "low",
+   "count": 37,
+   "basis": "no interactive elements with a chromatic color; ranked every color by count x chroma; the hue is identity and is not carried"
+  },
+  "neutralTint": {
+   "value": {
+    "chroma": 0.0,
+    "hue": 90
+   },
+   "confidence": "low",
+   "count": 2,
+   "basis": "most-used mid-tone neutral"
+  },
+  "radiusControl": {
+   "value": 0.0,
+   "confidence": "low",
+   "count": null,
+   "basis": null
+  },
+  "depth": {
+   "value": "borders",
+   "confidence": "low",
+   "count": 0,
+   "basis": "no elevation shadows; white or transparent fades, glows, insets and text shadows ignored"
+  },
+  "whitespace": {
+   "value": 0.738,
+   "confidence": "medium",
+   "count": null,
+   "basis": "share of the page with no text, control or card-sized box (media is imagery)"
+  },
+  "colorShare": {
+   "value": 0.039,
+   "confidence": "medium",
+   "count": null,
+   "basis": "share of the page painted in a chromatic colour (backgrounds plus coloured text)"
+  }
+ },
+ "identity": {
+  "rule": "measurements of the reference's identity, never values to adopt: carry role, chroma level, structure and rhythm; ask for the person's own brand color and typeface",
+  "accentHue": "#96262c",
+  "typefaces": [
+   "old-style serif (display, uppercase)",
+   "neo-grotesque sans (body)"
+  ]
+ },
+ "neverInferred": [
+  "brandPresence (always ask)",
+  "intent, audience, principles"
+ ],
+ "kind": "screenshot",
+ "tag": "inspiration",
+ "id": "lacquer-gallery",
+ "estimated": {
+  "radius": "0",
+  "body": "17",
+  "depth": "borders",
+  "font": "neo-grotesque sans (body)",
+  "accent": "#96262C"
+ },
+ "note": "colours, areas, sections and space were measured from the pixels; everything else is an estimate",
+ "bodySize": 17.0
+}
