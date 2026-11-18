@@ -22,3 +22,9 @@ The owner's notes on this project, from `engine.py feedback --kind note`. Read t
 | N-11 | An unavailable invitation is explained with a lock and a link to the tiers, never a grey button repeating the rule | 1 | 2026-11-18 |
 | N-12 | Lists show the essentials only (photo, when and where, title, one line, action); details are one tap away | 1 | 2026-11-18 |
 | N-13 | Where and when go in the red strip under the photo, each with its line icon | 1 | 2026-11-18 |
+| N-14 | Every visible string follows the app language, including menus, pickers and cancel buttons; never rely on a platform UI that is not localised | 1 | 2026-11-18 |
+| N-15 | Never show spending thresholds or prices to reach a tier | 1 | 2026-11-18 |
+| N-16 | Card art is one quiet motif per tier, simple and elegant; no scenes, no busy patterns, no moving beams | 1 | 2026-11-18 |
+| N-17 | Descriptions are at most two lines | 1 | 2026-11-18 |
+| N-18 | No page title in a top bar; a floating back button sits below the status bar and never covers content | 1 | 2026-11-18 |
+| N-19 | A link to one item opens that item, never the list it belongs to | 1 | 2026-11-18 |
