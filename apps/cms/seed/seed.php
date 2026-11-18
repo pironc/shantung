@@ -72,6 +72,8 @@ if (\Drupal::entityQuery('node')->accessCheck(FALSE)->count()->execute() > 0) {
 }
 
 $b = [];
+// Approximate coordinates in GCJ-02, the system Chinese map apps (Amap, Tencent) expect.
+$geo = ['QD01' => [36.0590, 120.3870], 'SH01' => [31.2185, 121.4553], 'BJ01' => [39.9489, 116.4137]];
 foreach ([
   ['QD01', 'Qingdao Flagship', '青岛旗舰店', 'Qingdao', '青岛', '12 Zhanshan Road, Shinan District, Qingdao', '青岛市市南区湛山路12号', 'qingdao-huilan',
     'The maison\'s first house, a short walk from the sea, with a tea room overlooking the garden.', '本坊第一家旗舰店，距海边仅数步之遥，茶室临园而设。'],
@@ -81,9 +83,10 @@ foreach ([
     'A courtyard house in the hutongs, where the kesi collection is shown by appointment.', '胡同里的一座四合院，缂丝系列需预约鉴赏。'],
 ] as [$code, $en, $zh, $cityEn, $cityZh, $addrEn, $addrZh, $img, $txtEn, $txtZh]) {
   $b[$code] = node('boutique',
-    ['title' => $en, 'field_code' => $code, 'field_city' => $cityEn, 'field_address' => $addrEn, 'field_hours' => 'Daily, 10:00–20:00',
+    ['title' => $en, 'field_code' => $code, 'field_city' => $cityEn, 'field_address' => $addrEn, 'field_hours' => 'Daily, 10:00 – 20:00',
+      'field_latitude' => $geo[$code][0], 'field_longitude' => $geo[$code][1],
       'field_subtitle' => $cityEn, 'field_text' => $txtEn, 'field_image' => $image($img)],
-    ['title' => $zh, 'field_city' => $cityZh, 'field_address' => $addrZh, 'field_hours' => '每日 10:00–20:00', 'field_subtitle' => $cityZh, 'field_text' => $txtZh]);
+    ['title' => $zh, 'field_city' => $cityZh, 'field_address' => $addrZh, 'field_hours' => '每日 10:00 – 20:00', 'field_subtitle' => $cityZh, 'field_text' => $txtZh]);
 }
 
 foreach ([

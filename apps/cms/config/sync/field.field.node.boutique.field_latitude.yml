@@ -1,0 +1,23 @@
+uuid: fd7a81e2-207c-4ebf-85fb-578ebbe0c4b5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_latitude
+    - node.type.boutique
+id: node.boutique.field_latitude
+field_name: field_latitude
+entity_type: node
+bundle: boutique
+label: 'Latitude (GCJ-02, for Chinese map apps)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

@@ -8,6 +8,8 @@ dependencies:
     - field.field.node.boutique.field_code
     - field.field.node.boutique.field_hours
     - field.field.node.boutique.field_image
+    - field.field.node.boutique.field_latitude
+    - field.field.node.boutique.field_longitude
     - field.field.node.boutique.field_subtitle
     - field.field.node.boutique.field_text
     - image.style.thumbnail
@@ -64,6 +66,20 @@ content:
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_latitude:
+    type: number
+    weight: 128
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_longitude:
+    type: number
+    weight: 129
+    region: content
+    settings:
+      placeholder: ''
     third_party_settings: {  }
   field_subtitle:
     type: string_textfield

@@ -1,0 +1,23 @@
+uuid: e260e82f-68f6-42d4-bbf5-5a340046152b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_longitude
+    - node.type.boutique
+id: node.boutique.field_longitude
+field_name: field_longitude
+entity_type: node
+bundle: boutique
+label: 'Longitude (GCJ-02)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal
