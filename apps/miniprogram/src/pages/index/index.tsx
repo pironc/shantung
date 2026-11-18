@@ -41,12 +41,12 @@ export default function Discover() {
         <View className='section'>
           {limited.map((p) => (
             <View key={p.id} id={`l-${p.id}`} className={`feature ${reveal(`l-${p.id}`)}`} onClick={() => go(`/pages/product/index?id=${p.id}`)}>
-              <Photo image={p.images[0]} ratio={100} />
+              <Photo image={p.images[0]} ratio={100}>
+                <Text className='photo__tag'>{s.limited}</Text>
+              </Photo>
               <View className='band stack'>
-                <Text className='t-label'>{s.limitedRelease}</Text>
                 <Text className='t-title'>{p.title}</Text>
                 <Text className='t-small'>{p.subtitle}</Text>
-                <Text className='t-label'>{s.piecesLeft(p.limited!.remaining, p.limited!.pieces)}</Text>
                 <Text className='t-small'>{windowLine(p, rank)}</Text>
                 <View className='btn-text' hoverClass='is-pressed' ariaRole='button'>
                   {s.discoverMore} →

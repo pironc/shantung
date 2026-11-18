@@ -36,3 +36,4 @@ The owner's notes on this project, from `engine.py feedback --kind note`. Read t
 | N-25 | Never show the same fact twice in one block (a count, a city, a name) | 1 | 2026-11-18 |
 | N-26 | A white panel floating over a full-bleed photo gets rounded corners (radius.panel), so it never reads as a flat white plane; other containers stay square. | 1 | 2026-11-18 |
 | N-27 | Product cards in a grid keep the same text rows: a Limited tag sits on the photo's corner, never above the title; the card shows the material only, the size stays on the product page. Photos load before they scroll into view and fade in once loaded, never pop. | 1 | 2026-11-19 |
+| N-28 | The Limited tag sits on the photo's top-left corner wherever a limited piece is featured (Collection cards and the Discover feature alike); the Discover feature shows no pieces-left count. | 1 | 2026-11-19 |
