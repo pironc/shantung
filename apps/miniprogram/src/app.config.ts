@@ -11,10 +11,14 @@ export default defineAppConfig({
     'pages/story/index',
     'pages/appointment/index',
     'pages/checkin/index',
+    'pages/salon/index',
+    'pages/boutique/index',
   ],
   // The invitation card (canvas drawing and QR code) loads on demand, outside the 2 MB main package.
   subPackages: [{ root: 'packages/pass', pages: ['index'] }],
   window: {
+    // A native bar with the back arrow and the page title, in WeChat and (when set explicitly) in Taro's browser build.
+    navigationStyle: 'default',
     navigationBarBackgroundColor: theme.navBackground,
     navigationBarTextStyle: 'black',
     navigationBarTitleText: 'Shantung',
