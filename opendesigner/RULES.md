@@ -17,3 +17,8 @@ The owner's notes on this project, from `engine.py feedback --kind note`. Read t
 | N-06 | A card must read as an object: never a white card on a white page; give it a coloured stage | 1 | 2026-11-18 |
 | N-07 | Two facts on one line are pushed to opposite edges (space-between), never joined with a middle dot | 1 | 2026-11-18 |
 | N-08 | Dates and times of salons sit in a red strip directly under the photo, not on it | 1 | 2026-11-18 |
+| N-09 | Action results (reserved, booked, errors) open in a pop-up; the page layout never shifts for a message | 1 | 2026-11-18 |
+| N-10 | An action that is already done shows its state (Reserved, with a check) and tapping it says so | 1 | 2026-11-18 |
+| N-11 | An unavailable invitation is explained with a lock and a link to the tiers, never a grey button repeating the rule | 1 | 2026-11-18 |
+| N-12 | Lists show the essentials only (photo, when and where, title, one line, action); details are one tap away | 1 | 2026-11-18 |
+| N-13 | Where and when go in the red strip under the photo, each with its line icon | 1 | 2026-11-18 |
