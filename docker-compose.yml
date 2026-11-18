@@ -65,6 +65,7 @@ services:
     ports: ["3002:3002"]
     volumes:
       - ./apps/clienteling/src:/repo/apps/clienteling/src
+      - ./opendesigner/build:/repo/opendesigner/build:ro
 
   miniprogram-h5:
     <<: *node
