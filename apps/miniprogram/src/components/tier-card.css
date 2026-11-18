@@ -22,6 +22,7 @@
 
 .card__face {
   position: absolute;
+  z-index: 1;
   top: 0;
   right: 0;
   bottom: 0;
@@ -55,18 +56,8 @@
   font-size: var(--ds-text-title-sm-size);
 }
 .card--1 .card__brand,
-.card--1 .card__tier,
-.card--1 .card__hanzi,
-.card--4 .card__hanzi {
+.card--1 .card__tier {
   color: var(--ds-color-accent-light-9);
-}
-.card--4 .card__hanzi {
-  color: var(--ds-color-accent-light-8);
-}
-.card__hanzi {
-  font-family: var(--ds-font-family-display);
-  font-size: var(--ds-text-headline-sm-size);
-  line-height: 1;
 }
 .card__name {
   font: var(--ds-text-title-sm);
@@ -83,61 +74,45 @@
   flex: none;
 }
 
-/* The weave: one layer per tier, drawn with gradients only. */
-.card__weave {
+/* The art fills the card (components/art.ts); the satin sheen glides over it once, after the card arrives. */
+.card__art {
   position: absolute;
-  pointer-events: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
-/* Thread: a single red line crossing the card. */
-.card--1 .card__weave {
-  left: -10%;
-  right: -10%;
-  top: 60%;
-  height: 1px;
-  background: var(--ds-color-accent-light-9);
-  transform: rotate(-6deg);
-}
-/* Satin: a band of light that glides across once, after the card has arrived. */
-.card--2 .card__weave {
+.card__sheen {
+  position: absolute;
   top: -50%;
   bottom: -50%;
   left: 0;
   width: 45%;
+  pointer-events: none;
   background: linear-gradient(105deg, transparent, var(--ds-color-neutral-light-1), transparent);
   opacity: var(--ds-opacity-state-drag);
   transform: translateX(-120%);
   animation: sheen calc(var(--ds-motion-duration-extra) * 2) var(--ds-motion-easing-standard) var(--ds-motion-duration-extra) both;
 }
-/* Brocade: a fine woven lattice over the red. */
-.card--3 .card__weave {
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background:
-    repeating-linear-gradient(45deg, var(--ds-color-neutral-light-1) 0 1px, transparent 1px var(--ds-space-12)),
-    repeating-linear-gradient(-45deg, var(--ds-color-neutral-light-1) 0 1px, transparent 1px var(--ds-space-12));
-  opacity: var(--ds-opacity-disabled-container);
+
+/* The tier's character as a seal stamp: red with ivory on most cards, ivory with red on the red Brocade card. */
+.card__seal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--ds-size-control-md);
+  height: var(--ds-size-control-md);
+  padding: 0 var(--ds-space-6);
+  box-sizing: border-box;
+  background: var(--ds-color-accent-light-9);
+  color: var(--ds-color-neutral-light-1);
+  font-family: var(--ds-font-family-display);
+  font-size: var(--ds-text-title-md-size);
+  line-height: 1;
 }
-/* Kesi: colour blocks parted by hairline slits, the mark of slit-tapestry weaving. */
-/* Kesi: a woven band across the middle of the card, clear of the text rows. */
-.card--4 .card__weave {
-  left: 0;
-  right: 0;
-  top: 43%;
-  height: 14%;
-  background: linear-gradient(
-    90deg,
-    var(--ds-color-accent-light-9) 0 22%,
-    var(--ds-color-neutral-light-12) 22% calc(22% + 1px),
-    var(--ds-color-neutral-light-1) calc(22% + 1px) 37%,
-    var(--ds-color-neutral-light-12) 37% calc(37% + 1px),
-    var(--ds-color-accent-light-9) calc(37% + 1px) 71%,
-    var(--ds-color-neutral-light-12) 71% calc(71% + 1px),
-    var(--ds-color-neutral-light-1) calc(71% + 1px) 79%,
-    var(--ds-color-neutral-light-12) 79% calc(79% + 1px),
-    var(--ds-color-accent-light-9) calc(79% + 1px) 100%
-  );
+.card--3 .card__seal {
+  background: var(--ds-color-neutral-light-1);
+  color: var(--ds-color-accent-light-9);
 }
 
 @keyframes card-in {
@@ -155,7 +130,7 @@
   .card {
     animation-name: fade;
   }
-  .card--2 .card__weave {
+  .card__sheen {
     animation: none;
   }
 }
