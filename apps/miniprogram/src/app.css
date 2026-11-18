@@ -13,6 +13,10 @@ body {
   font: var(--ds-text-body-md);
   -webkit-font-smoothing: antialiased;
 }
+/* A page holding its entrance until its photos are in (usePhotosReady), so everything fades in together. */
+.is-waiting {
+  opacity: 0;
+}
 /* Page entrance, replayed on every visit (usePageEnter flips between a and b). Quick but visible.
    `backwards`, not `both`: a transform kept after the animation would trap fixed pop-ups inside the page. */
 .page-in-a {
@@ -183,6 +187,9 @@ body {
 }
 .photo__img.is-loaded {
   opacity: 1;
+}
+.photo__img.is-still {
+  transition: none;
 }
 /* A tag on the photo's corner (Limited), so it never pushes the card's text down: lacquer red, like the seal. */
 .photo__tag {

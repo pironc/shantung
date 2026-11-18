@@ -73,12 +73,48 @@ export function usePageEnter() {
 
 /** Photos this session has already shown: a second copy of one appears at once instead of fading in again. */
 const shown = new Set<string>()
+/** Pages waiting for photos (usePhotosReady) hear each one land. */
+const landed = new Set<() => void>()
+
+/**
+ * True once these photos have loaded in the page itself, so a page can fade in whole: photos, titles and text in
+ * the same frames, instead of text first and each photo on its own clock. `undefined` (data still loading) waits too.
+ * Pass the first screen's photos only; the rest load while the page is already showing.
+ * ponytail: waits at most `capMs`; past that the page shows and a late photo fades in on its own.
+ */
+export function usePhotosReady(urls: string[] | undefined, capMs = 1000) {
+  const all = () => !!urls?.length && urls.every((u) => shown.has(u))
+  // 0 waiting, 1 photos in (drawn while the page is still hidden), 2 show the page.
+  const [phase, setPhase] = useState(() => (all() ? 2 : 0))
+  useEffect(() => {
+    const cap = setTimeout(() => setPhase(2), capMs)
+    return () => clearTimeout(cap)
+  }, [])
+  useEffect(() => {
+    if (phase !== 1) return
+    // A few frames after phase 1 is drawn, so the photos are already opaque when their own fade comes back on.
+    const t = setTimeout(() => setPhase(2), 50)
+    return () => clearTimeout(t)
+  }, [phase])
+  const key = urls?.join('|')
+  useEffect(() => {
+    if (!urls || phase) return
+    const check = () => all() && setPhase((n) => n || 1)
+    landed.add(check)
+    check()
+    return () => {
+      landed.delete(check)
+    }
+  }, [key])
+  return phase === 2
+}
 
 /**
  * A photo at a fixed ratio (height / width, in %), cropped to fill: layout never jumps while it loads.
  * It fades in the first time it loads instead of popping; children (a tag) sit over it.
  * `packshot`: a product on the studio ground, which the empty frame already shows, so only the product fades in.
  * `eager`: load now even if hidden (a small set kept mounted, like the Collection's tabs).
+ * `still`: no fade of its own while its page waits for its photos to fade in whole (usePhotosReady).
  */
 export function Photo({
   image,
@@ -86,20 +122,30 @@ export function Photo({
   className = '',
   packshot = false,
   eager = false,
+  still = false,
   children,
-}: { image: Img | null | undefined; ratio?: number; className?: string; packshot?: boolean; eager?: boolean; children?: ReactNode }) {
+}: {
+  image: Img | null | undefined
+  ratio?: number
+  className?: string
+  packshot?: boolean
+  eager?: boolean
+  still?: boolean
+  children?: ReactNode
+}) {
   const [loaded, setLoaded] = useState(false)
   // Checked on every render, not only the first: a copy mounted while hidden must not fade in a photo already shown.
   const ready = loaded || (!!image && shown.has(image.url))
   const done = () => {
     if (image) shown.add(image.url)
     setLoaded(true)
+    landed.forEach((f) => f())
   }
   return (
     <View className={`photo ${packshot ? 'photo--packshot' : ''} ${className}`} style={{ paddingTop: `${ratio}%` }}>
       {image && (
         <Image
-          className={`photo__img ${ready ? 'is-loaded' : ''}`}
+          className={`photo__img ${ready ? 'is-loaded' : ''} ${still ? 'is-still' : ''}`}
           src={image.url}
           mode='aspectFill'
           // WeChat lazy-loads three screens ahead. Taro's H5 lazyLoad only starts once the photo is on screen (the tab
