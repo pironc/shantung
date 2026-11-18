@@ -4,12 +4,15 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test src/*.test.ts"
   },
   "dependencies": {
     "@fastify/cors": "^11.4.3",
+    "@fastify/jwt": "^10.2.8",
     "fastify": "^5.12.8",
-    "ioredis": "^5.6.1"
+    "ioredis": "^5.6.1",
+    "postgres": "^3.4.7"
   },
   "devDependencies": {
     "@shantung/shared-types": "workspace:*",
