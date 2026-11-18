@@ -298,6 +298,10 @@
       },
       "override": true
     },
+    "font.tracking.caps-display": {
+      "value": 0.04,
+      "override": true
+    },
     "haptics.intensity": {
       "value": "light",
       "dial": "energy",
@@ -355,6 +359,20 @@
     "motion.blur.crossfade": {
       "value": {
         "value": 2,
+        "unit": "px"
+      },
+      "override": true
+    },
+    "motion.distance.photo-zoom": {
+      "value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "override": true
+    },
+    "motion.distance.reveal": {
+      "value": {
+        "value": 12,
         "unit": "px"
       },
       "override": true
@@ -3531,7 +3549,10 @@
     "semantic.tokens.json:font.family.display",
     "semantic.tokens.json:font.family.text",
     "primitives.tokens.json:font.size.input",
+    "semantic.tokens.json:font.tracking.caps-display",
     "semantic.tokens.json:motion.blur.crossfade",
+    "semantic.tokens.json:motion.distance.photo-zoom",
+    "semantic.tokens.json:motion.distance.reveal",
     "primitives.tokens.json:motion.duration.drawer",
     "primitives.tokens.json:motion.duration.instant",
     "primitives.tokens.json:motion.duration.long",
@@ -3666,7 +3687,7 @@
       "case": "sentence"
     }
   },
-  "stateHash": "38c8c9725af320ca",
+  "stateHash": "25530ffef4e4d154",
   "fileHashes": {
     "motion.reduced.tokens.json": "d646a96de314ea27",
     "motion.standard.tokens.json": "74134143dccc82a3",
@@ -3677,7 +3698,7 @@
     "semantic.density.comfortable.tokens.json": "a3779838b5028bcc",
     "semantic.density.compact.tokens.json": "76b160a5107bbd83",
     "semantic.density.spacious.tokens.json": "684b0a5681b220fb",
-    "semantic.tokens.json": "4d77708e18a9bb8d"
+    "semantic.tokens.json": "1612577a274f43f8"
   },
   "profile": {
     "id": "persuade",

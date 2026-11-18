@@ -528,7 +528,7 @@ Every rule, with its values, reasons and sources: `opendesigner/standards.md` (i
 
 ## Motion
 
-> Zoom: broad (1 of 3), 2 decisions in this area. To zoom in, answer Q-motion-07, Q-motion-08.
+> Zoom: broad (1 of 3), 4 decisions in this area. To zoom in, answer Q-motion-07, Q-motion-08.
 <!-- od:zoom area=motion level=1 -->
 
 **Most movements take 200ms.** They turn into fades when a person asks for less motion.
@@ -564,7 +564,7 @@ Designers: motion system: duration, easing, springs · Code: `motion.duration.*,
 - Springs are stored as damping and stiffness in `$extensions.opendesigner.spring` because DTCG 2025.10 has no spring type.
 - Haptics: light intensity where the platform has them; sound: hook H-sound is pending.
 
-Decisions: D-0006 (34 values, standards), D-0033 (answers.Q-motion-01), D-0037 (dials.energy).
+Decisions: D-0006 (34 values, standards), D-0033 (answers.Q-motion-01), D-0037 (dials.energy), D-0041 (overrides.motion.distance.reveal), D-0043 (overrides.motion.distance.photo-zoom).
 
 </details>
 
@@ -708,7 +708,7 @@ Decisions: D-0023 (answers.Q-plat-01).
 
 ## Decisions
 
-**40 decisions so far.** Each one says who set it and why.
+**43 decisions so far.** Each one says who set it and why.
 Designers: decision history with reasons · Code: `opendesigner/decisions.md`
 
 <details><summary>More</summary>
@@ -743,6 +743,9 @@ Your own decisions first (the newest value per path), then your changes to stand
 | D-0038 | `font.family.display` | ["Cormorant Garamond", "Songti SC", "Noto Serif SC", "Noto Serif CJK SC", "serif"] | delegated | delegated: Cormorant Garamond (SIL OFL) is an open old-style serif of the same class as the measured reference display face; Chinese titles fall back to the... |
 | D-0039 | `font.family.text` | ["-apple-system", "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", "Roboto", "Helvetica Neue", "Arial", "sans-serif"] | delegated | delegated: the device's own sans for running text, with Chinese system faces early so zh-Hans never falls back to a Japanese face |
 | D-0040 | `hooks.H-photo.status` | "open-library" | delegated | 27 open-licence photos from Wikimedia Commons (CC0, PD, CC BY, CC BY-SA), reviewed for brands and people, credits in apps/cms/seed/photos/CREDITS.md; a real... |
+| D-0041 | `motion.distance.reveal` | {"value": 12, "unit": "px"} | delegated | house rule: entrances rise 12px while fading in |
+| D-0042 | `font.tracking.caps-display` | 0.04 | delegated | delegated: serif capitals in titles and navigation read luxurious with air between letters (measured reference); 0.01em was too tight for Cormorant caps |
+| D-0043 | `motion.distance.photo-zoom` | {"value": 16, "unit": "px"} | delegated | house rule: photos settle into place as they enter; expressed as a 16px zoom inset (scale 1.04 on a ~400px photo) because the token set has no scale type |
 | D-0006 | standards | House standards v4: 291 applied | standard (locked) | OpenDesigner's house standards (sources marked non-negotiable) are applied without asking and locked. Change one only when the person asks: engine.py... |
 | D-0014 | standards | House standards v4 for android, compose, css, ios, swift, web: 138 now apply, 0 no longer apply | standard (locked) | The platforms or the stack changed, so the house standards were re-scoped: the ones that now apply are applied and locked; the ones that no longer apply are... |
 | D-0015 | standards | House standards: 1 value back to the engine's own for these platforms | standard | The platforms changed, so a value a standard held no longer passes a check the engine enforces (accessibility floors outrank every standard, KNOWLEDGE.md... |
@@ -756,7 +759,7 @@ Your own decisions first (the newest value per path), then your changes to stand
 
 - Still defaults (zoom 0, sketch): Layout, Elevation & Depth, Shapes, Components, Modes and Themes, Iconography and Imagery, Content and Voice, Accessibility, Platforms and Devices
 - Assets not final: Logo, wordmark, symbol, lockups (H-logo): pending; App icon (H-appicon): pending; Favicon set (H-favicon): pending; Custom icons, pictograms, spot icons (H-icons): pending; Illustration, characters, empty-state art (H-illus): pending; Brand typeface files (H-type): pending; Fixed brand colors (H-color): pending; Motion signature and rich media (H-motion): pending; Graphic devices, patterns, textures, brand gradients, signature shape (H-motif): pending; UI sounds and sonic logo (H-sound): pending; Custom haptic patterns (H-haptic): pending; Voice and tone guide (H-voice): pending; Brand guidelines PDF (H-brandbook): pending
-- Answers taken on assumption or delegated: context.product (assumed), answers.Q-scope-07 (assumed), raw.stack (assumed), context.audience (assumed), raw.brandColor (delegated), macros (delegated), taste.feelWords (delegated), answers.Q-theme-01 (delegated), defaults.persuade (auto_default), answers.Q-dir-01 (delegated), answers.Q-color-02 (delegated), answers.Q-type-01 (delegated), answers.Q-motion-01 (delegated), overrides.font.family.display (delegated), overrides.font.family.text (delegated), raw.fontLicence (delegated), dials.energy (delegated), hooks.H-photo.status (delegated)
+- Answers taken on assumption or delegated: context.product (assumed), answers.Q-scope-07 (assumed), raw.stack (assumed), context.audience (assumed), raw.brandColor (delegated), macros (delegated), taste.feelWords (delegated), answers.Q-theme-01 (delegated), defaults.persuade (auto_default), answers.Q-dir-01 (delegated), answers.Q-color-02 (delegated), answers.Q-type-01 (delegated), answers.Q-motion-01 (delegated), overrides.font.family.display (delegated), overrides.font.family.text (delegated), raw.fontLicence (delegated), dials.energy (delegated), hooks.H-photo.status (delegated), overrides.motion.distance.reveal (delegated), overrides.font.tracking.caps-display (delegated), overrides.motion.distance.photo-zoom (delegated)
 - Waivers: none.
 - Licence risks: Photography and art direction: check the terms of the set you use. Stock: Unsplash (free, irrevocable, commercial; no competing service) or Pexels (no implied endorsement, no use as a trademark).
 - Validation: 0 errors, 0 warnings.

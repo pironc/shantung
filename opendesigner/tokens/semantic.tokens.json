@@ -81,7 +81,12 @@
         "$value": 0.06
       },
       "caps-display": {
-        "$value": 0.01
+        "$value": 0.04,
+        "$extensions": {
+          "opendesigner": {
+            "source": "person"
+          }
+        }
       }
     }
   },
@@ -930,6 +935,34 @@
           "opendesigner": {
             "source": "standard",
             "standard": "STD-enter-exit-origin-29"
+          }
+        }
+      }
+    },
+    "distance": {
+      "photo-zoom": {
+        "$value": {
+          "value": 16,
+          "unit": "px"
+        },
+        "$type": "dimension",
+        "$description": "Added by a person (engine.py set).",
+        "$extensions": {
+          "opendesigner": {
+            "source": "person"
+          }
+        }
+      },
+      "reveal": {
+        "$value": {
+          "value": 12,
+          "unit": "px"
+        },
+        "$type": "dimension",
+        "$description": "Added by a person (engine.py set).",
+        "$extensions": {
+          "opendesigner": {
+            "source": "person"
           }
         }
       }

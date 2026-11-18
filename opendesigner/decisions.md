@@ -668,3 +668,17 @@ Append-only, ADR-style (spec 7.9): one entry per decision, newest last. A later 
 - set_by: delegated · locked: no · date: 2026-11-18 · supersedes: none · source_ref: none
 - reason: 27 open-licence photos from Wikimedia Commons (CC0, PD, CC BY, CC BY-SA), reviewed for brands and people, credits in apps/cms/seed/photos/CREDITS.md; a real maison would commission its own shoot
 - previous value: "pending"
+
+## D-0041 · overrides.motion.distance.reveal = {"value": 12, "unit": "px"}
+- set_by: delegated · locked: no · date: 2026-11-18 · supersedes: none · source_ref: none
+- reason: house rule: entrances rise 12px while fading in
+- new dimension token in semantic.tokens.json
+
+## D-0042 · overrides.font.tracking.caps-display = 0.04
+- set_by: delegated · locked: no · date: 2026-11-18 · supersedes: none · source_ref: none
+- reason: delegated: serif capitals in titles and navigation read luxurious with air between letters (measured reference); 0.01em was too tight for Cormorant caps
+
+## D-0043 · overrides.motion.distance.photo-zoom = {"value": 16, "unit": "px"}
+- set_by: delegated · locked: no · date: 2026-11-18 · supersedes: none · source_ref: none
+- reason: house rule: photos settle into place as they enter; expressed as a 16px zoom inset (scale 1.04 on a ~400px photo) because the token set has no scale type
+- new dimension token in semantic.tokens.json

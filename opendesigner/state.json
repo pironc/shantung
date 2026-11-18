@@ -394,7 +394,16 @@
       "Helvetica Neue",
       "Arial",
       "sans-serif"
-    ]
+    ],
+    "motion.distance.reveal": {
+      "value": 12,
+      "unit": "px"
+    },
+    "font.tracking.caps-display": 0.04,
+    "motion.distance.photo-zoom": {
+      "value": 16,
+      "unit": "px"
+    }
   },
   "answers": {
     "Q-plat-01": {
@@ -667,7 +676,7 @@
     "skipped": "2026-11-18"
   },
   "hashes": {
-    "DESIGN.md": "b8a4912f1fef9fad",
+    "DESIGN.md": "5ec5fd59cc75e20e",
     "PRODUCT.md": "8da1468d6c3135e8"
   },
   "exports": {
