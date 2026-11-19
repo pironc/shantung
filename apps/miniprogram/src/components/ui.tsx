@@ -49,6 +49,34 @@ export const chromeStyle = () => {
   return `--status-bar: ${c.statusBar}px; --bar-top: ${c.barTop}px; --bar-left: ${c.barLeft}px; --bar-h: ${c.barHeight}px; --content-top: ${c.contentTop}px`
 }
 
+/**
+ * WeChat only: a band in the page colour behind the status bar and the capsule row. Clear at the top, so a photo
+ * can still run to the edge; once the page scrolls it fades in, and text never runs under the clock.
+ */
+export function StatusCover() {
+  const [on, setOn] = useState(false)
+  useEffect(() => {
+    if (process.env.TARO_ENV !== 'weapp') return
+    let io: Taro.IntersectionObserver | undefined
+    // A marker at the very top of the page: once it leaves the screen, the page has scrolled. One frame first, so it exists.
+    const timer = setTimeout(() => {
+      io = Taro.createIntersectionObserver(Taro.getCurrentInstance().page as never)
+      io.relativeToViewport({ top: 0 }).observe('.status-sentinel', (r) => setOn((r.intersectionRatio ?? 0) === 0))
+    }, 50)
+    return () => {
+      clearTimeout(timer)
+      io?.disconnect()
+    }
+  }, [])
+  if (process.env.TARO_ENV !== 'weapp') return null
+  return (
+    <>
+      <View className='status-sentinel' />
+      <View className={`status-cover ${on ? 'is-on' : ''}`} />
+    </>
+  )
+}
+
 const back = () => (Taro.getCurrentPages().length > 1 ? Taro.navigateBack() : Taro.switchTab({ url: '/pages/index/index' }))
 
 /**
@@ -69,6 +97,49 @@ export function usePageEnter() {
   const [shows, setShows] = useState(0)
   useDidShow(() => setShows((n) => n + 1))
   return shows % 2 ? 'page-in-a' : 'page-in-b'
+}
+
+/**
+ * WeChat on iPhone won't load a plain-http photo in <image> (HTTPS only), and the local stack serves http on the
+ * Wi-Fi. So the WeChat build downloads such a photo (debug mode allows it, like the API calls) and shows the local
+ * copy. Production photos are HTTPS and skip this. A few at a time: WeChat caps parallel downloads.
+ */
+const copies = new Map<string, Promise<string>>()
+let downloading = 0
+const queue: (() => void)[] = []
+const turn = () => new Promise<void>((go) => (downloading < 6 ? (downloading++, go()) : queue.push(() => (downloading++, go()))))
+const done1 = () => {
+  downloading--
+  queue.shift()?.()
+}
+const localCopy = (url: string) => {
+  if (!copies.has(url)) {
+    const p = turn()
+      .then(() => Taro.downloadFile({ url }))
+      .then(
+        (r) => (done1(), r.statusCode === 200 ? r.tempFilePath : Promise.reject(r.statusCode)),
+        (e) => (done1(), Promise.reject(e)),
+      )
+    p.catch(() => copies.delete(url))
+    copies.set(url, p)
+  }
+  return copies.get(url)!
+}
+function usePhotoSrc(url: string | undefined) {
+  const local = process.env.TARO_ENV === 'weapp' && !!url && url.startsWith('http://')
+  const [src, setSrc] = useState(local ? '' : url)
+  useEffect(() => {
+    if (!local || !url) return setSrc(url)
+    let live = true
+    localCopy(url).then(
+      (p) => live && setSrc(p),
+      () => live && setSrc(url),
+    )
+    return () => {
+      live = false
+    }
+  }, [url])
+  return src
 }
 
 /** Photos this session has already shown: a second copy of one appears at once instead of fading in again. */
@@ -134,6 +205,7 @@ export function Photo({
   children?: ReactNode
 }) {
   const [loaded, setLoaded] = useState(false)
+  const src = usePhotoSrc(image?.url)
   // Checked on every render, not only the first: a copy mounted while hidden must not fade in a photo already shown.
   const ready = loaded || (!!image && shown.has(image.url))
   const done = () => {
@@ -143,10 +215,10 @@ export function Photo({
   }
   return (
     <View className={`photo ${packshot ? 'photo--packshot' : ''} ${className}`} style={{ paddingTop: `${ratio}%` }}>
-      {image && (
+      {image && src && (
         <Image
           className={`photo__img ${ready ? 'is-loaded' : ''} ${still ? 'is-still' : ''}`}
-          src={image.url}
+          src={src}
           mode='aspectFill'
           // WeChat lazy-loads three screens ahead. Taro's H5 lazyLoad only starts once the photo is on screen (the tab
           // bar's scroller clips its observer), so the browser's own lazy loading, which looks further ahead, does it there.

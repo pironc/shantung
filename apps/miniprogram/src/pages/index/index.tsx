@@ -4,7 +4,7 @@ import type { Boutique, Member, Product, Salon, Story } from '@shantung/shared-t
 import { useData, useLang } from '../../services/api'
 import { place, t, windowLine } from '../../services/i18n'
 import { store } from '../../services/store'
-import { Icon, InfoStrip, Notice, Photo, chromeStyle, go, usePageEnter, useReveal } from '../../components/ui'
+import { Icon, InfoStrip, Notice, Photo, StatusCover, chromeStyle, go, usePageEnter, useReveal } from '../../components/ui'
 
 export default function Discover() {
   useLang()
@@ -25,6 +25,7 @@ export default function Discover() {
 
   return (
     <View className={`ds ${enter}`} style={chromeStyle()}>
+      <StatusCover />
       {/* The name sits in the sky of the opening photo. */}
       <View className='hero'>
         <Photo image={hero?.image} ratio={118} />

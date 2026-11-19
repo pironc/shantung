@@ -16,6 +16,8 @@ export default defineAppConfig({
   ],
   // The invitation card (canvas drawing and QR code) loads on demand, outside the 2 MB main package.
   subPackages: [{ root: 'packages/pass', pages: ['index'] }],
+  // Load each page's components when that page needs them, not all at launch (WeChat's code quality check).
+  lazyCodeLoading: 'requiredComponents',
   window: {
     // Pages draw their own top: no title bar, a floating back button below the status bar (components/ui.tsx, TopBar).
     navigationStyle: 'custom',

@@ -4,7 +4,7 @@ import { useState } from 'react'
 import type { Product } from '@shantung/shared-types'
 import { useData, useLang } from '../../services/api'
 import { price, t } from '../../services/i18n'
-import { Notice, Photo, chromeStyle, go, usePageEnter, usePhotosReady } from '../../components/ui'
+import { Notice, Photo, StatusCover, chromeStyle, go, usePageEnter, usePhotosReady } from '../../components/ui'
 
 export default function Collection() {
   useLang()
@@ -21,6 +21,7 @@ export default function Collection() {
 
   return (
     <View className={`ds ${ready ? enter : 'is-waiting'}`} style={chromeStyle()}>
+      <StatusCover />
       <View className='page-head'>
         <View>
           <Text className='t-display'>{s.collection}</Text>

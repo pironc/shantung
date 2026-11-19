@@ -5,7 +5,7 @@ import type { Boutique } from '@shantung/shared-types'
 import { api, ApiError, useData, useLang } from '../../services/api'
 import { clock, day as dayLabel, t, when } from '../../services/i18n'
 import { Calendar, shanghaiDay } from '../../components/Calendar'
-import { BoutiquePicker, TopBar, chromeStyle, usePageEnter, usePopup } from '../../components/ui'
+import { BoutiquePicker, TopBar, StatusCover, chromeStyle, usePageEnter, usePopup } from '../../components/ui'
 
 const BOOKABLE_DAYS = 60
 
@@ -45,6 +45,7 @@ export default function Appointment() {
 
   return (
     <View className={`ds ${enter}`} style={chromeStyle()}>
+      <StatusCover />
       <TopBar />
       <View className='page-head'>
         <View>

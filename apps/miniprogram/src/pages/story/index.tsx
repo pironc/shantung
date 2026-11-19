@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import type { Story } from '@shantung/shared-types'
 import { useData, useLang } from '../../services/api'
 import { t } from '../../services/i18n'
-import { Notice, Paragraphs, Photo, TopBar, chromeStyle, usePageEnter, useReveal } from '../../components/ui'
+import { Notice, Paragraphs, Photo, TopBar, StatusCover, chromeStyle, usePageEnter, useReveal } from '../../components/ui'
 
 export default function StoryPage() {
   useLang()
@@ -22,6 +22,7 @@ export default function StoryPage() {
 
   return (
     <View className={`ds ${enter}`} style={chromeStyle()}>
+      <StatusCover />
       <TopBar />
       <Photo image={st.image} ratio={118} />
       <View className='page-head'>

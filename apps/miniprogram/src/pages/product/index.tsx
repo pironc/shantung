@@ -7,7 +7,7 @@ import { price, t, TIERS, when, windowLine } from '../../services/i18n'
 import { store } from '../../services/store'
 import { theme } from '../../theme'
 import { ReleaseWindows } from '../../components/ReleaseWindows'
-import { BoutiquePicker, Icon, Notice, Paragraphs, Photo, TopBar, chromeStyle, usePageEnter, usePopup } from '../../components/ui'
+import { BoutiquePicker, Icon, Notice, Paragraphs, Photo, TopBar, StatusCover, chromeStyle, usePageEnter, usePopup } from '../../components/ui'
 
 export default function ProductPage() {
   useLang()
@@ -65,6 +65,7 @@ export default function ProductPage() {
 
   return (
     <View className={`ds ${enter}`} style={chromeStyle()}>
+      <StatusCover />
       <TopBar />
       <Swiper indicatorDots={p.images.length > 1} indicatorActiveColor={theme.accent} style={{ height: '125vw' }}>
         {p.images.map((img) => (

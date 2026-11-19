@@ -5,7 +5,7 @@ import type { Boutique, Salon } from '@shantung/shared-types'
 import { useData, useLang } from '../../services/api'
 import { t } from '../../services/i18n'
 import { useSalonBooking } from '../../components/salonBooking'
-import { AddressFact, Icon, InfoStrip, Notice, Paragraphs, Photo, TopBar, chromeStyle, usePageEnter } from '../../components/ui'
+import { AddressFact, Icon, InfoStrip, Notice, Paragraphs, Photo, TopBar, StatusCover, chromeStyle, usePageEnter } from '../../components/ui'
 
 /** One salon in full: the story, then the practical facts, then one action. */
 export default function SalonPage() {
@@ -30,6 +30,7 @@ export default function SalonPage() {
 
   return (
     <View className={`ds ${enter}`} style={chromeStyle()}>
+      <StatusCover />
       <TopBar />
       <Photo image={x.image} ratio={100} />
       <InfoStrip iso={x.date} place={x.boutique} />

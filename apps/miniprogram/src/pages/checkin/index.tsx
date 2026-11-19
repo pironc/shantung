@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import type { Boutique } from '@shantung/shared-types'
 import { api, useData, useLang } from '../../services/api'
 import { t } from '../../services/i18n'
-import { TopBar, chromeStyle, go, usePageEnter } from '../../components/ui'
+import { TopBar, StatusCover, chromeStyle, go, usePageEnter } from '../../components/ui'
 
 /**
  * Opened by scanning the boutique's entrance screen. In WeChat the code would be a Mini Program code
@@ -28,6 +28,7 @@ export default function CheckIn() {
 
   return (
     <View className={`ds checkin ${enter}`} style={chromeStyle()}>
+      <StatusCover />
       <TopBar />
       <Text className='t-label t-label--accent'>Shantung</Text>
       <Text className='t-display'>{s.welcome}</Text>

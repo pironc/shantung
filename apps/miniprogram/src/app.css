@@ -719,6 +719,32 @@ body {
   color: var(--ds-color-text-secondary);
 }
 
+/* WeChat: behind the status bar and the capsule row, shown once the page scrolls (StatusCover). Below the back
+   button and pop-ups. */
+.status-cover {
+  position: fixed;
+  z-index: 40;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--content-top, var(--ds-space-0));
+  background: var(--ds-color-surface-base);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--ds-motion-duration-short) var(--ds-motion-easing-hover);
+}
+.status-cover.is-on {
+  opacity: 1;
+}
+.status-sentinel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--ds-space-4);
+  height: var(--ds-space-4);
+  pointer-events: none;
+}
+
 /* Top of every page: no title bar. A round back button floats at the height of WeChat's capsule, below the
    status bar and the notch; content starts under that row (components/ui.tsx, chrome). */
 .topbar {
