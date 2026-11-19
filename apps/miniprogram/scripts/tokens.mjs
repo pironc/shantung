@@ -42,6 +42,8 @@ const theme = {
   navBackground: resolve('--ds-color-surface-nav'),
   text: resolve('--ds-color-text-primary'),
   textSecondary: resolve('--ds-color-text-secondary'),
+  // Tab bar: labels and icons of the tabs not shown (WeChat's tabBar takes hex, and PNG icons drawn in it).
+  idle: resolve('--ds-color-icon-subtle'),
   accent: resolve('--ds-color-text-accent'),
   border: resolve('--ds-color-border-separator'),
   // The invitation card is drawn on a canvas, which cannot read CSS variables either.

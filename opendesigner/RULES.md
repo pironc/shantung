@@ -42,3 +42,5 @@ The owner's notes on this project, from `engine.py feedback --kind note`. Read t
 | N-31 | Switching tabs over content dissolves from the old view to the new one; it never passes through white or an empty frame. | 1 | 2026-11-19 |
 | N-32 | Product titles in grids stay on one line, never two; a name too long for the card is a naming problem, not a layout one. | 1 | 2026-11-19 |
 | N-33 | A page's photos, titles and text fade in together in the same frames; a page with photos waits briefly for its first screen of them rather than letting each photo arrive on its own clock. | 1 | 2026-11-19 |
+| N-34 | Our chrome beside WeChat's capsule copies the capsule: the back button has the capsule's height, gap to the screen edge, full radius and hairline light border, with an ink icon at WeChat's heavier icon weight. | 1 | 2026-11-19 |
+| N-35 | The tab bar shows line icons with short labels; the tabs not shown are greyed (icon.subtle), the current one is lacquer red. In WeChat, our band covers only the status bar (clock, notch, island), never the capsule row. | 1 | 2026-11-19 |

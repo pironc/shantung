@@ -706,3 +706,9 @@ Append-only, ADR-style (spec 7.9): one entry per decision, newest last. A later 
 - reason: Product titles in two-column grids: one line from 360px phones up (17px fits only the shortest names)
 - quote: "The product titles should always stay on a single line, never warping over 2."
 - new dimension token in primitives.tokens.json
+
+## D-0048 · overrides.border.width.hairline = {"value": 0.5, "unit": "px"}
+- set_by: chosen · locked: no · date: 2026-11-19 · supersedes: none · source_ref: none
+- reason: WeChat's capsule draws a one-device-pixel border; the back button beside it matches
+- quote: "I want the back button to have the same styling as Wechat's : the same color for the border"
+- new dimension token in semantic.tokens.json

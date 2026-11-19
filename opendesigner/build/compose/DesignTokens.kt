@@ -255,6 +255,7 @@ object DsSpace {
     val borderWidth4 = 4.dp
     val borderWidthDefault = 1.dp
     val borderWidthEmphasis = 4.dp
+    val borderWidthHairline = 0.5.dp
     val borderWidthSelected = 2.dp
     val focusRingOffset = 2.dp
     val focusRingWidth = 2.dp

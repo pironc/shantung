@@ -50,8 +50,8 @@ export const chromeStyle = () => {
 }
 
 /**
- * WeChat only: a band in the page colour behind the status bar and the capsule row. Clear at the top, so a photo
- * can still run to the edge; once the page scrolls it fades in, and text never runs under the clock.
+ * WeChat only: a band in the page colour behind the status bar (clock, notch or island). Clear at the top, so a
+ * photo can still run to the edge; once the page scrolls it fades in, and text never runs under the clock.
  */
 export function StatusCover() {
   const [on, setOn] = useState(false)
@@ -85,7 +85,8 @@ const back = () => (Taro.getCurrentPages().length > 1 ? Taro.navigateBack() : Ta
  */
 export const TopBar = () => (
   <View className='topbar' hoverClass='is-pressed' ariaRole='button' ariaLabel={t().back} onClick={back}>
-    <Icon name='back' />
+    {/* Ink and 2.4 units at 20px: the 2pt weight of WeChat's own capsule icons, right beside it. */}
+    <Icon name='back' ink weight={2.4} />
   </View>
 )
 
@@ -270,8 +271,24 @@ export function useReveal(ready: unknown) {
 }
 
 /** A line icon from components/art.ts; decorative, so hidden from screen readers (the text beside it carries the meaning). */
-export const Icon = ({ name, light = false, muted = false }: { name: IconName; light?: boolean; muted?: boolean }) => (
-  <Image className='icon' src={iconUri(name, light ? theme.paper : muted ? theme.textSecondary : theme.accent)} ariaHidden />
+export const Icon = ({
+  name,
+  light = false,
+  muted = false,
+  ink = false,
+  weight,
+}: {
+  name: IconName
+  light?: boolean
+  muted?: boolean
+  ink?: boolean
+  weight?: number
+}) => (
+  <Image
+    className='icon'
+    src={iconUri(name, light ? theme.paper : ink ? theme.text : muted ? theme.textSecondary : theme.accent, weight)}
+    ariaHidden
+  />
 )
 
 /**

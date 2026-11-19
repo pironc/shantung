@@ -53,6 +53,13 @@
       ],
       "inferred": true
     },
+    "border.width.hairline": {
+      "value": {
+        "value": 0.5,
+        "unit": "px"
+      },
+      "override": true
+    },
     "chrome.navTreatment": {
       "value": "neutral",
       "dial": "energy",
@@ -3566,6 +3573,7 @@
     }
   ],
   "tokenOverrides": [
+    "semantic.tokens.json:border.width.hairline",
     "semantic.tokens.json:component.toast.duration",
     "semantic.tokens.json:component.toast.gap",
     "semantic.tokens.json:component.toast.offset.desktop",
@@ -3716,7 +3724,7 @@
       "case": "sentence"
     }
   },
-  "stateHash": "5f842da508edc04d",
+  "stateHash": "1de57bf7527d2257",
   "fileHashes": {
     "motion.reduced.tokens.json": "d646a96de314ea27",
     "motion.standard.tokens.json": "74134143dccc82a3",
@@ -3727,7 +3735,7 @@
     "semantic.density.comfortable.tokens.json": "a3779838b5028bcc",
     "semantic.density.compact.tokens.json": "76b160a5107bbd83",
     "semantic.density.spacious.tokens.json": "684b0a5681b220fb",
-    "semantic.tokens.json": "a30f0c8f05a9b3d0"
+    "semantic.tokens.json": "6a90755217aa8c6d"
   },
   "profile": {
     "id": "persuade",

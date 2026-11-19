@@ -27,15 +27,16 @@ export default defineAppConfig({
     backgroundColor: theme.navBackground,
   },
   tabBar: {
-    color: theme.textSecondary,
+    color: theme.idle,
     selectedColor: theme.accent,
     backgroundColor: theme.navBackground,
     borderStyle: 'white',
     list: [
-      { pagePath: 'pages/index/index', text: 'Discover' },
-      { pagePath: 'pages/collection/index', text: 'Collection' },
-      { pagePath: 'pages/salons/index', text: 'Salons' },
-      { pagePath: 'pages/membership/index', text: 'Membership' },
+      // Line icons in the house construction, as PNG (WeChat's tabBar takes no SVG); sources beside them in assets/tab.
+      { pagePath: 'pages/index/index', text: 'Discover', iconPath: 'assets/tab/discover.png', selectedIconPath: 'assets/tab/discover-on.png' },
+      { pagePath: 'pages/collection/index', text: 'Collection', iconPath: 'assets/tab/collection.png', selectedIconPath: 'assets/tab/collection-on.png' },
+      { pagePath: 'pages/salons/index', text: 'Salons', iconPath: 'assets/tab/salons.png', selectedIconPath: 'assets/tab/salons-on.png' },
+      { pagePath: 'pages/membership/index', text: 'Membership', iconPath: 'assets/tab/membership.png', selectedIconPath: 'assets/tab/membership-on.png' },
     ],
   },
 })

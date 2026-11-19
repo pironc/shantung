@@ -709,7 +709,7 @@ Decisions: D-0023 (answers.Q-plat-01).
 
 ## Decisions
 
-**47 decisions so far.** Each one says who set it and why.
+**48 decisions so far.** Each one says who set it and why.
 Designers: decision history with reasons · Code: `opendesigner/decisions.md`
 
 <details><summary>More</summary>
@@ -751,6 +751,7 @@ Your own decisions first (the newest value per path), then your changes to stand
 | D-0045 | `radius.panel` | "{radius.16}" | chosen | A panel floating over a full-bleed photo (the kiosk card) is rounded so it reads as an object, not a flat white plane; other containers stay square |
 | D-0046 | `font.size.tag` | {"value": 12, "unit": "px"} | chosen | Tags on small photos (grid cards): 12px caps, a size down from label.sm |
 | D-0047 | `font.size.card-title` | {"value": 15, "unit": "px"} | chosen | Product titles in two-column grids: one line from 360px phones up (17px fits only the shortest names) |
+| D-0048 | `border.width.hairline` | {"value": 0.5, "unit": "px"} | chosen | WeChat's capsule draws a one-device-pixel border; the back button beside it matches |
 | D-0006 | standards | House standards v4: 291 applied | standard (locked) | OpenDesigner's house standards (sources marked non-negotiable) are applied without asking and locked. Change one only when the person asks: engine.py... |
 | D-0014 | standards | House standards v4 for android, compose, css, ios, swift, web: 138 now apply, 0 no longer apply | standard (locked) | The platforms or the stack changed, so the house standards were re-scoped: the ones that now apply are applied and locked; the ones that no longer apply are... |
 | D-0015 | standards | House standards: 1 value back to the engine's own for these platforms | standard | The platforms changed, so a value a standard held no longer passes a check the engine enforces (accessibility floors outrank every standard, KNOWLEDGE.md... |

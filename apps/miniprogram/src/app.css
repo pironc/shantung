@@ -485,11 +485,6 @@ body {
   font: var(--ds-text-body-lg);
 }
 
-/* Browser build: the tab bar is text only (WeChat shows text-only tabs natively; Taro's H5 tab bar would draw empty icons). */
-.weui-tabbar__item .weui-tabbar__icon {
-  display: none;
-}
-
 /* Two facts on one line sit at opposite edges. nowrap is inherited, so the row covers its children (no `> *`: WXSS rejects it). */
 .split-row {
   display: flex;
@@ -719,15 +714,15 @@ body {
   color: var(--ds-color-text-secondary);
 }
 
-/* WeChat: behind the status bar and the capsule row, shown once the page scrolls (StatusCover). Below the back
-   button and pop-ups. */
+/* WeChat: behind the status bar only (the clock, the notch or the island), shown once the page scrolls
+   (StatusCover). The back button and WeChat's capsule float over the page below it, as in WeChat itself. */
 .status-cover {
   position: fixed;
   z-index: 40;
   top: 0;
   left: 0;
   right: 0;
-  height: var(--content-top, var(--ds-space-0));
+  height: var(--status-bar, var(--ds-space-0));
   background: var(--ds-color-surface-base);
   opacity: 0;
   pointer-events: none;
@@ -760,8 +755,13 @@ body {
   box-sizing: border-box;
   border-radius: var(--ds-radius-full);
   background: var(--ds-color-surface-raised);
-  border: 1px solid var(--ds-color-border-subtle);
+  /* WeChat's capsule: a one-device-pixel, very light border. Same height, gap and radius come from chrome(). */
+  border: var(--ds-border-width-hairline) solid var(--ds-color-border-separator);
   transition: opacity var(--ds-motion-duration-short) var(--ds-motion-easing-enter);
+}
+.topbar .icon {
+  width: var(--ds-size-icon-md);
+  height: var(--ds-size-icon-md);
 }
 
 /* Bottom sheet: menus and the profile editor, drawn by the app so every word follows its language. */

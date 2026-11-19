@@ -160,6 +160,7 @@ public extension DS {
         public static let borderWidth4: CGFloat = 4
         public static let borderWidthDefault: CGFloat = 1
         public static let borderWidthEmphasis: CGFloat = 4
+        public static let borderWidthHairline: CGFloat = 0.5
         public static let borderWidthSelected: CGFloat = 2
         public static let focusRingOffset: CGFloat = 2
         public static let focusRingWidth: CGFloat = 2
