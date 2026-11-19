@@ -13,7 +13,6 @@ const en = {
   left: (n: number) => `${n} left`,
   windowOpen: 'Your window is open',
   windowOpens: (d: string) => `Your window opens ${d}`,
-  windows: 'Release windows',
   discoverMore: 'Discover',
   privateSalons: 'Private salons',
   reserveSeat: 'Reserve a seat',
@@ -95,12 +94,9 @@ const en = {
   monthTitle: (y: number, m: number) => `${MONTHS_LONG[m]} ${y}`,
   prevMonth: 'Previous month',
   nextMonth: 'Next month',
-  daysUntil: (n: number) => (n <= 1 ? 'tomorrow' : `in ${n} days`),
   yourWindow: 'Your window',
   windowIsOpen: 'Open now',
-  allWindows: 'All windows',
   piecesLeft: (left: number, of: number) => `${left}/${of} left`,
-  option: (letter: string, name: string) => `Option ${letter} · ${name}`,
 }
 
 type Strings = typeof en
@@ -116,7 +112,6 @@ const zh: Strings = {
   left: (n) => `余${n}件`,
   windowOpen: '您的预留通道已开放',
   windowOpens: (d) => `您的预留通道将于${d}开放`,
-  windows: '预留通道',
   discoverMore: '了解更多',
   privateSalons: '私享沙龙',
   reserveSeat: '预留席位',
@@ -198,12 +193,9 @@ const zh: Strings = {
   monthTitle: (y, m) => `${y}年${m + 1}月`,
   prevMonth: '上个月',
   nextMonth: '下个月',
-  daysUntil: (n) => (n <= 1 ? '明天' : `${n}天后`),
   yourWindow: '您的预留通道',
   windowIsOpen: '现已开放',
-  allWindows: '全部通道',
   piecesLeft: (left, of) => `余${left}/${of}件`,
-  option: (letter, name) => `方案 ${letter} · ${name}`,
 }
 
 /** The saved choice, else the phone's (WeChat or browser) language: Chinese phones start in Chinese. */
