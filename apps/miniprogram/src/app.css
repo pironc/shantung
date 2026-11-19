@@ -140,7 +140,8 @@ body {
   flex-wrap: wrap;
   gap: var(--ds-space-32) var(--ds-space-16);
 }
-.grid > * {
+/* A class, not `.grid > *`: WeChat's WXSS rejects the universal selector. */
+.grid__item {
   width: calc(50% - var(--ds-space-8));
 }
 /* Collection tabs: one grid per tab. The new grid is already in place underneath; the old one lies over it on the
@@ -489,13 +490,11 @@ body {
   display: none;
 }
 
-/* Two facts on one line sit at opposite edges. */
+/* Two facts on one line sit at opposite edges. nowrap is inherited, so the row covers its children (no `> *`: WXSS rejects it). */
 .split-row {
   display: flex;
   justify-content: space-between;
   gap: var(--ds-space-16);
-}
-.split-row > * {
   white-space: nowrap;
 }
 

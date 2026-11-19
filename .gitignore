@@ -8,3 +8,8 @@ DESIGN.md.hand-edited
 
 # Built from apps/cms/seed/packshots/mask.swift on first use
 apps/cms/seed/packshots/mask
+
+# Per-machine Compose settings (HOST_IP for phone testing)
+/.env
+# WeChat DevTools: per-developer settings
+apps/miniprogram/project.private.config.json
