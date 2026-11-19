@@ -50,8 +50,9 @@ services:
       REDIS_URL: redis://redis:6379
       DATABASE_URL: postgres://drupal:drupal@postgres:5432/app
       CMS_URL: http://cms
-      # Image URLs are opened by phones and browsers on the host, so they use the published port.
-      CMS_PUBLIC_URL: http://localhost:${CMS_PORT:-8081}
+      # Image URLs are opened by phones and browsers, so they use the published port. HOST_IP (your machine's
+      # Wi-Fi address, in a root .env) lets a phone on the same network load them; localhost otherwise.
+      CMS_PUBLIC_URL: http://${HOST_IP:-localhost}:${CMS_PORT:-8081}
     volumes:
       - ./apps/bff/src:/repo/apps/bff/src
     depends_on:
@@ -77,6 +78,9 @@ services:
   miniprogram-weapp:
     <<: *node
     command: pnpm --filter miniprogram dev:weapp
+    environment:
+      # Inlined into the WeChat build: a phone previewing it reaches the BFF through HOST_IP.
+      TARO_APP_BFF_URL: http://${HOST_IP:-localhost}:3000
     volumes:
       - ./apps/miniprogram/src:/repo/apps/miniprogram/src
       # Compiled WXML/WXSS/JS lands on the host, where WeChat DevTools opens it.
