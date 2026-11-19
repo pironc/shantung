@@ -27,7 +27,7 @@ export function ReleaseWindows({ release, rank }: { release: LimitedRelease; ran
             <View key={w.tierRank} className={`timeline__step ${w.open ? 'is-open' : ''} ${w.tierRank === rank ? 'is-mine' : ''}`}>
               <View className='timeline__dot' />
               <Text className='timeline__tier'>{TIERS[w.tierRank].zh}</Text>
-              <Text className='timeline__date'>{day(w.opensAt).replace(/^\S+\s/, '')}</Text>
+              <Text className='timeline__date'>{day(w.opensAt, false)}</Text>
             </View>
           ))}
         </View>
