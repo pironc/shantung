@@ -58,7 +58,7 @@ export default function Collection() {
               {(products.data ?? [])
                 .filter((p) => !c || p.category === c)
                 .map((p) => (
-                  <View key={p.id} className='stack' onClick={() => go(`/pages/product/index?id=${p.id}`)}>
+                  <View key={p.id} className='stack grid__item' onClick={() => go(`/pages/product/index?id=${p.id}`)}>
                     <Photo image={p.images[0]} ratio={125} packshot eager still={!ready}>
                       {p.limited && <Text className='photo__tag'>{s.limited}</Text>}
                     </Photo>
