@@ -42,8 +42,14 @@ La app para clientes y las herramientas de boutique de **Shantung**, una maison 
 ### Para los clientes: el Mini Program de WeChat
 
 * **Colección:** pañuelos, corbatas y té servidos por un Drupal headless, en inglés y en chino simplificado (por defecto, el idioma del teléfono). Cada pantalla guarda su última copia válida, así que en el sótano de una boutique sin cobertura la colección sigue visible.
+* **Historias y boutiques:** relatos largos sobre la seda de Shandong y el té de Laoshan con sus galerías de fotos, y una página por boutique cuya dirección abre la app de mapas del teléfono.
+* **Lanzamientos limitados:** piezas numeradas con una ventana prioritaria por nivel. Los miembros Kesi reservan primero; cada nivel inferior, un día después. La página de la pieza muestra las ventanas como una línea de tiempo. Un contador atómico en Redis guarda el stock y un índice único de PostgreSQL es la última barrera: 50 clientes que compiten por 12 plazas obtienen exactamente 12.
+
+<p align="center">
+  <img src="../assets/screens.webp" alt="Más del Mini Program: la colección, la línea de tiempo de una pieza limitada, una historia, la boutique de Qingdao y la tarjeta de invitación" width="820">
+</p>
+
 * **Niveles de membresía con nombres de seda:** Thread 丝, Satin 缎, Brocade 锦 y Kesi 缂丝 (por invitación), cada uno con su propia tarjeta. Los miembros también reciben una tarjeta de invitación para guardar y compartir con sus amigos; su código QR lleva a la maison.
-* **Lanzamientos limitados:** piezas numeradas con una ventana prioritaria por nivel. Los miembros Kesi reservan primero; cada nivel inferior, un día después. Un contador atómico en Redis guarda el stock y un índice único de PostgreSQL es la última barrera: 50 clientes que compiten por 12 plazas obtienen exactamente 12.
 * **Salones privados y citas:** plazas en salones según el nivel, citas individuales con un calendario y una cuadrícula de horas libres, reserva para probar en boutique (guardada 48 horas) y una lista de deseos.
 
 <p align="center">

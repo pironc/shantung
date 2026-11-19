@@ -42,8 +42,14 @@ L'application client et les outils de boutique de **Shantung**, une maison ficti
 ### Pour les clients : le Mini Program WeChat
 
 * **Collection :** carrés, cravates et thés servis par un Drupal headless, en anglais et en chinois simplifié (par défaut, la langue du téléphone). Chaque écran garde sa dernière version valide : même au sous-sol d'une boutique sans réseau, la collection reste visible.
+* **Récits et boutiques :** des récits sur la soie du Shandong et le thé du Laoshan avec leurs galeries de photos, et une page par boutique dont l'adresse ouvre l'application de cartes du téléphone.
+* **Éditions limitées :** des pièces numérotées, avec une fenêtre prioritaire par niveau. Les membres Kesi réservent en premier, chaque niveau inférieur un jour plus tard. La page de la pièce présente les fenêtres sous forme de frise. Un compteur atomique Redis tient le stock et un index unique PostgreSQL sert de dernier garde-fou : 50 clients qui se disputent 12 places en obtiennent exactement 12.
+
+<p align="center">
+  <img src="../assets/screens.webp" alt="Le Mini Program, suite : la collection, la frise des fenêtres d'une édition limitée, un récit, la boutique de Qingdao et la carte d'invitation" width="820">
+</p>
+
 * **Des niveaux de membre aux noms de soie :** Thread 丝, Satin 缎, Brocade 锦 et Kesi 缂丝 (sur invitation), chacun avec sa propre carte. Les membres reçoivent aussi une carte d'invitation à enregistrer et à partager avec leurs proches ; son QR code mène à la maison.
-* **Éditions limitées :** des pièces numérotées, avec une fenêtre prioritaire par niveau. Les membres Kesi réservent en premier, chaque niveau inférieur un jour plus tard. Un compteur atomique Redis tient le stock et un index unique PostgreSQL sert de dernier garde-fou : 50 clients qui se disputent 12 places en obtiennent exactement 12.
 * **Salons privés et rendez-vous :** des places en salon selon le niveau, des rendez-vous individuels avec un calendrier et une grille des horaires libres, la réservation pour essayer en boutique (gardée 48 heures) et une liste d'envies.
 
 <p align="center">

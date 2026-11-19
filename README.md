@@ -42,8 +42,14 @@ The client app and boutique tools of **Shantung**, a fictional Shandong maison o
 ### For clients: the WeChat Mini Program
 
 * **Collection:** scarves, ties and tea from a headless Drupal, in English and Simplified Chinese (the phone's language by default). Every screen keeps its last good copy, so a boutique basement with no signal still shows the collection.
+* **Stories and boutiques:** long reads on Shandong silk and Laoshan tea with their photo galleries, and a page for each boutique whose address opens the phone's map app.
+* **Limited releases:** numbered pieces with a priority window per tier. Kesi members reserve first, each lower tier one day later. The piece's page draws the windows as a timeline. An atomic Redis counter holds the stock and a PostgreSQL unique index is the last guard, so 50 clients racing for 12 seats get exactly 12.
+
+<p align="center">
+  <img src="assets/screens.webp" alt="More of the Mini Program: the collection, the release timeline of a limited piece, a story, the Qingdao boutique and the invitation card" width="820">
+</p>
+
 * **Membership tiers named after silk:** Thread 丝, Satin 缎, Brocade 锦 and Kesi 缂丝 (by invitation), each with its own card. Members also get an invitation card to save and share with friends; its QR code leads to the maison.
-* **Limited releases:** numbered pieces with a priority window per tier. Kesi members reserve first, each lower tier one day later. An atomic Redis counter holds the stock and a PostgreSQL unique index is the last guard, so 50 clients racing for 12 seats get exactly 12.
 * **Private salons and appointments:** salon seats by tier, one-to-one appointments with a calendar and a grid of free times, reserve-to-try in a boutique (held 48 hours), and a wishlist.
 
 <p align="center">

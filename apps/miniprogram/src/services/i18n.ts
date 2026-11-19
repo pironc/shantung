@@ -238,11 +238,12 @@ const DAYS_ZH = ['周日', '周一', '周二', '周三', '周四', '周五', '�
 const shanghai = (iso: string) => new Date(Date.parse(iso) + 8 * 3_600_000)
 
 /** Boutique time (Shanghai, UTC+8), formatted by hand: Intl is incomplete in some WeChat JS engines. */
-export function day(iso: string) {
+/** "Fri 20 Nov" / "11月20日 周五"; `weekday: false` gives the date alone ("20 Nov" / "11月20日"). */
+export function day(iso: string, weekday = true) {
   const d = shanghai(iso)
-  return lang() === 'zh-hans'
-    ? `${d.getUTCMonth() + 1}月${d.getUTCDate()}日 ${DAYS_ZH[d.getUTCDay()]}`
-    : `${DAYS_EN[d.getUTCDay()]} ${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]}`
+  const date = lang() === 'zh-hans' ? `${d.getUTCMonth() + 1}月${d.getUTCDate()}日` : `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]}`
+  if (!weekday) return date
+  return lang() === 'zh-hans' ? `${date} ${DAYS_ZH[d.getUTCDay()]}` : `${DAYS_EN[d.getUTCDay()]} ${date}`
 }
 export const clock = (iso: string) => {
   const d = shanghai(iso)
