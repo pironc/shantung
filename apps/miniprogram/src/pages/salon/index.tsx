@@ -5,13 +5,12 @@ import type { Boutique, Salon } from '@shantung/shared-types'
 import { useData, useLang } from '../../services/api'
 import { t } from '../../services/i18n'
 import { useSalonBooking } from '../../components/salonBooking'
-import { AddressFact, Icon, InfoStrip, Notice, Paragraphs, Photo, TopBar, StatusCover, chromeStyle, usePageEnter } from '../../components/ui'
+import { AddressFact, Icon, InfoStrip, Notice, Paragraphs, Photo, TopBar, StatusCover, chromeStyle } from '../../components/ui'
 
 /** One salon in full: the story, then the practical facts, then one action. */
 export default function SalonPage() {
   useLang()
   const s = t()
-  const enter = usePageEnter()
   const { id } = useRouter().params
   const salon = useData<Salon>(`/api/salons/${id}`)
   const boutiques = useData<Boutique[]>('/api/boutiques')
@@ -21,7 +20,7 @@ export default function SalonPage() {
     if (x) Taro.setNavigationBarTitle({ title: x.title })
   }, [x?.title])
 
-  if (!x) return <View className={`ds ${enter}`} style={chromeStyle()}>{salon.error && <Notice text={s.error} tone='danger' />}</View>
+  if (!x) return <View className='ds' style={chromeStyle()}>{salon.error && <Notice text={s.error} tone='danger' />}</View>
 
   const shop = boutiques.data?.find((b) => b.code === x.boutique?.code)
   const st = booking.state(x)
@@ -29,7 +28,7 @@ export default function SalonPage() {
   const quiet = st === 'full' || st === 'past' || st === 'locked'
 
   return (
-    <View className={`ds ${enter}`} style={chromeStyle()}>
+    <View className='ds' style={chromeStyle()}>
       <StatusCover />
       <TopBar />
       <Photo image={x.image} ratio={100} />

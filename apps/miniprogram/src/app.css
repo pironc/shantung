@@ -13,30 +13,7 @@ body {
   font: var(--ds-text-body-md);
   -webkit-font-smoothing: antialiased;
 }
-/* A page holding its entrance until its photos are in (usePhotosReady), so everything fades in together. */
-.is-waiting {
-  opacity: 0;
-}
-/* Page entrance, replayed on every visit (usePageEnter flips between a and b). Quick but visible.
-   `backwards`, not `both`: a transform kept after the animation would trap fixed pop-ups inside the page. */
-.page-in-a {
-  animation: page-a var(--ds-motion-duration-page) var(--ds-motion-easing-enter) backwards;
-}
-.page-in-b {
-  animation: page-b var(--ds-motion-duration-page) var(--ds-motion-easing-enter) backwards;
-}
-@keyframes page-a {
-  from {
-    opacity: 0;
-    transform: translateY(var(--ds-motion-distance-reveal));
-  }
-}
-@keyframes page-b {
-  from {
-    opacity: 0;
-    transform: translateY(var(--ds-motion-distance-reveal));
-  }
-}
+/* No page entrance: WeChat already slides a new page in, and a fade from nothing reads as a blink. */
 
 /* Type */
 /* Cormorant defaults to old-style figures (12,8oo); prices and dates need lining figures. */
@@ -188,9 +165,6 @@ body {
 }
 .photo__img.is-loaded {
   opacity: 1;
-}
-.photo__img.is-still {
-  transition: none;
 }
 /* A tag on the photo's corner (Limited), so it never pushes the card's text down: lacquer red, like the seal. */
 .photo__tag {
@@ -358,7 +332,7 @@ body {
   color: var(--ds-color-text-danger);
 }
 
-/* Motion (the animation skill's plan): page content rises in; editorial blocks reveal on scroll, once. */
+/* Motion: editorial blocks below the first screen reveal on scroll, once. */
 .reveal {
   opacity: 0;
   transform: translateY(var(--ds-motion-distance-reveal));
@@ -373,34 +347,12 @@ body {
 .reveal--quick {
   transition-duration: var(--ds-motion-duration-long);
 }
-@keyframes enter {
-  from {
-    opacity: 0;
-    transform: translateY(var(--ds-motion-distance-reveal));
-  }
-}
 @keyframes fade {
   from {
     opacity: 0;
   }
 }
-@keyframes fade-a {
-  from {
-    opacity: 0;
-  }
-}
-@keyframes fade-b {
-  from {
-    opacity: 0;
-  }
-}
 @media (prefers-reduced-motion: reduce) {
-  .page-in-a {
-    animation-name: fade-a;
-  }
-  .page-in-b {
-    animation-name: fade-b;
-  }
   .reveal {
     transform: none;
   }
