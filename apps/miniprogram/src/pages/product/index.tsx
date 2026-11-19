@@ -85,7 +85,6 @@ export default function ProductPage() {
         <Paragraphs text={p.text} />
       </View>
 
-      {/* Three designs for the release windows, for the owner to choose from (components/ReleaseWindows.tsx). */}
       {p.limited && <ReleaseWindows release={p.limited} rank={rank} />}
 
       <View className='section stack'>
