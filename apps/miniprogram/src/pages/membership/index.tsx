@@ -6,7 +6,7 @@ import { api, signIn, useData, useLang } from '../../services/api'
 import { lang, setLang, t, TIERS, when } from '../../services/i18n'
 import { store } from '../../services/store'
 import { Monogram, TierCard } from '../../components/TierCard'
-import { Icon, MenuRow, Notice, Photo, SheetFrame, chromeStyle, go, usePageEnter, usePopup, useSheet } from '../../components/ui'
+import { Icon, MenuRow, Notice, Photo, SheetFrame, StatusCover, chromeStyle, go, usePopup, useSheet } from '../../components/ui'
 import { fretUri } from '../../components/art'
 import { theme } from '../../theme'
 
@@ -44,7 +44,6 @@ const browserAvatar = () =>
 export default function Membership() {
   useLang()
   const s = t()
-  const enter = usePageEnter()
   const me = useData<Member>('/api/me')
   const tiers = useData<Tier[]>('/api/tiers')
   const reservations = useData<Reservation[]>('/api/me/reservations')
@@ -90,7 +89,8 @@ export default function Membership() {
   }
 
   return (
-    <View className={`ds ${enter}`} style={chromeStyle()}>
+    <View className='ds' style={chromeStyle()}>
+      <StatusCover />
       {/* The card sits on a coloured stage so it reads as an object: lacquer red, or ink for the red Brocade card. */}
       <View
         className={`stage ${member?.tierRank === 3 ? 'stage--ink' : ''}`}

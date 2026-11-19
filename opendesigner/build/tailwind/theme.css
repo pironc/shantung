@@ -62,6 +62,8 @@
   --color-icon-default: var(--ds-color-icon-default);
   --color-icon-on-accent: var(--ds-color-icon-on-accent);
   --color-icon-subtle: var(--ds-color-icon-subtle);
+  --color-overlay-capsule: var(--ds-color-overlay-capsule);
+  --color-overlay-capsule-line: var(--ds-color-overlay-capsule-line);
   --color-overlay-scrim: var(--ds-color-overlay-scrim);
   --color-surface-base: var(--ds-color-surface-base);
   --color-surface-nav: var(--ds-color-surface-nav);

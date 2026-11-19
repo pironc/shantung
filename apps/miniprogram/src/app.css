@@ -13,30 +13,7 @@ body {
   font: var(--ds-text-body-md);
   -webkit-font-smoothing: antialiased;
 }
-/* A page holding its entrance until its photos are in (usePhotosReady), so everything fades in together. */
-.is-waiting {
-  opacity: 0;
-}
-/* Page entrance, replayed on every visit (usePageEnter flips between a and b). Quick but visible.
-   `backwards`, not `both`: a transform kept after the animation would trap fixed pop-ups inside the page. */
-.page-in-a {
-  animation: page-a var(--ds-motion-duration-page) var(--ds-motion-easing-enter) backwards;
-}
-.page-in-b {
-  animation: page-b var(--ds-motion-duration-page) var(--ds-motion-easing-enter) backwards;
-}
-@keyframes page-a {
-  from {
-    opacity: 0;
-    transform: translateY(var(--ds-motion-distance-reveal));
-  }
-}
-@keyframes page-b {
-  from {
-    opacity: 0;
-    transform: translateY(var(--ds-motion-distance-reveal));
-  }
-}
+/* No page entrance: WeChat already slides a new page in, and a fade from nothing reads as a blink. */
 
 /* Type */
 /* Cormorant defaults to old-style figures (12,8oo); prices and dates need lining figures. */
@@ -188,9 +165,6 @@ body {
 }
 .photo__img.is-loaded {
   opacity: 1;
-}
-.photo__img.is-still {
-  transition: none;
 }
 /* A tag on the photo's corner (Limited), so it never pushes the card's text down: lacquer red, like the seal. */
 .photo__tag {
@@ -358,7 +332,7 @@ body {
   color: var(--ds-color-text-danger);
 }
 
-/* Motion (the animation skill's plan): page content rises in; editorial blocks reveal on scroll, once. */
+/* Motion: editorial blocks below the first screen reveal on scroll, once. */
 .reveal {
   opacity: 0;
   transform: translateY(var(--ds-motion-distance-reveal));
@@ -373,34 +347,12 @@ body {
 .reveal--quick {
   transition-duration: var(--ds-motion-duration-long);
 }
-@keyframes enter {
-  from {
-    opacity: 0;
-    transform: translateY(var(--ds-motion-distance-reveal));
-  }
-}
 @keyframes fade {
   from {
     opacity: 0;
   }
 }
-@keyframes fade-a {
-  from {
-    opacity: 0;
-  }
-}
-@keyframes fade-b {
-  from {
-    opacity: 0;
-  }
-}
 @media (prefers-reduced-motion: reduce) {
-  .page-in-a {
-    animation-name: fade-a;
-  }
-  .page-in-b {
-    animation-name: fade-b;
-  }
   .reveal {
     transform: none;
   }
@@ -483,11 +435,6 @@ body {
 .checkin__line {
   max-width: 28ch;
   font: var(--ds-text-body-lg);
-}
-
-/* Browser build: the tab bar is text only (WeChat shows text-only tabs natively; Taro's H5 tab bar would draw empty icons). */
-.weui-tabbar__item .weui-tabbar__icon {
-  display: none;
 }
 
 /* Two facts on one line sit at opposite edges. nowrap is inherited, so the row covers its children (no `> *`: WXSS rejects it). */
@@ -719,6 +666,32 @@ body {
   color: var(--ds-color-text-secondary);
 }
 
+/* WeChat: behind the status bar only (the clock, the notch or the island), shown once the page scrolls
+   (StatusCover). The back button and WeChat's capsule float over the page below it, as in WeChat itself. */
+.status-cover {
+  position: fixed;
+  z-index: 40;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--status-bar, var(--ds-space-0));
+  background: var(--ds-color-surface-base);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--ds-motion-duration-short) var(--ds-motion-easing-hover);
+}
+.status-cover.is-on {
+  opacity: 1;
+}
+.status-sentinel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--ds-space-4);
+  height: var(--ds-space-4);
+  pointer-events: none;
+}
+
 /* Top of every page: no title bar. A round back button floats at the height of WeChat's capsule, below the
    status bar and the notch; content starts under that row (components/ui.tsx, chrome). */
 .topbar {
@@ -733,9 +706,30 @@ body {
   justify-content: center;
   box-sizing: border-box;
   border-radius: var(--ds-radius-full);
-  background: var(--ds-color-surface-raised);
-  border: 1px solid var(--ds-color-border-subtle);
+  /* WeChat's capsule, measured on device: white at 0.6 over whatever is behind, and a one-device-pixel outline
+     darkening it by 6%. Same height, gap and radius come from chrome(). */
+  background: var(--ds-color-overlay-capsule);
   transition: opacity var(--ds-motion-duration-short) var(--ds-motion-easing-enter);
+}
+/* The outline: one device pixel, as WeChat draws its capsule's. Engines round a 1/3px border up to a whole pixel,
+   so a 1px border is drawn on a box `--px-ratio` times larger and scaled back down (the WeUI hairline). */
+.topbar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% * var(--px-ratio, 1));
+  height: calc(100% * var(--px-ratio, 1));
+  box-sizing: border-box;
+  border: var(--ds-border-width-default) solid var(--ds-color-overlay-capsule-line);
+  border-radius: var(--ds-radius-full);
+  transform: scale(var(--hairline-scale, 1));
+  transform-origin: 0 0;
+  pointer-events: none;
+}
+.topbar .icon {
+  width: var(--ds-size-icon-md);
+  height: var(--ds-size-icon-md);
 }
 
 /* Bottom sheet: menus and the profile editor, drawn by the app so every word follows its language. */

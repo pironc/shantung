@@ -743,6 +743,19 @@
       },
       "emphasis": {
         "$value": "{border.width.4}"
+      },
+      "hairline": {
+        "$value": {
+          "value": 0.5,
+          "unit": "px"
+        },
+        "$type": "dimension",
+        "$description": "Added by a person (engine.py set).",
+        "$extensions": {
+          "opendesigner": {
+            "source": "person"
+          }
+        }
       }
     }
   },

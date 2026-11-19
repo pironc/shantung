@@ -61,6 +61,8 @@ data class DsColors(
     val iconDefault: Color,
     val iconOnAccent: Color,
     val iconSubtle: Color,
+    val overlayCapsule: Color,
+    val overlayCapsuleLine: Color,
     val overlayScrim: Color,
     val shadowAmbient: Color,
     val shadowKey: Color,
@@ -139,6 +141,8 @@ val DsLightColors = DsColors(
     iconDefault = Color(0xFF575757),
     iconOnAccent = Color(0xFFFFFFFF),
     iconSubtle = Color(0xFF646464),
+    overlayCapsule = Color(0x99FFFFFF),
+    overlayCapsuleLine = Color(0x0F000000),
     overlayScrim = Color(0x73242424),
     shadowAmbient = Color(0x00242424),
     shadowKey = Color(0x00242424),
@@ -217,6 +221,8 @@ val DsDarkColors = DsColors(
     iconDefault = Color(0xFFABABAB),
     iconOnAccent = Color(0xFF151515),
     iconSubtle = Color(0xFF959595),
+    overlayCapsule = Color(0x99FFFFFF),
+    overlayCapsuleLine = Color(0x0F000000),
     overlayScrim = Color(0x99000000),
     shadowAmbient = Color(0x00000000),
     shadowKey = Color(0x00000000),
@@ -255,6 +261,7 @@ object DsSpace {
     val borderWidth4 = 4.dp
     val borderWidthDefault = 1.dp
     val borderWidthEmphasis = 4.dp
+    val borderWidthHairline = 0.5.dp
     val borderWidthSelected = 2.dp
     val focusRingOffset = 2.dp
     val focusRingWidth = 2.dp

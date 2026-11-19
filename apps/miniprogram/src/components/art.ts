@@ -30,9 +30,10 @@ const ICONS = {
 } as const
 export type IconName = keyof typeof ICONS
 
-export const iconUri = (name: IconName, colour: string) =>
+/** `weight`: the house stroke is 1.5; WeChat's own chrome icons are heavier, and the back button sits beside them. */
+export const iconUri = (name: IconName, colour: string, weight = 1.5) =>
   svgUri(
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="${colour}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="${ICONS[name]}"/></svg>`,
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="${colour}" stroke-width="${weight}" stroke-linecap="round" stroke-linejoin="round"><path d="${ICONS[name]}"/></svg>`,
   )
 
 /**

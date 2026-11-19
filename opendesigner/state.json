@@ -416,6 +416,30 @@
     "font.size.card-title": {
       "value": 15,
       "unit": "px"
+    },
+    "border.width.hairline": {
+      "value": 0.5,
+      "unit": "px"
+    },
+    "color.overlay.capsule": {
+      "colorSpace": "srgb",
+      "components": [
+        1,
+        1,
+        1
+      ],
+      "hex": "#ffffff",
+      "alpha": 0.6
+    },
+    "color.overlay.capsule-line": {
+      "colorSpace": "srgb",
+      "components": [
+        0,
+        0,
+        0
+      ],
+      "hex": "#000000",
+      "alpha": 0.06
     }
   },
   "answers": {
@@ -689,7 +713,7 @@
     "skipped": "2026-11-18"
   },
   "hashes": {
-    "DESIGN.md": "28e888c1b74bb23e",
+    "DESIGN.md": "1c25d04ab3d4126a",
     "PRODUCT.md": "8da1468d6c3135e8"
   },
   "exports": {
@@ -3763,8 +3787,8 @@
   },
   "checkins": {
     "last": {
-      "date": "2026-11-18",
-      "decisions": 45,
+      "date": "2026-11-19",
+      "decisions": 50,
       "rounds": 0,
       "toFix": 3
     }

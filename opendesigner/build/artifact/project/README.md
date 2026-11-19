@@ -219,6 +219,8 @@ Designers: primary or brand accent · Code: `color.bg.accent`
 | `color.icon.default` | `#575757` | `#ababab` | Icons beside text; same color as secondary text (DC-L05-08). |
 | `color.icon.on-accent` | `#ffffff` | `#151515` | Icons on solid accent fills. |
 | `color.icon.subtle` | `#646464` | `#959595` | Decorative icons. |
+| `color.overlay.capsule` | `#ffffff @0.6` | `#ffffff` | Added by a person (engine.py set). |
+| `color.overlay.capsule-line` | `#000000 @0.06` | `#000000` | Added by a person (engine.py set). |
 | `color.overlay.scrim` | `#242424 @0.45` | `#000000` | Modal backdrop (DC-L04-18; Q-depth-06). |
 | `color.surface.base` | `#fdfdfd` | `#1d1d1d` | The page background. |
 | `color.surface.nav` | `#fdfdfd` | `#1d1d1d` | Navigation on the page background. |
@@ -709,7 +711,7 @@ Decisions: D-0023 (answers.Q-plat-01).
 
 ## Decisions
 
-**47 decisions so far.** Each one says who set it and why.
+**50 decisions so far.** Each one says who set it and why.
 Designers: decision history with reasons · Code: `opendesigner/decisions.md`
 
 <details><summary>More</summary>
@@ -751,6 +753,9 @@ Your own decisions first (the newest value per path), then your changes to stand
 | D-0045 | `radius.panel` | "{radius.16}" | chosen | A panel floating over a full-bleed photo (the kiosk card) is rounded so it reads as an object, not a flat white plane; other containers stay square |
 | D-0046 | `font.size.tag` | {"value": 12, "unit": "px"} | chosen | Tags on small photos (grid cards): 12px caps, a size down from label.sm |
 | D-0047 | `font.size.card-title` | {"value": 15, "unit": "px"} | chosen | Product titles in two-column grids: one line from 360px phones up (17px fits only the shortest names) |
+| D-0048 | `border.width.hairline` | {"value": 0.5, "unit": "px"} | chosen | WeChat's capsule draws a one-device-pixel border; the back button beside it matches |
+| D-0049 | `color.overlay.capsule` | {"colorSpace": "srgb", "components": [1, 1, 1], "hex": "#ffffff", "alpha": 0.6} | chosen | WeChat's capsule, measured on device: white at 0.60 over the page (92 samples, 0.592-0.603) |
+| D-0050 | `color.overlay.capsule-line` | {"colorSpace": "srgb", "components": [0, 0, 0], "hex": "#000000", "alpha": 0.06} | chosen | WeChat's capsule outline, measured on device: one device pixel darkening what is under it by about 6% |
 | D-0006 | standards | House standards v4: 291 applied | standard (locked) | OpenDesigner's house standards (sources marked non-negotiable) are applied without asking and locked. Change one only when the person asks: engine.py... |
 | D-0014 | standards | House standards v4 for android, compose, css, ios, swift, web: 138 now apply, 0 no longer apply | standard (locked) | The platforms or the stack changed, so the house standards were re-scoped: the ones that now apply are applied and locked; the ones that no longer apply are... |
 | D-0015 | standards | House standards: 1 value back to the engine's own for these platforms | standard | The platforms changed, so a value a standard held no longer passes a check the engine enforces (accessibility floors outrank every standard, KNOWLEDGE.md... |

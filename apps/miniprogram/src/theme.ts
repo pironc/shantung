@@ -3,6 +3,7 @@ export const theme = {
   "navBackground": "#fdfdfd",
   "text": "#242424",
   "textSecondary": "#575757",
+  "idle": "#646464",
   "accent": "#791d12",
   "border": "#e3e3e3",
   "brand": "#932b1e",

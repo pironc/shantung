@@ -4,13 +4,12 @@ import { useEffect } from 'react'
 import type { Boutique } from '@shantung/shared-types'
 import { useData, useLang } from '../../services/api'
 import { place, t } from '../../services/i18n'
-import { AddressFact, InfoStrip, Paragraphs, Photo, TopBar, chromeStyle, go, usePageEnter } from '../../components/ui'
+import { AddressFact, InfoStrip, Paragraphs, Photo, TopBar, StatusCover, chromeStyle, go } from '../../components/ui'
 
 /** A boutique: its city's landmark, how to find it, and the way to book a visit. */
 export default function BoutiquePage() {
   useLang()
   const s = t()
-  const enter = usePageEnter()
   const { code } = useRouter().params
   const boutiques = useData<Boutique[]>('/api/boutiques')
   const b = boutiques.data?.find((x) => x.code === code)
@@ -18,10 +17,11 @@ export default function BoutiquePage() {
     if (b) Taro.setNavigationBarTitle({ title: b.title })
   }, [b?.title])
 
-  if (!b) return <View className={`ds ${enter}`} />
+  if (!b) return <View className='ds' />
 
   return (
-    <View className={`ds ${enter}`} style={chromeStyle()}>
+    <View className='ds' style={chromeStyle()}>
+      <StatusCover />
       <TopBar />
       <Photo image={b.image} ratio={100} />
       <InfoStrip place={{ code: b.code, city: b.city }} />

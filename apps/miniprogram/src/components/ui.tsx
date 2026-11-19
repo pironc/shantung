@@ -1,4 +1,4 @@
-import Taro, { useDidShow } from '@tarojs/taro'
+import Taro from '@tarojs/taro'
 import { Image, Text, View } from '@tarojs/components'
 import { useEffect, useState, type ReactNode } from 'react'
 import type { Boutique, Image as Img } from '@shantung/shared-types'
@@ -6,7 +6,7 @@ import { t, when } from '../services/i18n'
 import { theme } from '../theme'
 import { iconUri, type IconName } from './art'
 
-type Chrome = { statusBar: number; barTop: number; barLeft: number; barHeight: number; contentTop: number }
+type Chrome = { statusBar: number; barTop: number; barLeft: number; barHeight: number; contentTop: number; pixelRatio: number }
 let chromeCache: Chrome | undefined
 
 /**
@@ -18,10 +18,12 @@ export function chrome(): Chrome {
   if (chromeCache) return chromeCache
   let statusBar = 0
   let windowWidth = 0
+  let pixelRatio = 2
   try {
     const info = Taro.getSystemInfoSync()
     statusBar = info.statusBarHeight || 0
     windowWidth = info.windowWidth
+    pixelRatio = info.pixelRatio || 2
   } catch {
     // keep 0
   }
@@ -39,14 +41,42 @@ export function chrome(): Chrome {
       barLeft = windowWidth ? windowWidth - capsule.right : GAP
     }
   }
-  chromeCache = { statusBar, barTop, barLeft, barHeight, contentTop: barTop + barHeight + 8 }
+  chromeCache = { statusBar, barTop, barLeft, barHeight, contentTop: barTop + barHeight + 8, pixelRatio }
   return chromeCache
 }
 
 /** The page root's custom properties for the top offsets (CSS reads --content-top, --bar-top, --bar-h). */
 export const chromeStyle = () => {
   const c = chrome()
-  return `--status-bar: ${c.statusBar}px; --bar-top: ${c.barTop}px; --bar-left: ${c.barLeft}px; --bar-h: ${c.barHeight}px; --content-top: ${c.contentTop}px`
+  return `--status-bar: ${c.statusBar}px; --bar-top: ${c.barTop}px; --bar-left: ${c.barLeft}px; --bar-h: ${c.barHeight}px; --content-top: ${c.contentTop}px; --px-ratio: ${c.pixelRatio}; --hairline-scale: ${1 / c.pixelRatio}`
+}
+
+/**
+ * WeChat only: a band in the page colour behind the status bar (clock, notch or island). Clear at the top, so a
+ * photo can still run to the edge; once the page scrolls it fades in, and text never runs under the clock.
+ */
+export function StatusCover() {
+  const [on, setOn] = useState(false)
+  useEffect(() => {
+    if (process.env.TARO_ENV !== 'weapp') return
+    let io: Taro.IntersectionObserver | undefined
+    // A marker at the very top of the page: once it leaves the screen, the page has scrolled. One frame first, so it exists.
+    const timer = setTimeout(() => {
+      io = Taro.createIntersectionObserver(Taro.getCurrentInstance().page as never)
+      io.relativeToViewport({ top: 0 }).observe('.status-sentinel', (r) => setOn((r.intersectionRatio ?? 0) === 0))
+    }, 50)
+    return () => {
+      clearTimeout(timer)
+      io?.disconnect()
+    }
+  }, [])
+  if (process.env.TARO_ENV !== 'weapp') return null
+  return (
+    <>
+      <View className='status-sentinel' />
+      <View className={`status-cover ${on ? 'is-on' : ''}`} />
+    </>
+  )
 }
 
 const back = () => (Taro.getCurrentPages().length > 1 ? Taro.navigateBack() : Taro.switchTab({ url: '/pages/index/index' }))
@@ -57,64 +87,65 @@ const back = () => (Taro.getCurrentPages().length > 1 ? Taro.navigateBack() : Ta
  */
 export const TopBar = () => (
   <View className='topbar' hoverClass='is-pressed' ariaRole='button' ariaLabel={t().back} onClick={back}>
-    <Icon name='back' />
+    {/* Ink and 2.4 units at 20px: the 2pt weight of WeChat's own capsule icons, right beside it. */}
+    <Icon name='back' ink weight={2.4} />
   </View>
 )
 
 /**
- * A fresh entrance every time the page is shown: tab pages stay mounted, so a mount animation would play once.
- * Switching between two identical animations restarts it.
+ * WeChat on iPhone won't load a plain-http photo in <image> (HTTPS only), and the local stack serves http on the
+ * Wi-Fi. So the WeChat build downloads such a photo (debug mode allows it, like the API calls) and shows the local
+ * copy. Production photos are HTTPS and skip this. A few at a time: WeChat caps parallel downloads.
  */
-export function usePageEnter() {
-  const [shows, setShows] = useState(0)
-  useDidShow(() => setShows((n) => n + 1))
-  return shows % 2 ? 'page-in-a' : 'page-in-b'
+const copies = new Map<string, Promise<string>>()
+const copied = new Map<string, string>() // the same, once downloaded: read during the first render
+let downloading = 0
+const queue: (() => void)[] = []
+const turn = () => new Promise<void>((go) => (downloading < 6 ? (downloading++, go()) : queue.push(() => (downloading++, go()))))
+const done1 = () => {
+  downloading--
+  queue.shift()?.()
+}
+const localCopy = (url: string) => {
+  if (!copies.has(url)) {
+    const p = turn()
+      .then(() => Taro.downloadFile({ url }))
+      .then(
+        (r) => (done1(), r.statusCode === 200 ? (copied.set(url, r.tempFilePath), r.tempFilePath) : Promise.reject(r.statusCode)),
+        (e) => (done1(), Promise.reject(e)),
+      )
+    p.catch(() => copies.delete(url))
+    copies.set(url, p)
+  }
+  return copies.get(url)!
+}
+function usePhotoSrc(url: string | undefined) {
+  const local = process.env.TARO_ENV === 'weapp' && !!url && url.startsWith('http://')
+  const [src, setSrc] = useState(local ? (url && copied.get(url)) || '' : url)
+  useEffect(() => {
+    if (!local || !url) return setSrc(url)
+    if (copied.has(url)) return setSrc(copied.get(url))
+    let live = true
+    localCopy(url).then(
+      (p) => live && setSrc(p),
+      () => live && setSrc(url),
+    )
+    return () => {
+      live = false
+    }
+  }, [url])
+  return src
 }
 
 /** Photos this session has already shown: a second copy of one appears at once instead of fading in again. */
 const shown = new Set<string>()
-/** Pages waiting for photos (usePhotosReady) hear each one land. */
-const landed = new Set<() => void>()
 
-/**
- * True once these photos have loaded in the page itself, so a page can fade in whole: photos, titles and text in
- * the same frames, instead of text first and each photo on its own clock. `undefined` (data still loading) waits too.
- * Pass the first screen's photos only; the rest load while the page is already showing.
- * ponytail: waits at most `capMs`; past that the page shows and a late photo fades in on its own.
- */
-export function usePhotosReady(urls: string[] | undefined, capMs = 1000) {
-  const all = () => !!urls?.length && urls.every((u) => shown.has(u))
-  // 0 waiting, 1 photos in (drawn while the page is still hidden), 2 show the page.
-  const [phase, setPhase] = useState(() => (all() ? 2 : 0))
-  useEffect(() => {
-    const cap = setTimeout(() => setPhase(2), capMs)
-    return () => clearTimeout(cap)
-  }, [])
-  useEffect(() => {
-    if (phase !== 1) return
-    // A few frames after phase 1 is drawn, so the photos are already opaque when their own fade comes back on.
-    const t = setTimeout(() => setPhase(2), 50)
-    return () => clearTimeout(t)
-  }, [phase])
-  const key = urls?.join('|')
-  useEffect(() => {
-    if (!urls || phase) return
-    const check = () => all() && setPhase((n) => n || 1)
-    landed.add(check)
-    check()
-    return () => {
-      landed.delete(check)
-    }
-  }, [key])
-  return phase === 2
-}
 
 /**
  * A photo at a fixed ratio (height / width, in %), cropped to fill: layout never jumps while it loads.
  * It fades in the first time it loads instead of popping; children (a tag) sit over it.
  * `packshot`: a product on the studio ground, which the empty frame already shows, so only the product fades in.
  * `eager`: load now even if hidden (a small set kept mounted, like the Collection's tabs).
- * `still`: no fade of its own while its page waits for its photos to fade in whole (usePhotosReady).
  */
 export function Photo({
   image,
@@ -122,7 +153,6 @@ export function Photo({
   className = '',
   packshot = false,
   eager = false,
-  still = false,
   children,
 }: {
   image: Img | null | undefined
@@ -130,23 +160,22 @@ export function Photo({
   className?: string
   packshot?: boolean
   eager?: boolean
-  still?: boolean
   children?: ReactNode
 }) {
   const [loaded, setLoaded] = useState(false)
+  const src = usePhotoSrc(image?.url)
   // Checked on every render, not only the first: a copy mounted while hidden must not fade in a photo already shown.
   const ready = loaded || (!!image && shown.has(image.url))
   const done = () => {
     if (image) shown.add(image.url)
     setLoaded(true)
-    landed.forEach((f) => f())
   }
   return (
     <View className={`photo ${packshot ? 'photo--packshot' : ''} ${className}`} style={{ paddingTop: `${ratio}%` }}>
-      {image && (
+      {image && src && (
         <Image
-          className={`photo__img ${ready ? 'is-loaded' : ''} ${still ? 'is-still' : ''}`}
-          src={image.url}
+          className={`photo__img ${ready ? 'is-loaded' : ''}`}
+          src={src}
           mode='aspectFill'
           // WeChat lazy-loads three screens ahead. Taro's H5 lazyLoad only starts once the photo is on screen (the tab
           // bar's scroller clips its observer), so the browser's own lazy loading, which looks further ahead, does it there.
@@ -164,10 +193,12 @@ export function Photo({
 
 /**
  * Reveal on scroll, the WeChat way: one IntersectionObserver per page adds a class; CSS does the motion.
- * Fail-safe: until the observer has answered once, everything stays visible.
+ * Fail-safe: an item the observer never reports as off-screen stays visible.
  */
 export function useReveal(ready: unknown) {
-  const [state, setState] = useState<{ armed: boolean; seen: Set<string> }>({ armed: false, seen: new Set() })
+  // Only what the observer reports as off-screen waits to be revealed; whatever is in view, or not reported yet,
+  // stays visible, so nothing on screen ever blinks out while the observer starts.
+  const [state, setState] = useState<{ seen: Set<string>; waiting: Set<string> }>({ seen: new Set(), waiting: new Set() })
   useEffect(() => {
     if (!ready) return
     let io: Taro.IntersectionObserver | undefined
@@ -176,13 +207,15 @@ export function useReveal(ready: unknown) {
       try {
         io = Taro.createIntersectionObserver(Taro.getCurrentInstance().page as never, { observeAll: true, thresholds: [0, 0.15] })
         io.relativeToViewport({ bottom: 0 }).observe('.reveal', (res) => {
+          const id = (res as unknown as { id: string }).id // WeChat reports the target's id; Taro's types omit it
+          if (!id) return
+          const visible = (res.intersectionRatio ?? 0) > 0
           setState((s) => {
-            const id = (res as unknown as { id: string }).id // WeChat reports the target's id; Taro's types omit it
-            const visible = (res.intersectionRatio ?? 0) > 0
-            if (s.armed && (!visible || s.seen.has(id))) return s
-            const seen = new Set(s.seen)
-            if (visible && id) seen.add(id)
-            return { armed: true, seen }
+            if (s.seen.has(id) || (!visible && s.waiting.has(id))) return s
+            const waiting = new Set(s.waiting)
+            if (!visible) return { seen: s.seen, waiting: waiting.add(id) }
+            waiting.delete(id)
+            return { seen: new Set(s.seen).add(id), waiting }
           })
         })
       } catch {
@@ -194,12 +227,28 @@ export function useReveal(ready: unknown) {
       io?.disconnect()
     }
   }, [ready])
-  return (id: string) => (!state.armed || state.seen.has(id) ? 'reveal is-in' : 'reveal')
+  return (id: string) => (state.waiting.has(id) ? 'reveal' : 'reveal is-in')
 }
 
 /** A line icon from components/art.ts; decorative, so hidden from screen readers (the text beside it carries the meaning). */
-export const Icon = ({ name, light = false, muted = false }: { name: IconName; light?: boolean; muted?: boolean }) => (
-  <Image className='icon' src={iconUri(name, light ? theme.paper : muted ? theme.textSecondary : theme.accent)} ariaHidden />
+export const Icon = ({
+  name,
+  light = false,
+  muted = false,
+  ink = false,
+  weight,
+}: {
+  name: IconName
+  light?: boolean
+  muted?: boolean
+  ink?: boolean
+  weight?: number
+}) => (
+  <Image
+    className='icon'
+    src={iconUri(name, light ? theme.paper : ink ? theme.text : muted ? theme.textSecondary : theme.accent, weight)}
+    ariaHidden
+  />
 )
 
 /**

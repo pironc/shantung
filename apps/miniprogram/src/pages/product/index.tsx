@@ -7,12 +7,11 @@ import { price, t, TIERS, when, windowLine } from '../../services/i18n'
 import { store } from '../../services/store'
 import { theme } from '../../theme'
 import { ReleaseWindows } from '../../components/ReleaseWindows'
-import { BoutiquePicker, Icon, Notice, Paragraphs, Photo, TopBar, chromeStyle, usePageEnter, usePopup } from '../../components/ui'
+import { BoutiquePicker, Icon, Notice, Paragraphs, Photo, TopBar, StatusCover, chromeStyle, usePopup } from '../../components/ui'
 
 export default function ProductPage() {
   useLang()
   const s = t()
-  const enter = usePageEnter()
   const { id } = useRouter().params
   const product = useData<Product>(`/api/products/${id}`)
   const boutiques = useData<Boutique[]>('/api/boutiques')
@@ -31,7 +30,7 @@ export default function ProductPage() {
     if (!shop && boutiques.data?.[0]) setShop(boutiques.data[0].code)
   }, [boutiques.data])
 
-  if (!p) return <View className={`ds ${enter}`} style={chromeStyle()}>{product.error && <Notice text={s.error} tone='danger' />}</View>
+  if (!p) return <View className='ds' style={chromeStyle()}>{product.error && <Notice text={s.error} tone='danger' />}</View>
 
   const myOpens = p.limited?.windows.find((w) => w.tierRank === rank)?.opensAt
   const closed = Boolean(myOpens && Date.parse(myOpens) > Date.now())
@@ -64,7 +63,8 @@ export default function ProductPage() {
   }
 
   return (
-    <View className={`ds ${enter}`} style={chromeStyle()}>
+    <View className='ds' style={chromeStyle()}>
+      <StatusCover />
       <TopBar />
       <Swiper indicatorDots={p.images.length > 1} indicatorActiveColor={theme.accent} style={{ height: '125vw' }}>
         {p.images.map((img) => (
