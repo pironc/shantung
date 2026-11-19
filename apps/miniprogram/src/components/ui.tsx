@@ -6,7 +6,7 @@ import { t, when } from '../services/i18n'
 import { theme } from '../theme'
 import { iconUri, type IconName } from './art'
 
-type Chrome = { statusBar: number; barTop: number; barLeft: number; barHeight: number; contentTop: number; hairline: number }
+type Chrome = { statusBar: number; barTop: number; barLeft: number; barHeight: number; contentTop: number; pixelRatio: number }
 let chromeCache: Chrome | undefined
 
 /**
@@ -41,15 +41,14 @@ export function chrome(): Chrome {
       barLeft = windowWidth ? windowWidth - capsule.right : GAP
     }
   }
-  // One device pixel, as WeChat draws its capsule's outline (1/3pt on a 3x iPhone).
-  chromeCache = { statusBar, barTop, barLeft, barHeight, contentTop: barTop + barHeight + 8, hairline: 1 / pixelRatio }
+  chromeCache = { statusBar, barTop, barLeft, barHeight, contentTop: barTop + barHeight + 8, pixelRatio }
   return chromeCache
 }
 
 /** The page root's custom properties for the top offsets (CSS reads --content-top, --bar-top, --bar-h). */
 export const chromeStyle = () => {
   const c = chrome()
-  return `--status-bar: ${c.statusBar}px; --bar-top: ${c.barTop}px; --bar-left: ${c.barLeft}px; --bar-h: ${c.barHeight}px; --content-top: ${c.contentTop}px; --hairline: ${c.hairline}px`
+  return `--status-bar: ${c.statusBar}px; --bar-top: ${c.barTop}px; --bar-left: ${c.barLeft}px; --bar-h: ${c.barHeight}px; --content-top: ${c.contentTop}px; --px-ratio: ${c.pixelRatio}; --hairline-scale: ${1 / c.pixelRatio}`
 }
 
 /**
