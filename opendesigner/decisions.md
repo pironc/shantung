@@ -712,3 +712,15 @@ Append-only, ADR-style (spec 7.9): one entry per decision, newest last. A later 
 - reason: WeChat's capsule draws a one-device-pixel border; the back button beside it matches
 - quote: "I want the back button to have the same styling as Wechat's : the same color for the border"
 - new dimension token in semantic.tokens.json
+
+## D-0049 · overrides.color.overlay.capsule = {"colorSpace": "srgb", "components": [1, 1, 1], "hex": "#ffffff", "alpha": 0.6}
+- set_by: chosen · locked: no · date: 2026-11-19 · supersedes: none · source_ref: none
+- reason: WeChat's capsule, measured on device: white at 0.60 over the page (92 samples, 0.592-0.603)
+- quote: "look at the top left arrow over non-white backgrounds: it has some transparency to it"
+- new color token in semantic.color.dark.tokens.json, semantic.color.light.tokens.json
+
+## D-0050 · overrides.color.overlay.capsule-line = {"colorSpace": "srgb", "components": [0, 0, 0], "hex": "#000000", "alpha": 0.06}
+- set_by: chosen · locked: no · date: 2026-11-19 · supersedes: none · source_ref: none
+- reason: WeChat's capsule outline, measured on device: one device pixel darkening what is under it by about 6%
+- quote: "same color for the border"
+- new color token in semantic.color.dark.tokens.json, semantic.color.light.tokens.json

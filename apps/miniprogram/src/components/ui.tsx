@@ -6,7 +6,7 @@ import { t, when } from '../services/i18n'
 import { theme } from '../theme'
 import { iconUri, type IconName } from './art'
 
-type Chrome = { statusBar: number; barTop: number; barLeft: number; barHeight: number; contentTop: number }
+type Chrome = { statusBar: number; barTop: number; barLeft: number; barHeight: number; contentTop: number; hairline: number }
 let chromeCache: Chrome | undefined
 
 /**
@@ -18,10 +18,12 @@ export function chrome(): Chrome {
   if (chromeCache) return chromeCache
   let statusBar = 0
   let windowWidth = 0
+  let pixelRatio = 2
   try {
     const info = Taro.getSystemInfoSync()
     statusBar = info.statusBarHeight || 0
     windowWidth = info.windowWidth
+    pixelRatio = info.pixelRatio || 2
   } catch {
     // keep 0
   }
@@ -39,14 +41,15 @@ export function chrome(): Chrome {
       barLeft = windowWidth ? windowWidth - capsule.right : GAP
     }
   }
-  chromeCache = { statusBar, barTop, barLeft, barHeight, contentTop: barTop + barHeight + 8 }
+  // One device pixel, as WeChat draws its capsule's outline (1/3pt on a 3x iPhone).
+  chromeCache = { statusBar, barTop, barLeft, barHeight, contentTop: barTop + barHeight + 8, hairline: 1 / pixelRatio }
   return chromeCache
 }
 
 /** The page root's custom properties for the top offsets (CSS reads --content-top, --bar-top, --bar-h). */
 export const chromeStyle = () => {
   const c = chrome()
-  return `--status-bar: ${c.statusBar}px; --bar-top: ${c.barTop}px; --bar-left: ${c.barLeft}px; --bar-h: ${c.barHeight}px; --content-top: ${c.contentTop}px`
+  return `--status-bar: ${c.statusBar}px; --bar-top: ${c.barTop}px; --bar-left: ${c.barLeft}px; --bar-h: ${c.barHeight}px; --content-top: ${c.contentTop}px; --hairline: ${c.hairline}px`
 }
 
 /**

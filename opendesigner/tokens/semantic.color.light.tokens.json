@@ -337,6 +337,44 @@
           "alpha": 0.45
         },
         "$description": "Modal backdrop (DC-L04-18; Q-depth-06)."
+      },
+      "capsule": {
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "hex": "#ffffff",
+          "alpha": 0.6
+        },
+        "$type": "color",
+        "$description": "Added by a person (engine.py set).",
+        "$extensions": {
+          "opendesigner": {
+            "source": "person"
+          }
+        }
+      },
+      "capsule-line": {
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "hex": "#000000",
+          "alpha": 0.06
+        },
+        "$type": "color",
+        "$description": "Added by a person (engine.py set).",
+        "$extensions": {
+          "opendesigner": {
+            "source": "person"
+          }
+        }
       }
     },
     "shadow": {

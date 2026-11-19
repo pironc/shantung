@@ -754,9 +754,11 @@ body {
   justify-content: center;
   box-sizing: border-box;
   border-radius: var(--ds-radius-full);
-  background: var(--ds-color-surface-raised);
-  /* WeChat's capsule: a one-device-pixel, very light border. Same height, gap and radius come from chrome(). */
-  border: var(--ds-border-width-hairline) solid var(--ds-color-border-separator);
+  /* WeChat's capsule, measured on device: white at 0.6 over whatever is behind, and a one-device-pixel outline
+     darkening it by 6%. Same height, gap and radius come from chrome(). */
+  background: var(--ds-color-overlay-capsule);
+  /* An inset shadow, not a border: engines round thin borders up to a whole pixel, a shadow's spread they keep. */
+  box-shadow: inset 0 0 0 var(--hairline, var(--ds-border-width-hairline)) var(--ds-color-overlay-capsule-line);
   transition: opacity var(--ds-motion-duration-short) var(--ds-motion-easing-enter);
 }
 .topbar .icon {

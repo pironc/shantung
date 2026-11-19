@@ -524,6 +524,8 @@
   --ds-color-icon-accent: var(--ds-color-accent-light-11);
   --ds-color-icon-on-accent: var(--ds-color-white);
   --ds-color-overlay-scrim: rgb(36 36 36 / 0.45);
+  --ds-color-overlay-capsule: rgb(255 255 255 / 0.6);
+  --ds-color-overlay-capsule-line: rgb(0 0 0 / 0.06);
   --ds-color-shadow-key: rgb(36 36 36 / 0);
   --ds-color-shadow-ambient: rgb(36 36 36 / 0);
   --ds-color-shadow-ring: rgb(36 36 36 / 0.1);

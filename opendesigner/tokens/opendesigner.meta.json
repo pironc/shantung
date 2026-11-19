@@ -117,6 +117,32 @@
       ],
       "inferred": false
     },
+    "color.overlay.capsule": {
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "hex": "#ffffff",
+        "alpha": 0.6
+      },
+      "override": true
+    },
+    "color.overlay.capsule-line": {
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0,
+          0
+        ],
+        "hex": "#000000",
+        "alpha": 0.06
+      },
+      "override": true
+    },
     "color.schemeVariant": {
       "value": "tonalSpot",
       "dial": "colorfulness",
@@ -3574,6 +3600,10 @@
   ],
   "tokenOverrides": [
     "semantic.tokens.json:border.width.hairline",
+    "semantic.color.dark.tokens.json:color.overlay.capsule",
+    "semantic.color.light.tokens.json:color.overlay.capsule",
+    "semantic.color.dark.tokens.json:color.overlay.capsule-line",
+    "semantic.color.light.tokens.json:color.overlay.capsule-line",
     "semantic.tokens.json:component.toast.duration",
     "semantic.tokens.json:component.toast.gap",
     "semantic.tokens.json:component.toast.offset.desktop",
@@ -3724,14 +3754,14 @@
       "case": "sentence"
     }
   },
-  "stateHash": "1de57bf7527d2257",
+  "stateHash": "f94c625602bb5c4f",
   "fileHashes": {
     "motion.reduced.tokens.json": "d646a96de314ea27",
     "motion.standard.tokens.json": "74134143dccc82a3",
     "opendesigner.resolver.json": "b34c0004f4d2dc1b",
     "primitives.tokens.json": "303e2810773bcdda",
-    "semantic.color.dark.tokens.json": "9ce02af05cb88928",
-    "semantic.color.light.tokens.json": "98c533301097f7e6",
+    "semantic.color.dark.tokens.json": "1a380d71fafb2c9c",
+    "semantic.color.light.tokens.json": "33855e074c3f7a64",
     "semantic.density.comfortable.tokens.json": "a3779838b5028bcc",
     "semantic.density.compact.tokens.json": "76b160a5107bbd83",
     "semantic.density.spacious.tokens.json": "684b0a5681b220fb",

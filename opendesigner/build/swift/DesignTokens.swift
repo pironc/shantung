@@ -74,6 +74,8 @@ public extension DS {
         public static let iconDefault = dsColor(0x575757, 0xABABAB)
         public static let iconOnAccent = dsColor(0xFFFFFF, 0x151515)
         public static let iconSubtle = dsColor(0x646464, 0x959595)
+        public static let overlayCapsule = dsColor(0xFFFFFF, 0xFFFFFF, 0.6, 0.6)
+        public static let overlayCapsuleLine = dsColor(0x000000, 0x000000, 0.06, 0.06)
         public static let overlayScrim = dsColor(0x242424, 0x000000, 0.45, 0.6)
         public static let shadowAmbient = dsColor(0x242424, 0x000000, 0, 0)
         public static let shadowKey = dsColor(0x242424, 0x000000, 0, 0)
